@@ -17,6 +17,7 @@ public class TestMain {
     public static void main(String[] args) {
         GraphParser parser = null;
         try {
+            //Reads information from the specified dot file
             parser = new GraphParser(new FileInputStream("digraph.dot"));
             Map<String, GraphNode> nodes = parser.getNodes();
             Map<String, GraphEdge> edges = parser.getEdges();
@@ -24,8 +25,14 @@ public class TestMain {
             //log("--- nodes:");
             for (GraphNode node : nodes.values()) {
                 //log(node.getId() + " " + node.getAttributes());
+
+                //for each node name, create a new Node Object
                 Node vertex = new Node(node.getId());
+
+                //Set the weight of the Object
                 vertex.setWeight(node.getAttributes().toString());
+
+                //Add the created object into the node
                 nodesList.add(vertex);
             }
 
@@ -42,10 +49,17 @@ public class TestMain {
                         vertex.setIncomingNodes(edge.getNode1().getId());
                     }
                 }
+                //New edge object creation
                 Edge nodeEdge = new Edge(startNode, endNode);
+
+                //Set weight of an edge object
                 nodeEdge.setWeight(edge.getAttributes().toString());
+
+                //Add the create edge into an arraylist
                 edgesList.add(nodeEdge);
             }
+            //Testing to create a new processor
+            Processor processor = new Processor(3);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
