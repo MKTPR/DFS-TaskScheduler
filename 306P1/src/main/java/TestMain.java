@@ -4,9 +4,13 @@ import com.paypal.digraph.parser.GraphParser;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class TestMain {
+
+    private static ArrayList<Node> nodesList=new ArrayList<Node>();
+    private static ArrayList<Edge> edgesList=new ArrayList<Edge>();
 
     public static void main(String[] args) {
         GraphParser parser = null;
@@ -15,15 +19,32 @@ public class TestMain {
             Map<String, GraphNode> nodes = parser.getNodes();
             Map<String, GraphEdge> edges = parser.getEdges();
 
-            log("--- nodes:");
+            //log("--- nodes:");
             for (GraphNode node : nodes.values()) {
-                log(node.getId() + " " + node.getAttributes());
+                //log(node.getId() + " " + node.getAttributes());
+                Node vertex = new Node(node.getId());
+                vertex.setWeight(node.getAttributes().toString());
+                nodesList.add(vertex);
             }
 
-            log("--- edges:");
+            //log("--- edges:");
             for (GraphEdge edge : edges.values()) {
-                log(edge.getNode1().getId() + "->" + edge.getNode2().getId() + " " + edge.getAttributes());
+                //log(edge.getNode1().getId() + "->" + edge.getNode2().getId() + " " + edge.getAttributes());
+                Node endNode = null;
+                Node startNode = null;
+                for (Node vertex : nodesList) {
+                    if(vertex.getName().equals(edge.getNode1().getId())){
+                        startNode = vertex;
+                    }else if(vertex.getName().equals(edge.getNode2().getId())){
+                        endNode = vertex;
+                        vertex.setIncomingNodes(edge.getNode1().getId());
+                    }
+                }
+                Edge nodeEdge = new Edge(startNode, endNode);
+                nodeEdge.setWeight(edge.getAttributes().toString());
+                edgesList.add(nodeEdge);
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
