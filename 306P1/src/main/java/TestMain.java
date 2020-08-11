@@ -17,7 +17,7 @@ public class TestMain {
     public static void main(String[] args) {
         GraphParser parser = null;
         try {
-            parser = new GraphPagrser(new FileInputStream("digraph.dot"));
+            parser = new GraphParser(new FileInputStream("digraph.dot"));
             Map<String, GraphNode> nodes = parser.getNodes();
             Map<String, GraphEdge> edges = parser.getEdges();
 
