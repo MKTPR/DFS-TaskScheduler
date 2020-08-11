@@ -4,12 +4,55 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>306P1</artifactId>
+    <groupId>groupId</groupId>
+    <artifactId>testingpro</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.paypal.digraph</groupId>
+            <artifactId>digraph-parser</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/libs/digraph-parser-1.0.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.paypal.digraph</groupId>
+            <artifactId>antlr4-annotations</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/libs/antlr4-annotations-4.2.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.paypal.digraph</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/libs/antlr4-runtime-4.2.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.paypal.digraph</groupId>
+            <artifactId>org.abego</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/libs/org.abego.treelayout.core-1.0.1.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>ST4</artifactId>
+            <version>4.3.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/libs/ST4-4.3.1.jar</systemPath>
+        </dependency>
+
+    </dependencies>
 </project>
