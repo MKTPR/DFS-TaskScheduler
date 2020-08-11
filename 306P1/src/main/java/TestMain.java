@@ -11,11 +11,13 @@ public class TestMain {
 
     private static ArrayList<Node> nodesList=new ArrayList<Node>();
     private static ArrayList<Edge> edgesList=new ArrayList<Edge>();
+    private static ArrayList<Processor> processorList=new ArrayList<>();
+    private static int _numOfProcessors;
 
     public static void main(String[] args) {
         GraphParser parser = null;
         try {
-            parser = new GraphParser(new FileInputStream("digraph.dot"));
+            parser = new GraphPagrser(new FileInputStream("digraph.dot"));
             Map<String, GraphNode> nodes = parser.getNodes();
             Map<String, GraphEdge> edges = parser.getEdges();
 
