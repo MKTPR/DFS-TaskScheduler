@@ -18,7 +18,7 @@ public class ValidAlgorithm {
                 FindLargestEdge(availableNode);
             }
             _nodeList.remove(availableNode.get(0)); //맨왼쪽에 들어가있는 node를 _nodeList에서 지움
-              // _processorList.get(Integer.parseInt(availableNode.get(0)._process))).setNode(availableNode.get(0), availableNode.get(0)._weight);
+              // _processorList.get(Integer.parseInt(availableNode.get(0)._process))).setNode(availableNode.get(0), availableNode.get(0)._weight); //내 영혼을 갈아넣은 한줄의 코드였다
                                             //Node class에 안에 있는 _process랑 _weight를 public으로 바꾸거나 getter method를 만들어야함
 
 
