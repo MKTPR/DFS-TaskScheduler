@@ -4,10 +4,12 @@ public class Processor {
 
     private String _processorNumber;
     private static ArrayList<Node> _nodeList =new ArrayList<Node>();
+    private static int pCount = 0;
 
     //Constructor of pNumber, changes int to a String
-    public Processor(int pNumber){
-        _processorNumber = String.valueOf(pNumber);
+    public Processor() {
+        _processorNumber = String.valueOf(pCount);
+        pCount++;
     }
 
     //Adds a node to a working queue of a processor with regards of the duration.
@@ -21,4 +23,8 @@ public class Processor {
         return _processorNumber;
     }
 
+    @Override
+    public String toString(){
+        return "processor num: " + _processorNumber;
+    }
 }

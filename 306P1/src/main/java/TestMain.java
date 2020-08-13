@@ -22,9 +22,9 @@ public class TestMain {
             Map<String, GraphNode> nodes = parser.getNodes();
             Map<String, GraphEdge> edges = parser.getEdges();
 
-            //log("--- nodes:");
+//            log("--- nodes:"); //log
             for (GraphNode node : nodes.values()) {
-                //log(node.getId() + " " + node.getAttributes());
+//                log(node.getId() + " " + node.getAttributes()); //log
 
                 //for each node name, create a new Node Object
                 Node vertex = new Node(node.getId());
@@ -36,9 +36,9 @@ public class TestMain {
                 nodesList.add(vertex);
             }
 
-            //log("--- edges:");
+//            log("--- edges:"); //log
             for (GraphEdge edge : edges.values()) {
-                //log(edge.getNode1().getId() + "->" + edge.getNode2().getId() + " " + edge.getAttributes());
+//                log(edge.getNode1().getId() + "->" + edge.getNode2().getId() + " " + edge.getAttributes()); //log
                 Node endNode = null;
                 Node startNode = null;
                 for (Node vertex : nodesList) {
@@ -59,7 +59,14 @@ public class TestMain {
                 edgesList.add(nodeEdge);
             }
             //Testing to create a new processor
-            Processor processor = new Processor(3);
+            Processor processor1 = new Processor();
+            processorList.add(processor1);
+            Processor processor2 = new Processor();
+            processorList.add(processor2);
+            Processor processor3 = new Processor();
+            processorList.add(processor3);
+
+            printGraphInfo();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -71,5 +78,19 @@ public class TestMain {
         System.out.println(s);
     }
 
+    public static void printGraphInfo(){
+        System.out.println("---Node Info---");
+        for(Node node:nodesList){
+            System.out.println(node);
+        }
+        System.out.println("---Edge Info---");
+        for(Edge edge:edgesList){
+            System.out.println(edge);
+        }
+        System.out.println("---Processor Info---");
+        for(Processor processor:processorList){
+            System.out.println(processor);
+        }
+    }
 }
 

@@ -32,4 +32,9 @@ public class Edge {
     public int getWeight(){
         return _weight;
     }
+
+    @Override
+    public String toString(){
+        return _startNode.getName() + "->" + _endNode.getName() + " {Weight=" + _weight + "}";
+    }
 }

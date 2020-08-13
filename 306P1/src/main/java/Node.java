@@ -43,4 +43,15 @@ public class Node {
     public int getWeight(){
         return _weight;
     }
+
+    @Override
+    public String toString(){
+        String processor;
+        if(_process == null){
+            processor = "none";
+        }else{
+            processor = _process;
+        }
+        return _name + " {Weight=" + _weight + ", Processor=" + processor +"}";
+    }
 }
