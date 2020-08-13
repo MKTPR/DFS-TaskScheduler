@@ -17,11 +17,12 @@ public class ValidAlgorithm {
             if (availableNode.size() >= 2) {
                 FindLargestEdge(availableNode);
             }
-            _nodeList.remove(availableNode.get(0)); //_nodeList에서 지움
-            //availableNode.get(0)._process //맨왼쪽에 들어가있는 node
-                                            //Node class에 안에 있는 _process public으로 바꾸거나 getter method를 만들어야함
-            //Add selected n to corresponding Pi then remove the n from G
-          }
+            _nodeList.remove(availableNode.get(0)); //맨왼쪽에 들어가있는 node를 _nodeList에서 지움
+              // _processorList.get(Integer.parseInt(availableNode.get(0)._process))).setNode(availableNode.get(0), availableNode.get(0)._weight);
+                                            //Node class에 안에 있는 _process랑 _weight를 public으로 바꾸거나 getter method를 만들어야함
+
+
+          } //루프가 끝나면 _processorList에 node들을 다 set 하게 됨
 
 
     }
