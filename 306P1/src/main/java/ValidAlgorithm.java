@@ -14,12 +14,12 @@ public class ValidAlgorithm {
               ArrayList<Node> availableNode = new ArrayList<Node>();  //여기 !!!!
               AvailableNode(availableNode); //여기 !!!!
               ComputeFinishingTime(availableNode); //여기 !!!!
-            if (availableNode.size() >= 2){
+            if (availableNode.size() >= 2) {
                 FindLargestEdge(availableNode);
             }
-
+            _nodeList.remove(availableNode.get(0)); //_nodeList에서 지움
             //availableNode.get(0)._process //맨왼쪽에 들어가있는 node
-                                            //Node class에 안에 있는 _process public으로 바꿔야함
+                                            //Node class에 안에 있는 _process public으로 바꾸거나 getter method를 만들어야함
             //Add selected n to corresponding Pi then remove the n from G
           }
 
@@ -40,8 +40,8 @@ public class ValidAlgorithm {
      */
     public void ComputeFinishingTime(ArrayList<Node> availableNode){
 
-        //for every nodes (i) in availableNode, find a processor (j) that has shorstest finishing time and set processor
-        //availableNode.get(i).setProcessor("j"); i랑 j는 int
+        //for every nodes (i) in availableNode, find a processor that has shorstest finishing time and set processor
+        //availableNode.get(i).setProcessor(_processorList.get(j).get_processorNumber()); i랑 j는 int,
 
         //for every nodes in availableNode remove all nodes that are not finish earliest
 
