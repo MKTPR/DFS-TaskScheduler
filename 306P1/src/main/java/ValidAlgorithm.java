@@ -15,7 +15,7 @@ public class ValidAlgorithm {
               AvailableNode(availableNode); //여기 !!!!
               ComputeFinishingTime(availableNode); //여기 !!!!
             if (availableNode.size() >= 2){
-
+                FindLargestEdge(availableNode);
             } else{
 
             }
@@ -26,7 +26,7 @@ public class ValidAlgorithm {
     }
 
     /**
-     * This method find all nodes with no incomming edge
+     * This method find all nodes with no incmming edge
      * 은강아, availableNode() 메소드 안에서 availableNode arrayList를 바꾸면 avaialbeNode arrayList가 저 위에서도 바뀌지?? (여기 !!! 라 표시해놓은곳)
      * 안바뀌면 void로 해놓으면 안되고 arrayList로 output 시켜야됨
      */
@@ -42,6 +42,12 @@ public class ValidAlgorithm {
         //remove all nodes that are not finish earliest  }
     }
 
+    /**
+     * This method find the nodes with largest incoming edge
+     */
+    public void FindLargestEdge(ArrayList<Node> availableNode){
+        //remove all nodes with not largest incoming edge weight
+    }
 
 }
 
