@@ -9,7 +9,7 @@ public class Node {
     private String _name;
     private String _process;
     private int _weight;
-    private static ArrayList<String> _incomingNodes=new ArrayList<String>();
+    private ArrayList<String> _incomingNodes=new ArrayList<String>();
 
     //Constructor for a Node Object
     public Node(String Name){
@@ -52,6 +52,12 @@ public class Node {
         }else{
             processor = _process;
         }
+
+        String nodeprint = "";
+        for(String iNode : _incomingNodes){
+            nodeprint += iNode;
+        }
+        System.out.println(nodeprint);
         return _name + " {Weight=" + _weight + ", Processor=" + processor +"}";
     }
 }
