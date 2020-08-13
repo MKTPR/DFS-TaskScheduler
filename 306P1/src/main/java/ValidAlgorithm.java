@@ -41,10 +41,12 @@ public class ValidAlgorithm {
      */
     public void ComputeFinishingTime(ArrayList<Node> availableNode){
 
-        //for every nodes (i) in availableNode, find a processor that has shorstest finishing time and set processor
+        //for every nodes (i) in availableNode, find a processor (j) that has shorstest finishing time and set processor
         //availableNode.get(i).setProcessor(_processorList.get(j).get_processorNumber()); i랑 j는 int,
 
         //for every nodes in availableNode remove all nodes that are not finish earliest
+
+
 
         //여기서 node.setProcessor를 해도 괜찮음, 왜냐하면 while 루프 한번에 earlist finishing time인 node 하나씩 _nodeList에서 지워가는데
         //_nodeList에서 지워지는 earlist finishing time인 node의 processor는 여기서 지정하는 processor에 들어가는 node이고
