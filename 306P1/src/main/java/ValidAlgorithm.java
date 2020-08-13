@@ -33,7 +33,8 @@ public class ValidAlgorithm {
      * 안바뀌면 void로 해놓으면 안되고 arrayList로 output 시켜야됨
      */
     public void AvailableNode(ArrayList<Node> availableNode){
-        //add nodes that has no incoming edge into availableNode arraylist
+        //add nodes that has no incoming edge from _nodeList into availableNode arraylist
+
     }
 
     /**
