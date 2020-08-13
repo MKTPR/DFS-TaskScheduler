@@ -42,7 +42,7 @@ public class ValidAlgorithm {
     public void ComputeFinishingTime(ArrayList<Node> availableNode){
 
         //for every nodes (i) in availableNode, find a processor (j) that has shorstest finishing time and set processor
-        //availableNode.get(i).setProcessor(_processorList.get(j).get_processorNumber()); i랑 j는 int,
+        // availableNode.get(i).setProcessor(_processorList.get(j).get_processorNumber()); i랑 j는 int,
 
         //for every nodes in availableNode remove all nodes that are not finish earliest
 
