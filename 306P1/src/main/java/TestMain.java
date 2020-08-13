@@ -15,10 +15,30 @@ public class TestMain {
     private static int _numOfProcessors;
 
     public static void main(String[] args) {
+            String input = "digraph.dot";
+            //Parse input .dot file
+            parseGraphInput(input);
+
+            //Testing to create a 5 new processor
+            createNewProcessor(5);
+
+            // Print graph information on console
+            printGraphInfo();
+    }
+
+    private static void log(String s) {
+        System.out.println(s);
+    }
+
+    /**
+     * This method parses .dot file to corresponding java objects
+     * @param input name of input .dot file
+     */
+    private static void parseGraphInput(String input){
         GraphParser parser = null;
         try {
             //Reads information from the specified dot file
-            parser = new GraphParser(new FileInputStream("digraph.dot"));
+            parser = new GraphParser(new FileInputStream(input));
             Map<String, GraphNode> nodes = parser.getNodes();
             Map<String, GraphEdge> edges = parser.getEdges();
 
@@ -58,26 +78,26 @@ public class TestMain {
                 //Add the create edge into an arraylist
                 edgesList.add(nodeEdge);
             }
-            //Testing to create a new processor
-            Processor processor1 = new Processor();
-            processorList.add(processor1);
-            Processor processor2 = new Processor();
-            processorList.add(processor2);
-            Processor processor3 = new Processor();
-            processorList.add(processor3);
-
-            printGraphInfo();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
-    private static void log(String s) {
-        System.out.println(s);
+    /**
+     * This method creates new processors and adds them into the processorList.
+     * @param numOfProcessorsToCreate indicates the number of processors to make
+     */
+    private static void createNewProcessor(int numOfProcessorsToCreate){
+        for(int i=0; i<numOfProcessorsToCreate;i++){
+            Processor processor = new Processor();
+            processorList.add(processor);
+        }
     }
 
+    /**
+     * This method prints out useful information about the input graph
+     */
     public static void printGraphInfo(){
         System.out.println("---Node Info---");
         for(Node node:nodesList){
