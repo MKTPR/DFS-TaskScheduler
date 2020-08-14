@@ -52,6 +52,11 @@ public class Node {
         }else{
             processor = _process;
         }
+        String nodeprint = "";
+        for(String iNode : _incomingNodes){
+            nodeprint += iNode;
+        }
+        System.out.println(nodeprint);
         return _name + " {Weight=" + _weight + ", Processor=" + processor +"}";
     }
 }

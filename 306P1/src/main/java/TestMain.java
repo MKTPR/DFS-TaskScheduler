@@ -9,21 +9,35 @@ import java.util.Map;
 
 public class TestMain {
 
-    private static ArrayList<Node> nodesList=new ArrayList<Node>();
-    private static ArrayList<Edge> edgesList=new ArrayList<Edge>();
-    private static ArrayList<Processor> processorList=new ArrayList<>();
+    private static ArrayList<Node> nodesList = new ArrayList<Node>();
+    private static ArrayList<Edge> edgesList = new ArrayList<Edge>();
+    private static ArrayList<Processor> processorList = new ArrayList<>();
     private static int _numOfProcessors;
 
     public static void main(String[] args) {
-            String input = "digraph.dot";
-            //Parse input .dot file
-            parseGraphInput(input);
 
-            //Testing to create a 5 new processor
-            createNewProcessor(5);
+        String input = "digraph.dot";
+        //Parse input .dot file
+        parseGraphInput(input);
 
-            // Print graph information on console
-            printGraphInfo();
+        //Testing to create a 5 new processor
+        createNewProcessor(3);
+
+        // Print graph information on console
+//        printGraphInfo();
+
+        // test valid algorithm
+        ValidAlgorithm va = new ValidAlgorithm(nodesList, edgesList, processorList);
+        ArrayList<Processor> scheduledProcessors = va.run();
+        //print output
+        for (Processor processor : scheduledProcessors) {
+            System.out.println("----Processor number: " + processor.get_processorNumber() + " - Schedule----");
+            for (Node node : processor.get_nodeList()) {
+                System.out.println(node.getName());
+            }
+        }
+
+
     }
 
     private static void log(String s) {
@@ -32,9 +46,10 @@ public class TestMain {
 
     /**
      * This method parses .dot file to corresponding java objects
+     *
      * @param input name of input .dot file
      */
-    private static void parseGraphInput(String input){
+    private static void parseGraphInput(String input) {
         GraphParser parser = null;
         try {
             //Reads information from the specified dot file
@@ -62,9 +77,9 @@ public class TestMain {
                 Node endNode = null;
                 Node startNode = null;
                 for (Node vertex : nodesList) {
-                    if(vertex.getName().equals(edge.getNode1().getId())){
+                    if (vertex.getName().equals(edge.getNode1().getId())) {
                         startNode = vertex;
-                    }else if(vertex.getName().equals(edge.getNode2().getId())){
+                    } else if (vertex.getName().equals(edge.getNode2().getId())) {
                         endNode = vertex;
                         vertex.setIncomingNodes(edge.getNode1().getId());
                     }
@@ -86,10 +101,11 @@ public class TestMain {
 
     /**
      * This method creates new processors and adds them into the processorList.
+     *
      * @param numOfProcessorsToCreate indicates the number of processors to make
      */
-    private static void createNewProcessor(int numOfProcessorsToCreate){
-        for(int i=0; i<numOfProcessorsToCreate;i++){
+    private static void createNewProcessor(int numOfProcessorsToCreate) {
+        for (int i = 0; i < numOfProcessorsToCreate; i++) {
             Processor processor = new Processor();
             processorList.add(processor);
         }
@@ -98,19 +114,18 @@ public class TestMain {
     /**
      * This method prints out useful information about the input graph
      */
-    public static void printGraphInfo(){
+    public static void printGraphInfo() {
         System.out.println("---Node Info---");
-        for(Node node:nodesList){
+        for (Node node : nodesList) {
             System.out.println(node);
         }
         System.out.println("---Edge Info---");
-        for(Edge edge:edgesList){
+        for (Edge edge : edgesList) {
             System.out.println(edge);
         }
         System.out.println("---Processor Info---");
-        for(Processor processor:processorList){
+        for (Processor processor : processorList) {
             System.out.println(processor);
         }
     }
 }
-
