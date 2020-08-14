@@ -76,7 +76,7 @@ public class ValidAlgorithm {
         }
 
         //For each processor, try
-        //node.setProcessor(_processorList.get(j).get_processorNumber());
+        //node.setProcessor("processor string");
 
 
 
