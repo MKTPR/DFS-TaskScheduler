@@ -20,7 +20,7 @@ public class TestMain {
         parseGraphInput(input);
 
         //Testing to create a 5 new processor
-        createNewProcessor(5);
+        createNewProcessor(3);
 
         // Print graph information on console
 //        printGraphInfo();
@@ -28,6 +28,7 @@ public class TestMain {
         // test valid algorithm
         ValidAlgorithm va = new ValidAlgorithm(nodesList, edgesList, processorList);
         ArrayList<Processor> scheduledProcessors = va.run();
+        //print output
         for(Processor processor : scheduledProcessors){
             System.out.println("----Processor number: " + processor.get_processorNumber() + " - Schedule----");
             for(Node node : processor.get_nodeList()){
