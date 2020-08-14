@@ -24,6 +24,10 @@ public class TestMain {
 
         // Print graph information on console
         printGraphInfo();
+
+        // test valid algorithm
+        ValidAlgorithm va = new ValidAlgorithm(nodesList, edgesList, processorList);
+        va.test();
     }
 
     private static void log(String s) {
