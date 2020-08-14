@@ -26,12 +26,11 @@ public class ValidAlgorithm {
             if (availableNode.size() >= 2) {
                 FindLargestEdge(availableNode);
             }
-            _nodeList.remove(availableNode.get(0)); //맨왼쪽에 들어가있는 node를 _nodeList에서 지움
-            // _processorList.get(Integer.parseInt(availableNode.get(0)._process))).setNode(availableNode.get(0), availableNode.get(0)._weight); //내 영혼을 갈아넣은 한줄의 코드였다
-            //Node class에 안에 있는 _process랑 _weight를 public으로 바꾸거나 getter method를 만들어야함
+            _nodeList.remove(availableNode.get(0));
+             //_processorList.get(Integer.parseInt(availableNode.get(0)._process))).setNode(availableNode.get(0), availableNode.get(0)._weight); //내 영혼을 갈아넣은 한줄의 코드였다
+            _processorList.get(0).setNode(availableNode.get(0), availableNode.get(0).getWeight());
 
-
-        } //루프가 끝나면 _processorList에 node들을 다 set 하게 됨
+        }
 
         //임시로 return null해놓음
         return null;
@@ -76,7 +75,7 @@ public class ValidAlgorithm {
         }
 
         //For each processor, try
-        //node.setProcessor("processor string");
+        node.setProcessor("0");
 
 
 
@@ -107,7 +106,7 @@ public class ValidAlgorithm {
             availableNode.add(node);
         }
 
-        // availableNodes 안에 있는 node들중에 processor에 넣으면 가장 적은 end time을 갖고 있는 노드들만 남기고 다 지운다
+
 
         //for every nodes (i) in availableNode, find a processor (j) that has shorstest finishing time and set processor
 
