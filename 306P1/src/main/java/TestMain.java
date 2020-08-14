@@ -26,9 +26,15 @@ public class TestMain {
 //        printGraphInfo();
 
         // test valid algorithm
-        System.out.println("-----testing------");
         ValidAlgorithm va = new ValidAlgorithm(nodesList, edgesList, processorList);
-        va.run();
+        ArrayList<Processor> scheduledProcessors = va.run();
+        for(Processor processor : scheduledProcessors){
+            System.out.println("----Processor number: " + processor.get_processorNumber() + " - Schedule----");
+            for(Node node : processor.get_nodeList()){
+                System.out.println(node.getName());
+            }
+        }
+
     }
 
     private static void log(String s) {

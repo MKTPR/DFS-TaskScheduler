@@ -17,29 +17,12 @@ public class ValidAlgorithm {
      * @return
      */
     public ArrayList<Processor> run(){
-
-        System.out.println("Before running, nodelist size is : " + _nodeList.size());
         while (_nodeList.size() > 0) {
             // get a list of nodes with NO incoming edges
             ArrayList<Node> availableNode = new ArrayList<Node>();
             AvailableNode(availableNode);
 
             assignToProcessor(availableNode);
-            availableNode.clear();
-
-            System.out.println("nodelist contains:");
-            for(Node node:_nodeList){
-                System.out.println(node.getName());
-            }
-
-            System.out.println("nodelist size is : " + _nodeList.size());
-        }
-
-
-
-        System.out.println("Processor contains:");
-        for(Node node: _processorList.get(0).get_nodeList()){
-            System.out.println(node.getName());
         }
 
         return _processorList;
