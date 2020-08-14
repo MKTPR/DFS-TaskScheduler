@@ -9,10 +9,6 @@ public class ValidAlgorithm {
         this._nodeList = nodeList;
         this._edgeList = edgeList;
         this._processorList = processorList;
-
-
-
-
     }
 
     /**
@@ -22,9 +18,11 @@ public class ValidAlgorithm {
     public ArrayList<Processor> run(){
 
         while (_nodeList.size() > 1) {
-            ArrayList<Node> availableNode = new ArrayList<Node>();  //여기 !!!!
-            AvailableNode(availableNode); //여기 !!!!
-            ComputeFinishingTime(availableNode); //여기 !!!!
+            // get a list of nodes with NO incoming edges
+            ArrayList<Node> availableNode = new ArrayList<Node>();
+            AvailableNode(availableNode);
+
+            ComputeFinishingTime(availableNode);
             if (availableNode.size() >= 2) {
                 FindLargestEdge(availableNode);
             }
@@ -48,13 +46,9 @@ public class ValidAlgorithm {
 
     /**
      * This method find all nodes with no incmming edge
-     * 은강아, availableNode() 메소드 안에서 availableNode arrayList를 바꾸면 avaialbeNode arrayList가 저 위에서도 바뀌지?? (여기 !!! 라 표시해놓은곳)
-     * 안바뀌면 void로 해놓으면 안되고 arrayList로 output 시켜야됨
      */
     public void AvailableNode(ArrayList<Node> availableNode){
         //add nodes that has no incoming node from _nodeList into availableNode arraylist
-        //고은강의 이해: _nodeList안에 있는 node들 중에 incoming edge가 없는 node들을 다 availableNode에 담아라.
-
         for(Node node: _nodeList){
             if(node.getincomingNodes().size() == 0){
                 availableNode.add(node);
@@ -63,17 +57,59 @@ public class ValidAlgorithm {
     }
 
     /**
+     * This method calculates earliest end time for a input node
+     * @param node
+     * @return
+     */
+    public int calculateEndTimeForOneNode(Node node){
+        int communicationCost = 0;
+
+        ArrayList<Edge> incomingEdges = new ArrayList<Edge>(); //list of all incoming edges of the node
+        ArrayList<Edge> reqEdges = new ArrayList<Edge>(); // the incoming edges that requires communication cost
+
+
+        // get list of incoming edges of the input node
+        for(Edge edge : _edgeList){
+            if(edge.getEndNode().equals(node)){
+                incomingEdges.add(edge);
+            }
+        }
+
+        //For each processor, try
+        
+
+
+
+        return 0;
+    }
+
+    /**
      * This method find the nodes that finish earliest
      */
     public void ComputeFinishingTime(ArrayList<Node> availableNode){
+        ArrayList<Node> resultingNode = new ArrayList<Node>();
+        Node earliestNode = availableNode.get(0);
 
-        // availableNodes 안에 있는 node들
+        for(Node node : availableNode){
+            if(calculateEndTimeForOneNode(earliestNode)>calculateEndTimeForOneNode(node)){
+                earliestNode = node;
+            }
+        }
+
+        for(Node node: availableNode){
+            if(calculateEndTimeForOneNode(earliestNode)==calculateEndTimeForOneNode(node)){
+                resultingNode.add(node);
+            }
+        }
+        availableNode.clear();
+
+        for(Node node : resultingNode){
+            availableNode.add(node);
+        }
+
+        // availableNodes 안에 있는 node들중에 processor에 넣으면 가장 적은 end time을 갖고 있는 노드들만 남기고 다 지운다
 
 
-//        구해야할 것: incoming edge의 weight
-
-
-        
         //for every nodes (i) in availableNode, find a processor (j) that has shorstest finishing time and set processor
         // availableNode.get(i).setProcessor(_processorList.get(j).get_processorNumber()); i랑 j는 int,
 
