@@ -14,7 +14,7 @@ public class Processor {
 
     //Adds a node to a working queue of a processor with regards of the duration.
     public void setNode(Node dNode, int duration){
-        for (int i=0;i<=duration;i++) {
+        for (int i=1;i<=duration;i++) {
             _nodeList.add(dNode);
         }
     }

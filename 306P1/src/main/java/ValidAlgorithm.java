@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ValidAlgorithm {
@@ -12,33 +13,57 @@ public class ValidAlgorithm {
     }
 
     /**
-     * Algorithm의 시작점
+     * Start of the algorithm
      * @return
      */
     public ArrayList<Processor> run(){
 
-        while (_nodeList.size() > 1) {
+        System.out.println("Before running, nodelist size is : " + _nodeList.size());
+        while (_nodeList.size() > 0) {
             // get a list of nodes with NO incoming edges
             ArrayList<Node> availableNode = new ArrayList<Node>();
             AvailableNode(availableNode);
 
-            ComputeFinishingTime(availableNode);
-            if (availableNode.size() >= 2) {
-                FindLargestEdge(availableNode);
-            }
-            _nodeList.remove(availableNode.get(0));
-             //_processorList.get(Integer.parseInt(availableNode.get(0)._process))).setNode(availableNode.get(0), availableNode.get(0)._weight); //내 영혼을 갈아넣은 한줄의 코드였다
-            _processorList.get(0).setNode(availableNode.get(0), availableNode.get(0).getWeight());
+            assignToProcessor(availableNode);
+            availableNode.clear();
 
+            System.out.println("nodelist contains:");
+            for(Node node:_nodeList){
+                System.out.println(node.getName());
+            }
+
+            System.out.println("nodelist size is : " + _nodeList.size());
         }
 
-        //임시로 return null해놓음
-        return null;
+
+
+        System.out.println("Processor contains:");
+        for(Node node: _processorList.get(0).get_nodeList()){
+            System.out.println(node.getName());
+        }
+
+        return _processorList;
     };
 
-    public void test(){
-        ArrayList<Node> availableNode = new ArrayList<Node>();
-        AvailableNode(availableNode);
+
+    public void assignToProcessor(ArrayList<Node> availableNodes){
+        ArrayList<String> namesToRemove = new ArrayList<String>();
+
+        for(Node node:availableNodes){
+            _processorList.get(0).setNode(node, node.getWeight());
+        }
+
+        for(Node node:availableNodes){
+            namesToRemove.add(node.getName());
+            _nodeList.remove(node);
+        }
+
+        for(Node node: _nodeList){
+            for(String name : namesToRemove){
+                node.getincomingNodes().remove(name);
+            }
+
+        }
 
     }
 
@@ -55,96 +80,6 @@ public class ValidAlgorithm {
         }
     }
 
-    /**
-     * This method calculates earliest end time for a input node
-     * @param node
-     * @return
-     */
-    public int calculateEndTimeForOneNode(Node node){
-        int communicationCost = 0;
-
-        ArrayList<Edge> incomingEdges = new ArrayList<Edge>(); //list of all incoming edges of the node
-        ArrayList<Edge> reqEdges = new ArrayList<Edge>(); // the incoming edges that requires communication cost
-
-
-        // get list of incoming edges of the input node
-        for(Edge edge : _edgeList){
-            if(edge.getEndNode().equals(node)){
-                incomingEdges.add(edge);
-            }
-        }
-
-        //For each processor, try
-        node.setProcessor("0");
-
-
-
-        return 0;
-    }
-
-    /**
-     * This method find the nodes that finish earliest
-     */
-    public void ComputeFinishingTime(ArrayList<Node> availableNode){
-        ArrayList<Node> resultingNode = new ArrayList<Node>();
-        Node earliestNode = availableNode.get(0);
-
-        for(Node node : availableNode){
-            if(calculateEndTimeForOneNode(earliestNode)>calculateEndTimeForOneNode(node)){
-                earliestNode = node;
-            }
-        }
-
-        for(Node node: availableNode){
-            if(calculateEndTimeForOneNode(earliestNode)==calculateEndTimeForOneNode(node)){
-                resultingNode.add(node);
-            }
-        }
-        availableNode.clear();
-
-        for(Node node : resultingNode){
-            availableNode.add(node);
-        }
-
-
-
-        //for every nodes (i) in availableNode, find a processor (j) that has shorstest finishing time and set processor
-
-
-        //for every nodes in availableNode remove all nodes that are not finish earliest
-
-
-
-
-        
-    }
-
-    /**
-     * This method find the nodes with largest incoming edge
-     */
-    public void FindLargestEdge(ArrayList<Node> availableNode){
-        //remove all nodes with not largest incoming edge weight
-
-        ArrayList<Edge> candidateEdgeList = new ArrayList<Edge>();
-
-        for(Node node : availableNode){
-            for(Edge edge : _edgeList){
-                if(edge.getEndNode().getName().equals(node.getName())){
-                    candidateEdgeList.add(edge);
-                }
-            }
-        }
-
-        Edge maxEdge = candidateEdgeList.get(0);
-
-        for(Edge edge : candidateEdgeList){
-            if(edge.getWeight() > maxEdge.getWeight()) {
-                maxEdge = edge;
-            }
-        }
-        availableNode.clear();
-        availableNode.add(maxEdge.getEndNode());
-    }
 
 }
 

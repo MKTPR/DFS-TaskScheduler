@@ -23,11 +23,12 @@ public class TestMain {
         createNewProcessor(5);
 
         // Print graph information on console
-        printGraphInfo();
+//        printGraphInfo();
 
         // test valid algorithm
+        System.out.println("-----testing------");
         ValidAlgorithm va = new ValidAlgorithm(nodesList, edgesList, processorList);
-        va.test();
+        va.run();
     }
 
     private static void log(String s) {
