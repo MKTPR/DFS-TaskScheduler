@@ -67,12 +67,13 @@ public class ValidAlgorithm {
      */
     public void ComputeFinishingTime(ArrayList<Node> availableNode){
 
-//        구해야할 것: incoming edge의 weight
-        for(Node node : availableNode){
-            for(Edge edge: _edgeList){
+        // availableNodes 안에 있는 node들
 
-            }
-        }
+
+//        구해야할 것: incoming edge의 weight
+
+
+        
         //for every nodes (i) in availableNode, find a processor (j) that has shorstest finishing time and set processor
         // availableNode.get(i).setProcessor(_processorList.get(j).get_processorNumber()); i랑 j는 int,
 
@@ -93,6 +94,26 @@ public class ValidAlgorithm {
      */
     public void FindLargestEdge(ArrayList<Node> availableNode){
         //remove all nodes with not largest incoming edge weight
+
+        ArrayList<Edge> candidateEdgeList = new ArrayList<Edge>();
+
+        for(Node node : availableNode){
+            for(Edge edge : _edgeList){
+                if(edge.getEndNode().getName().equals(node.getName())){
+                    candidateEdgeList.add(edge);
+                }
+            }
+        }
+
+        Edge maxEdge = candidateEdgeList.get(0);
+
+        for(Edge edge : candidateEdgeList){
+            if(edge.getWeight() > maxEdge.getWeight()) {
+                maxEdge = edge;
+            }
+        }
+        availableNode.clear();
+        availableNode.add(maxEdge.getEndNode());
     }
 
 }
