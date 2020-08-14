@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Processor {
 
     private String _processorNumber;
-    private static ArrayList<Node> _nodeList =new ArrayList<Node>();
+    private ArrayList<Node> _nodeList =new ArrayList<Node>();
     private static int pCount = 0;
 
     //Constructor of pNumber, changes int to a String
@@ -17,6 +17,10 @@ public class Processor {
         for (int i=0;i<=duration;i++) {
             _nodeList.add(dNode);
         }
+    }
+
+    public ArrayList<Node> get_nodeList(){
+        return _nodeList;
     }
 
     public String get_processorNumber(){
