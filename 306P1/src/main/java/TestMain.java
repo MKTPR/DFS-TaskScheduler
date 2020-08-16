@@ -15,15 +15,60 @@ public class TestMain {
     private static ArrayList<Edge> edgesList = new ArrayList<Edge>();
     private static ArrayList<Processor> processorList = new ArrayList<>();
     private static int _numOfProcessors;
+    private static int isParallel = -1;
+    private static boolean isVisualise = false;
+    private static String isOutput = "output.dot";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        if (args.length < 2){
+            throw new Exception("invalid input: name of input file and number of cores required");
+        }
 
-        String input = "digraph.dot";
+        String input = args[0];
+        isOutput = (input.split("\\."))[0] + "-output.dot";
+
+        _numOfProcessors = Integer.parseInt(args[1]);
         //Parse input .dot file
         parseGraphInput(input);
         nodesListOriginal = new ArrayList<>(nodesList);
         //Testing to create a 5 new processor
-        createNewProcessor(3);
+        createNewProcessor(_numOfProcessors);
+
+        if (args.length > 2){
+            for (int i = 2; i < args.length; i++){
+                if (args[i].contains("-p")){
+                    try {
+                        if (Integer.parseInt(args[i+1]) < 1){
+                            System.out.println("Invalid number of cores: Defaulting to sequential");
+                        }
+                        else {
+                            isParallel = Integer.parseInt(args[i+1]);
+                        }
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid number of cores: Defaulting to sequential");
+                    } catch (IndexOutOfBoundsException e){
+                        System.out.println("Invalid number of cores: Defaulting to sequential");
+                    }
+
+
+                }
+                else if (args[i].contains("-v")){
+                    isVisualise = true;
+                }
+                else if (args[i].contains("-o")){
+                    try {
+                        isOutput = args[i + 1];
+                        if (!isOutput.endsWith(".dot")){
+                            isOutput += ".dot";
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("invalid output file");
+                    }
+                }
+            }
+        }
+
 
         // Print graph information on console
 //        printGraphInfo();
@@ -133,10 +178,11 @@ public class TestMain {
     }
     private static void outputToDotFile(){
         PrintWriter writer = null;
+
         try{
             int counter = 0;
-            writer = new PrintWriter("output.dot");
-            writer.println("digraph \"output\" {");
+            writer = new PrintWriter(isOutput);
+            writer.println("digraph " + isOutput.split("\\.")[0] + " {");
             for (Node node : nodesListOriginal){
                 if(counter == 0 ) {
                     writer.println("\t\t" + node.toString());
