@@ -21,7 +21,8 @@ public class TestMain {
 
     public static void main(String[] args) throws Exception{
         if (args.length < 2){
-            throw new Exception("invalid input: name of input file and number of cores required");
+            throw new Exception("invalid input: name of input file and number of cores required. \n " +
+                    "Example input: java -jar scheduler.jar Input.dot 10 [OPTION]");
         }
 
         String input = args[0];
