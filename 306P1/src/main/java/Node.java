@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Node {
     private String _name;
-    private String _process;
+    private Processor _process;
     private int _weight;
     private ArrayList<String> _incomingNodes=new ArrayList<String>();
 
@@ -28,7 +28,7 @@ public class Node {
     }
 
     //Sets the processor that the NodeObject is delegated to
-    public void setProcessor(String processorName){
+    public void setProcessor(Processor processorName){
         _process=processorName;
     }
 
@@ -47,16 +47,19 @@ public class Node {
     @Override
     public String toString(){
         String processor;
+        String startTime;
         if(_process == null){
             processor = "none";
+            startTime = "none";
         }else{
-            processor = _process;
+            processor = _process.get_processorNumber();
+            startTime = Integer.toString(_process.get_nodeList().indexOf(this));
         }
         String nodeprint = "";
         for(String iNode : _incomingNodes){
             nodeprint += iNode;
         }
-        System.out.println(nodeprint);
-        return _name + " {Weight=" + _weight + ", Processor=" + processor +"}";
+        //System.out.println(nodeprint);
+        return _name + "\t\t" + " [Weight=" + _weight + ",Start=" + startTime + ",Processor=" + processor +"];";
     }
 }

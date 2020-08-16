@@ -4,12 +4,14 @@ import com.paypal.digraph.parser.GraphParser;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class TestMain {
 
     private static ArrayList<Node> nodesList = new ArrayList<Node>();
+    private static ArrayList<Node> nodesListOriginal = new ArrayList<Node>();
     private static ArrayList<Edge> edgesList = new ArrayList<Edge>();
     private static ArrayList<Processor> processorList = new ArrayList<>();
     private static int _numOfProcessors;
@@ -19,7 +21,7 @@ public class TestMain {
         String input = "digraph.dot";
         //Parse input .dot file
         parseGraphInput(input);
-
+        nodesListOriginal = new ArrayList<>(nodesList);
         //Testing to create a 5 new processor
         createNewProcessor(3);
 
@@ -31,12 +33,13 @@ public class TestMain {
         ArrayList<Processor> scheduledProcessors = va.run();
         //print output
         for (Processor processor : scheduledProcessors) {
-            System.out.println("----Processor number: " + processor.get_processorNumber() + " - Schedule----");
+            //System.out.println("----Processor number: " + processor.get_processorNumber() + " - Schedule----");
             for (Node node : processor.get_nodeList()) {
-                System.out.println(node.getName());
+                node.setProcessor(processor);
+                //System.out.println(node.getName());
             }
         }
-
+        outputToDotFile();
 
     }
 
@@ -126,6 +129,35 @@ public class TestMain {
         System.out.println("---Processor Info---");
         for (Processor processor : processorList) {
             System.out.println(processor);
+        }
+    }
+    private static void outputToDotFile(){
+        PrintWriter writer = null;
+        try{
+            int counter = 0;
+            writer = new PrintWriter("output.dot");
+            writer.println("digraph \"output\" {");
+            for (Node node : nodesListOriginal){
+                if(counter == 0 ) {
+                    writer.println("\t\t" + node.toString());
+                }
+                else {
+                    writer.println("\t\t" + node.toString());
+                    //assumes edges cant go backwards (i.e from b to a)
+                    for (Edge edge : edgesList){
+                        if (edge.getEndNode().equals(node)){
+                            writer.println("\t\t" + edge.toString());
+                        }
+                    }
+                }
+            counter++;
+            }
+            writer.println("}");
+            writer.close();
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

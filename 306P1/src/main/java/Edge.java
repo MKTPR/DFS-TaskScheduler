@@ -35,6 +35,6 @@ public class Edge {
 
     @Override
     public String toString(){
-        return _startNode.getName() + "->" + _endNode.getName() + " {Weight=" + _weight + "}";
+        return _startNode.getName() +  " -> " + _endNode.getName() + "\t" + " [Weight=" + _weight + "];";
     }
 }

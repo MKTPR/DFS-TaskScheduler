@@ -4,7 +4,7 @@ public class Processor {
 
     private String _processorNumber;
     private ArrayList<Node> _nodeList =new ArrayList<Node>();
-    private static int pCount = 0;
+    private static int pCount = 1;
 
     //Constructor of pNumber, changes int to a String
     public Processor() {
