@@ -32,6 +32,7 @@ public class GreedyAlgorithm {
 
         runAlgorithm();
 
+        // calculate duration
         for(Processor processor:_processorList){
             tempDuration = processor.get_nodeList().size();
             if(tempDuration > duration){
