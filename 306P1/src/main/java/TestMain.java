@@ -74,7 +74,7 @@ public class TestMain {
 
         }
 
-        getTopologies();
+        getTopologies(); //generates all topologies in the topologies arraylist
 
         // Print graph information on console
 //        printGraphInfo();
@@ -227,8 +227,12 @@ public class TestMain {
         }
     }
 
+    /**
+     * first separates nodes based on when they have no incoming edge
+     * uses permutation and generateTop functions to get all topologies
+     */
     private static void getTopologies() {
-        ArrayList<Node> unvisited = nodesList;
+        ArrayList<Node> unvisited = new ArrayList<Node>(nodesList);
         ArrayList<Node> temp = new ArrayList<Node>();
         ArrayList<Node> visited = new ArrayList<Node>();
         String topology =  "";
@@ -245,16 +249,21 @@ public class TestMain {
             topology += "-";
         }
         String[] split = topology.split("-");
-        ArrayList<ArrayList<String>> top45 = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> top = new ArrayList<ArrayList<String>>();
         for(String str : split){
             permutation("", str);
-            top45.add(new ArrayList<String>(perms));
+            top.add(new ArrayList<String>(perms));
             perms.clear();
         }
 
-        generateTop(top45);
+        generateTop(top);
     }
 
+    /**
+     * This method does the cartesian product of the list of lists.
+     * This creates the topologies and adds to the topologies arraylist.
+     * e.g [[a],[bc,cb],[d]] -> [abcd, acbd]
+     */
     private static void generateTop(ArrayList<ArrayList<String>> sets) {
         int solutions = 1;
         String singleTop = "";
@@ -272,7 +281,9 @@ public class TestMain {
 
 
 
-
+    /**
+     * uses recursive call to add all permutations of the input string to the perms arraylist
+     */
     private static void permutation(String prefix, String str) {
         int n = str.length();
         if (n == 0) perms.add(prefix);
