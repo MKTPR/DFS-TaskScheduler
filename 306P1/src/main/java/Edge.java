@@ -15,6 +15,10 @@ public class Edge {
         _endNode = endNode;
     }
 
+    public Edge() {
+
+    }
+
     //Sets the weight of the edge as an integer
     public void setWeight(String weight){
         String split = (weight.split("="))[1];
@@ -31,6 +35,11 @@ public class Edge {
 
     public int getWeight(){
         return _weight;
+    }
+
+    public void setNodes(Node startNode, Node endNode){
+        _startNode = startNode;
+        _endNode = endNode;
     }
 
     @Override

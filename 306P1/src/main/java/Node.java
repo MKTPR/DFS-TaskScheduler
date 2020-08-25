@@ -9,7 +9,11 @@ public class Node {
     private String _name;
     private Processor _process;
     private int _weight;
-    private ArrayList<String> _incomingNodes=new ArrayList<String>();
+    private ArrayList<Node> _incomingNodes=new ArrayList<Node>();
+    private ArrayList<Node> _outgoingNodes =new ArrayList<Node>();
+    private ArrayList<Edge> _outgoingEdges =new ArrayList<Edge>();
+    private ArrayList<Edge> _incomingEdges =new ArrayList<Edge>();
+
 
     //Constructor for a Node Object
     public Node(String Name){
@@ -23,9 +27,17 @@ public class Node {
     }
 
     //Adds an incoming node name(String) into an arraylist
-    public void setIncomingNodes(String incomingNode){
+    public void setIncomingNodes(Node incomingNode){
         _incomingNodes.add(incomingNode);
     }
+
+    public void setIncomingEdges(Edge incomingEdge){
+        _incomingEdges.add(incomingEdge);
+    }
+
+    public void setOutgoingEdges(Edge outgoingEdge) { _outgoingEdges.add(outgoingEdge); }
+
+    public void setOutgoingNodes(Node outgoingNode) { _outgoingNodes.add(outgoingNode); }
 
     //Sets the processor that the NodeObject is delegated to
     public void setProcessor(Processor processorName){
@@ -36,8 +48,17 @@ public class Node {
         return _name;
     }
 
-    public ArrayList<String> getincomingNodes(){
+    public ArrayList<Node> getincomingNodes(){
         return _incomingNodes;
+    }
+    public ArrayList<Node> get_outgoingNodes(){
+        return _outgoingNodes;
+    }
+    public ArrayList<Edge> get_outgoingEdges(){
+        return _outgoingEdges;
+    }
+    public ArrayList<Edge> get_incomingEdges(){
+        return _incomingEdges;
     }
 
     public int getWeight(){
@@ -56,7 +77,7 @@ public class Node {
             startTime = Integer.toString(_process.get_nodeList().indexOf(this));
         }
         String nodeprint = "";
-        for(String iNode : _incomingNodes){
+        for(Node iNode : _incomingNodes){
             nodeprint += iNode;
         }
         //System.out.println(nodeprint);
