@@ -86,6 +86,9 @@ public class TestMain {
                 //System.out.println(node.getName());
             }
         }
+
+
+
         outputToDotFile();
 
     }

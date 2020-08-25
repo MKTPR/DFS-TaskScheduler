@@ -116,7 +116,7 @@ public class GreedyAlgorithm {
         //get parent with latest finishing time
         for(Node pNode : parentNodes){
             for(Processor pProcessor:_processorList){
-                if(pProcessor.get_nodeList().contains(pNode)){
+                if(pProcessor.get_nodeList().contains(pNode) && !pProcessor.get_processorNumber().equals(processor.get_processorNumber())){
                     //get edge cost (transmission cost)
                     for(Edge edge:node.get_incomingEdges()){
                         if(edge.getStartNode().equals(pNode)){
