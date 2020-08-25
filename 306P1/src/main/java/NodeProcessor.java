@@ -1,9 +1,17 @@
 public class NodeProcessor {
-    public Node node;
-    public Processor processor;
+    private Node node;
+    private Processor processor;
 
     NodeProcessor(Node node, Processor processor){
         this.node = node;
         this.processor = processor;
+    }
+
+    public Processor getProcessor() {
+        return processor;
+    }
+
+    public Node getNode() {
+        return node;
     }
 }

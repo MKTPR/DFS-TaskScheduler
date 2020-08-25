@@ -30,16 +30,36 @@ public class GreedyAlgorithm {
             // get a list of nodes with NO incoming edges
 
             AvailableNode(availableNode);
-
             nodeProcessor = findEarliestFinishingNodeProcessor(availableNode);
-
-
-            // availableNode에서 schedule된 노드 지우기
-
+            scheduleNodeToProcessor(nodeProcessor);
         }
 
         return _processorList;
     };
+
+    private void scheduleNodeToProcessor(NodeProcessor nodeProcessor){
+        //schedule the node to the processor
+        Node node = nodeProcessor.getNode();
+        Processor processor = nodeProcessor.getProcessor();
+        int finTime = findFinishingTime(node, processor);
+        int timeDifference = finTime - processor.get_nodeList().size();
+
+        if(timeDifference == node.getWeight()){
+            processor.setNode(node, node.getWeight());
+        }else{
+            //add idle time to processor
+            for(int i=0; i<timeDifference;i++){
+                processor.get_nodeList().add(null);
+            }
+            processor.setNode(node, node.getWeight());
+        }
+        //remove the node from available node
+        availableNode.remove(node);
+        // add the node to scheduled node
+        _scheduledNodes.add(node);
+        //remove from the nodelist
+        _nodeList.remove(node);
+    }
 
     //This method finds transmission time of a node when it is scheduled in a particular processor.
     //It returns -1 if not all the parent nodes are already scheduled
@@ -48,7 +68,7 @@ public class GreedyAlgorithm {
         int latestFinTime = 0;
         int tempFinTime = 0;
         int FinTimeSameProcessor = 0;
-
+        int tempEdgeWeight = 0;
 
         //Check if all its parents are scheduled
         if(!_scheduledNodes.containsAll(parentNodes)){
@@ -68,7 +88,15 @@ public class GreedyAlgorithm {
         for(Node pNode : parentNodes){
             for(Processor pProcessor:_processorList){
                 if(pProcessor.get_nodeList().contains(pNode)){
-                    tempFinTime = pProcessor.get_nodeList().indexOf(pNode) + pNode.getWeight() + 1;//get finishing time
+                    //get edge cost (transmission cost)
+                    for(Edge edge:node.get_incomingEdges()){
+                        if(edge.getStartNode().equals(pNode)){
+                            tempEdgeWeight = edge.getWeight();
+                        }
+                    }
+                    tempFinTime =
+                            pProcessor.get_nodeList().lastIndexOf(pNode) + node.getWeight() + tempEdgeWeight+ 1;//get
+                    // finishing time
                     if(tempFinTime > latestFinTime){
                         latestFinTime = tempFinTime;
                     }
