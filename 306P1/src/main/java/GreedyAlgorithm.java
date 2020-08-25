@@ -96,7 +96,7 @@ public class GreedyAlgorithm {
         ArrayList<Node> parentNodes = node.getincomingNodes();
         int latestFinTime = 0;
         int tempFinTime = 0;
-        int FinTimeSameProcessor = FinTimeSameProcessor = processor.get_nodeList().size() + node.getWeight();;
+        int FinTimeSameProcessor = processor.get_nodeList().size() + node.getWeight();;
         int tempEdgeWeight = 0;
 
         //Check if all its parents are scheduled
@@ -106,7 +106,7 @@ public class GreedyAlgorithm {
 
         //If all parents are scheduled in the input processor, no transmission time is required.
         if(_scheduledNodes.containsAll(parentNodes)){
-            
+
             return FinTimeSameProcessor;
         }
 
