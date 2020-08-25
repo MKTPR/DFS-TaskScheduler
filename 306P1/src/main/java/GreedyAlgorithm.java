@@ -74,10 +74,13 @@ public class GreedyAlgorithm {
         int timeDifference = finTime - processor.get_nodeList().size();
 
         if(timeDifference == node.getWeight()){
+         //   System.out.println("same");
             processor.setNode(node, node.getWeight());
         }else{
+        //    System.out.println("diff");
+       //     System.out.println(timeDifference);
             //add idle time to processor
-            for(int i=0; i<timeDifference;i++){
+            for(int i=0; i<(timeDifference - node.getWeight());i++){
                 processor.get_nodeList().add(null);
             }
             processor.setNode(node, node.getWeight());
@@ -91,7 +94,7 @@ public class GreedyAlgorithm {
 
     //    System.out.print(node.getName()+" ");
     //    System.out.print(processor.get_nodeList().size() +  " ");
-    //    System.out.println(processor);
+    //   System.out.println(processor);
     //    System.out.println("and");
      //   System.out.println("and");
     }
@@ -122,7 +125,7 @@ public class GreedyAlgorithm {
         //get parent with latest finishing time
         for(Node pNode : parentNodes){
             for(Processor pProcessor:_processorList){
-                if(pProcessor.get_nodeList().contains(pNode) && !pProcessor.get_processorNumber().equals(processor.get_processorNumber())){
+                if(pProcessor.get_nodeList().contains(pNode) && !(pProcessor.get_processorNumber().equals(processor.get_processorNumber()))){
                //     System.out.println("2");
                     //get edge cost (transmission cost)
                     for(Edge edge:node.get_incomingEdges()){
@@ -140,7 +143,7 @@ public class GreedyAlgorithm {
                 }
             }
         }
-      //  System.out.println(Math.max(latestFinTime, FinTimeSameProcessor));
+   //     System.out.println(Math.max(latestFinTime, FinTimeSameProcessor));
         return Math.max(latestFinTime, FinTimeSameProcessor);
     }
 
@@ -175,7 +178,8 @@ public class GreedyAlgorithm {
             //만약 node의 모든 incoming nodes들이 scheduled list에 존재하고, 아직 schedule되지 않았다면면 그 노드는 availblenode이다.
             if(_scheduledNodes.containsAll(node.getincomingNodes()) && !_scheduledNodes.contains(node)){
                 availableNode.add(node);
-          //      System.out.println(node.getName());
+              //  System.out.println(node.getName());
+               // System.out.println("***");
             }
         }
     }
