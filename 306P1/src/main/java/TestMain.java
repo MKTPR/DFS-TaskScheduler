@@ -68,6 +68,7 @@ public class TestMain {
                     }
                 }
             }
+
         }
 
 
@@ -125,17 +126,30 @@ public class TestMain {
 //                log(edge.getNode1().getId() + "->" + edge.getNode2().getId() + " " + edge.getAttributes()); //log
                 Node endNode = null;
                 Node startNode = null;
+                //New edge object creation
+                Edge nodeEdge = new Edge();
                 for (Node vertex : nodesList) {
                     if (vertex.getName().equals(edge.getNode1().getId())) {
                         startNode = vertex;
+                        for (Node vertex2: nodesList) {
+                            if (vertex2.getName().equals(edge.getNode2().getId())){
+                                vertex.setOutgoingNodes(vertex2);
+                            }
+                        }
+                        vertex.setOutgoingEdges(nodeEdge);
                     } else if (vertex.getName().equals(edge.getNode2().getId())) {
                         endNode = vertex;
-                        vertex.setIncomingNodes(edge.getNode1().getId());
+                        for (Node vertex2: nodesList) {
+                            if (vertex2.getName().equals(edge.getNode1().getId())){
+                                vertex.setIncomingNodes(vertex2);
+                            }
+                        }
+                        vertex.setIncomingEdges(nodeEdge);
                     }
                 }
-                //New edge object creation
-                Edge nodeEdge = new Edge(startNode, endNode);
 
+
+                nodeEdge.setNodes(startNode, endNode);
                 //Set weight of an edge object
                 nodeEdge.setWeight(edge.getAttributes().toString());
 
