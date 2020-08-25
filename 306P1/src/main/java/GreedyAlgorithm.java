@@ -24,7 +24,23 @@ public class GreedyAlgorithm {
         }
     }
 
-    public ArrayList<Processor> run(){
+    public int computeGreedyFinishingTime(){
+        int tempDuration = 0;
+        int duration = 0;
+
+        runAlgorithm();
+
+        for(Processor processor:_processorList){
+            tempDuration = processor.get_nodeList().size();
+            if(tempDuration > duration){
+                duration = tempDuration;
+            }
+        }
+
+        return duration;
+    }
+
+    public ArrayList<Processor> runAlgorithm(){
         NodeProcessor nodeProcessor;
         while (_nodeList.size() > 0) {
             // get a list of nodes with NO incoming edges
