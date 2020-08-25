@@ -80,7 +80,7 @@ public class TestMain {
         int upperBound = va.computeGreedyFinishingTime();
         //print output
 
-        System.out.println(upperBound);
+        System.out.println("up = "+upperBound);
 
         outputToDotFile();
 

@@ -88,6 +88,12 @@ public class GreedyAlgorithm {
         _scheduledNodes.add(node);
         //remove from the nodelist
         _nodeList.remove(node);
+
+    //    System.out.print(node.getName()+" ");
+    //    System.out.print(processor.get_nodeList().size() +  " ");
+    //    System.out.println(processor);
+    //    System.out.println("and");
+     //   System.out.println("and");
     }
 
     //This method finds transmission time of a node when it is scheduled in a particular processor.
@@ -105,8 +111,8 @@ public class GreedyAlgorithm {
         }
 
         //If all parents are scheduled in the input processor, no transmission time is required.
-        if(_scheduledNodes.containsAll(parentNodes)){
-
+        if(processor.get_nodeList().containsAll(parentNodes)){
+          //  System.out.println("1");
             return FinTimeSameProcessor;
         }
 
@@ -117,6 +123,7 @@ public class GreedyAlgorithm {
         for(Node pNode : parentNodes){
             for(Processor pProcessor:_processorList){
                 if(pProcessor.get_nodeList().contains(pNode) && !pProcessor.get_processorNumber().equals(processor.get_processorNumber())){
+               //     System.out.println("2");
                     //get edge cost (transmission cost)
                     for(Edge edge:node.get_incomingEdges()){
                         if(edge.getStartNode().equals(pNode)){
@@ -125,6 +132,7 @@ public class GreedyAlgorithm {
                     }
                     tempFinTime =
                             pProcessor.get_nodeList().lastIndexOf(pNode) + node.getWeight() + tempEdgeWeight+ 1;//get
+                  //  System.out.println(node.getName() +" "+tempFinTime+" "+pProcessor.get_nodeList().lastIndexOf(pNode) + " " + processor.toString());
                     // finishing time
                     if(tempFinTime > latestFinTime){
                         latestFinTime = tempFinTime;
@@ -132,6 +140,7 @@ public class GreedyAlgorithm {
                 }
             }
         }
+      //  System.out.println(Math.max(latestFinTime, FinTimeSameProcessor));
         return Math.max(latestFinTime, FinTimeSameProcessor);
     }
 
@@ -163,9 +172,10 @@ public class GreedyAlgorithm {
     public void AvailableNode(ArrayList<Node> availableNode){
         //add nodes that has no incoming node from _nodeList into availableNode arraylist
         for(Node node: _nodeList){
-            //만약 node의 모든 incoming nodes들이 scheduled lis에 존재하고, 아직 schedule되지 않았다면면 그 노드는 availblenode이다.
+            //만약 node의 모든 incoming nodes들이 scheduled list에 존재하고, 아직 schedule되지 않았다면면 그 노드는 availblenode이다.
             if(_scheduledNodes.containsAll(node.getincomingNodes()) && !_scheduledNodes.contains(node)){
                 availableNode.add(node);
+          //      System.out.println(node.getName());
             }
         }
     }
