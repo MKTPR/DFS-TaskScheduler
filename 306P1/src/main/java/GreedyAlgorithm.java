@@ -9,6 +9,7 @@ public class GreedyAlgorithm {
     private ArrayList<Node> _scheduledNodes = new ArrayList<Node>();
     private ArrayList<Node> availableNode = new ArrayList<Node>();
 
+
     public GreedyAlgorithm(ArrayList<Node> nodeList, ArrayList<Edge> edgeList, ArrayList<Processor> processorList) {
         //Deep copy nodeList
         for(Node node : nodeList){
@@ -24,6 +25,7 @@ public class GreedyAlgorithm {
         }
     }
 
+    // This method returns the total execution time of the algorithm
     public int computeGreedyFinishingTime(){
         int tempDuration = 0;
         int duration = 0;
@@ -37,9 +39,19 @@ public class GreedyAlgorithm {
             }
         }
 
+        emptyScheduledNodesInProcesses();
+
         return duration;
     }
 
+    //This method clears scheduled nodeLists in all processors.
+    private void emptyScheduledNodesInProcesses(){
+        for(Processor processor:_processorList){
+            processor.get_nodeList().clear();
+        }
+    }
+
+    //This method runs the algorithm and returns an Arraylist of processors with sorted tasks.
     public ArrayList<Processor> runAlgorithm(){
         NodeProcessor nodeProcessor;
         while (_nodeList.size() > 0) {
