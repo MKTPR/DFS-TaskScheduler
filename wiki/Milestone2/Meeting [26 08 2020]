@@ -1,0 +1,38 @@
+## 25/08/2020 Overview 
+
+_planned meeting to discuss and delegate future tasks_
+
+_Present Members: Blake, Donghyun, Gurpreet, Jason, Maric_
+
+Tasks Before Final Submission (code) 
+- [x] Input/output handling
+- [x] Algorithm Design and implementation
+- [ ] Visualization
+- [ ] Parallelization
+
+# Today 
+##  Discussion 
+
+Potential Pruning Techniques 
+ - Oliver’s research paper 
+ - Different heuristics (such as using yesterdays greedy algorithm to create an initial upper bound)
+
+
+## To DO 
+Visualization (Gurpreet, Maric, Blake)
+ - JAVA FX
+
+Parallelization (Jason, Donghyun)
+ - Threading
+
+Test Cases 
+ - Work them out by hand - make the nodes (weights of edges as well) reasonable please. 
+For 1,2,3,4 processors for the node that you were assigned to
+
+
+Comment on own section of Code
+
+
+
+
+-------------------------------------------------------------------------------
