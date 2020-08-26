@@ -28,24 +28,32 @@ public class MakeTree {
                 nodeProcessorComb = a;
             }
         }
+
         //Loop through various Processors
-        for(int y=0;y<=_numOfProcessors;y++){
+        for(int y=0;y<_numOfProcessors;y++){
             Node node = _nodesList.get(index);
             Processor processor = _processorList.get(y);
             scheduleNodeToProcessor( node, processor);
-            nodeProcessorComb = nodeProcessorComb + y;
-            currentPath.add(nodeProcessorComb);
+            currentPath.add(nodeProcessorComb+ (y+1));
             int _duration = findFinishingTime(node, processor);
-            if (_duration <_upperBound){
+            if (_duration <= _upperBound){
                 if(nodeNumber == (_nodesList.size()-1)){
                     _upperBound=_duration;
                     _currentBest=currentPath;
+                    for (Processor i: _processorList){
+                        i.set_optimalNodeListNode();
+                    }
                 }
                 else {
                     nodeNumber++;
                     makeTree(top, nodeNumber, currentPath);
                     nodeNumber--;
+                    if (nodeNumber == 0){
+                        break;
+                    }
                 }
+                processor.removeNode(node);
+                currentPath.remove(nodeNumber);
             }else {
                 currentPath.remove(nodeNumber);
                 processor.removeNode(node);
@@ -73,21 +81,15 @@ public class MakeTree {
         }
         // add the node to scheduled node
         _scheduledNodes.add(node);
-        //remove from the nodelist
-        _nodesList.remove(node);
+
     }
 
     private static int findFinishingTime(Node node, Processor processor){
         ArrayList<Node> parentNodes = node.getincomingNodes();
         int latestFinTime = 0;
         int tempFinTime = 0;
-        int FinTimeSameProcessor = processor.get_nodeList().size() + node.getWeight();;
+        int FinTimeSameProcessor = processor.get_nodeList().size();
         int tempEdgeWeight = 0;
-
-        //Check if all its parents are scheduled
-        if(!_scheduledNodes.containsAll(parentNodes)){
-            return -1;
-        }
 
         //If all parents are scheduled in the input processor, no transmission time is required.
         if(processor.get_nodeList().containsAll(parentNodes)){
