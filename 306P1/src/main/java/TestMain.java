@@ -1,10 +1,12 @@
 import com.paypal.digraph.parser.GraphEdge;
 import com.paypal.digraph.parser.GraphNode;
 import com.paypal.digraph.parser.GraphParser;
+import sun.util.resources.cldr.ext.CurrencyNames_cu;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -16,6 +18,9 @@ public class TestMain {
     private static ArrayList<Processor> processorList = new ArrayList<>();
     private static int _numOfProcessors;
     private static int isParallel = -1;
+    private static int _nodeNumber =0;
+    private static ArrayList<String> _currentBest = new ArrayList<>();
+    private static int _upperBound;
     private static boolean isVisualise = false;
     private static String isOutput = "output.dot";
 
@@ -81,13 +86,50 @@ public class TestMain {
 
         // test valid algorithm
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
-        int upperBound = va.computeGreedyFinishingTime();
+        _upperBound = va.computeGreedyFinishingTime();
         //print output
 
-        System.out.println("up = "+upperBound);
+        System.out.println("up = "+_upperBound);
 
+        for (String top: Topologies){
+            ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
+            makeTree(top, _nodeNumber, _currentPath);
+        }
         outputToDotFile();
+    }
 
+    private static void makeTree(String top, int nodeNumber, ArrayList<String> currentPath) {
+        int index=0;
+
+        String nodeProcessorComb = "";
+        //Retrieve the index of the Node at string from nodesList
+        for (Node i: nodesList){
+            String a = String.valueOf(top.charAt(nodeNumber));
+            if (a.equals(i.getName()){
+                index=nodesList.indexOf(i);
+                nodeProcessorComb = a;
+            }
+        }
+        //Loop through various Processors
+        for(int y=1;y<=_numOfProcessors;y++){
+            //Schedule _nodesList.indexof(i) to processor y
+            nodeProcessorComb = nodeProcessorComb + y;
+                currentPath.add(nodeProcessorComb);
+            if (/**getFinishingTime() <upperBound**/){
+                if(nodeNumber == (nodesList.size()-1)){
+                    /**_upperBound=getFinishingTime();**/
+                    _currentBest=currentPath;
+                }
+                else {
+                    nodeNumber++;
+                    makeTree(top, nodeNumber, currentPath);
+                    nodeNumber--;
+                }
+            }else {
+                currentPath.remove(nodeNumber);
+                //removeNodeFromProcessor();
+            }
+        }
     }
 
 
