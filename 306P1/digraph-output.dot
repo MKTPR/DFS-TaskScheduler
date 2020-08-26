@@ -1,8 +1,8 @@
 digraph digraph-output {
 		a		 [Weight=2,Start=none,Processor=none];
-		b		 [Weight=2,Start=none,Processor=none];
+		b		 [Weight=20,Start=none,Processor=none];
 		a -> b	 [Weight=3];
-		c		 [Weight=2,Start=none,Processor=none];
+		c		 [Weight=20,Start=none,Processor=none];
 		a -> c	 [Weight=1];
 		d		 [Weight=3,Start=none,Processor=none];
 		b -> d	 [Weight=1];

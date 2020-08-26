@@ -49,7 +49,7 @@ public class MakeTree {
                     makeTree(top, nodeNumber, currentPath);
                     nodeNumber--;
                     if (nodeNumber == 0){
-                        break;
+                        y= y+ _numOfProcessors;
                     }
                 }
                 processor.removeNode(node);

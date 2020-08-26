@@ -23,7 +23,8 @@ public class Node {
     //Records the weight of an object as an int
     public void setWeight(String weight){
         String split = (weight.split("="))[1];
-        _weight = Character.getNumericValue(split.charAt(0));
+        String split2 = split.replace("}", "");
+        _weight = Integer.parseInt(split2);
     }
 
     //Adds an incoming node name(String) into an arraylist
