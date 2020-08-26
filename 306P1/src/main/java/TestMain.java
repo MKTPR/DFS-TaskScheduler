@@ -92,6 +92,9 @@ public class TestMain {
         for (String top: Topologies){
             ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
             MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
+            if (_upperBound>tree.get_upperBound()){
+                _upperBound=tree.get_upperBound();
+            }
             tree.makeTree(top, _nodeNumber, _currentPath);
         }
 
@@ -103,6 +106,7 @@ public class TestMain {
                 }
             }
         }
+        System.out.println("up = "+_upperBound);
         outputToDotFile();
     }
 

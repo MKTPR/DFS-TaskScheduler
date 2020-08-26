@@ -125,7 +125,8 @@ public class MakeTree {
         return Math.max(latestFinTime, FinTimeSameProcessor);
     }
 
-    public ArrayList<String> get_currentBest(){
-        return _currentBest;
+
+    public int get_upperBound(){
+        return _upperBound;
     }
 }
