@@ -40,7 +40,7 @@ public class TestMain {
         //Parse input .dot file
         parseGraphInput(input);
         nodesListOriginal = new ArrayList<>(nodesList);
-        //Testing to create a 5 new processor
+
         createNewProcessor(_numOfProcessors);
 
         if (args.length > 2){
