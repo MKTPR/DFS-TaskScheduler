@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MakeTree {
 
@@ -8,6 +10,9 @@ public class MakeTree {
     private static ArrayList<Node> _scheduledNodes = new ArrayList<Node>();
     private static int _numOfProcessors;
     private static int _upperBound;
+    private static String[] mapTemp = {"a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
+            "w","x","y","z"};
+    private static List<String> map = Arrays.asList(mapTemp);
 
     public MakeTree(ArrayList<Node> nodeList, ArrayList<Processor> processorList, int numOfProcessors, int upperBound){
         _nodesList=nodeList;
@@ -22,7 +27,8 @@ public class MakeTree {
 
         //Retrieve the index of the Node at string from nodesList
         for (Node i: _nodesList){
-            String a = String.valueOf(top.charAt(nodeNumber));
+            String x = String.valueOf(top.charAt(nodeNumber));
+            String a = _nodesList.get(map.indexOf(x)).getName();
             if (a.equals(i.getName())){
                 index=_nodesList.indexOf(i);
                 nodeProcessorComb = a;

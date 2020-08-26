@@ -21,6 +21,8 @@ public class TestMain {
     private static int _upperBound;
     private static boolean isVisualise = false;
     private static String isOutput = "output.dot";
+    private static String[] map = {"a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
+    "w","x","y","z"};
 
     private static ArrayList<String> perms = new ArrayList<String>();
     private static ArrayList<String> Topologies = new ArrayList<String>();
@@ -255,7 +257,7 @@ public class TestMain {
         while (unvisited.size() > 0){
             for(Node node : unvisited){
                 if(visited.containsAll(node.getincomingNodes())){
-                    topology += node.getName();
+                    topology += map[nodesList.indexOf(node)];
                     temp.add(node);
                 }
             }
