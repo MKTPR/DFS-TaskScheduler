@@ -80,16 +80,12 @@ public class TestMain {
 //        printGraphInfo();
 
         // test valid algorithm
-        ValidAlgorithm va = new ValidAlgorithm(nodesList, edgesList, processorList);
-        ArrayList<Processor> scheduledProcessors = va.run();
+        GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
+        int upperBound = va.computeGreedyFinishingTime();
         //print output
-        for (Processor processor : scheduledProcessors) {
-            //System.out.println("----Processor number: " + processor.get_processorNumber() + " - Schedule----");
-            for (Node node : processor.get_nodeList()) {
-                node.setProcessor(processor);
-                //System.out.println(node.getName());
-            }
-        }
+
+        System.out.println("up = "+upperBound);
+
         outputToDotFile();
 
     }
