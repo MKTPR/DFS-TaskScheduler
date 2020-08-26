@@ -22,7 +22,8 @@ public class Edge {
     //Sets the weight of the edge as an integer
     public void setWeight(String weight){
         String split = (weight.split("="))[1];
-        _weight = Character.getNumericValue(split.charAt(0));
+        String split2 = split.replace("}", "");
+        _weight = Integer.parseInt(split2);
     }
 
     public Node getStartNode(){
