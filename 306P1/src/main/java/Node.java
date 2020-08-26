@@ -75,7 +75,7 @@ public class Node {
             startTime = "none";
         }else{
             processor = _process.get_processorNumber();
-            startTime = Integer.toString(_process.get_nodeList().indexOf(this));
+            startTime = Integer.toString(_process.get_optimalNodeList().indexOf(this));
         }
         String nodeprint = "";
         for(Node iNode : _incomingNodes){

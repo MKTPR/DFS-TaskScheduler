@@ -42,6 +42,10 @@ public class Processor {
         return _nodeList;
     }
 
+    public ArrayList<Node> get_optimalNodeList(){
+        return _optimalNodeList;
+    }
+
     public String get_processorNumber(){
         return _processorNumber;
     }

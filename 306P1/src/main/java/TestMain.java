@@ -94,6 +94,15 @@ public class TestMain {
             MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
             tree.makeTree(top, _nodeNumber, _currentPath);
         }
+
+        for (Processor processor : processorList) {
+            for (int i = 0; i < processor.get_optimalNodeList().size(); i++) {
+                if (processor.get_optimalNodeList().get(i) != null) {
+                    Node node = processor.get_optimalNodeList().get(i);
+                    node.setProcessor(processor);
+                }
+            }
+        }
         outputToDotFile();
     }
 
