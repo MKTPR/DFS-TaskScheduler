@@ -93,12 +93,11 @@ public class TestMain {
 
         for (String top: Topologies){
             ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
-            MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors);
+            MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
             tree.makeTree(top, _nodeNumber, _currentPath);
         }
         outputToDotFile();
     }
-
 
     private static void log(String s) {
         System.out.println(s);
@@ -297,5 +296,9 @@ public class TestMain {
                 permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, n));
         }
     }
+
+    /**
+     *
+     */
 
 }

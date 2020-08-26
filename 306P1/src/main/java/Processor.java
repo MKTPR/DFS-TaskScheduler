@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Processor {
 
@@ -17,6 +18,10 @@ public class Processor {
         for (int i=1;i<=duration;i++) {
             _nodeList.add(dNode);
         }
+    }
+
+    public void removeNode(Node dNode){
+        _nodeList.removeIf(dNode::equals);
     }
 
     public ArrayList<Node> get_nodeList(){
