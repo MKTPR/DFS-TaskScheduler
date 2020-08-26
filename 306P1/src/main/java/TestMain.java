@@ -16,6 +16,9 @@ public class TestMain {
     private static ArrayList<Processor> processorList = new ArrayList<>();
     private static int _numOfProcessors;
     private static int isParallel = -1;
+    private static int _nodeNumber =0;
+    private static ArrayList<String> _currentBest = new ArrayList<>();
+    private static int _upperBound;
     private static boolean isVisualise = false;
     private static String isOutput = "output.dot";
 
@@ -81,15 +84,27 @@ public class TestMain {
 
         // test valid algorithm
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
-        int upperBound = va.computeGreedyFinishingTime();
+        _upperBound = va.computeGreedyFinishingTime();
         //print output
 
-        System.out.println("up = "+upperBound);
+        System.out.println("up = "+_upperBound);
 
+        for (String top: Topologies){
+            ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
+            MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
+            tree.makeTree(top, _nodeNumber, _currentPath);
+        }
+
+        for (Processor processor : processorList) {
+            for (int i = 0; i < processor.get_optimalNodeList().size(); i++) {
+                if (processor.get_optimalNodeList().get(i) != null) {
+                    Node node = processor.get_optimalNodeList().get(i);
+                    node.setProcessor(processor);
+                }
+            }
+        }
         outputToDotFile();
-
     }
-
 
     private static void log(String s) {
         System.out.println(s);
@@ -288,5 +303,9 @@ public class TestMain {
                 permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, n));
         }
     }
+
+    /**
+     *
+     */
 
 }
