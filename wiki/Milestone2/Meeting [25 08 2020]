@@ -1,0 +1,55 @@
+--------------------------------------------------------------------------------
+## 25/08/2020 Overview 
+
+_planned meeting to discuss and brainstorm optimal algorithm_
+
+_Present Members: Blake, Donghyun, Gurpreet, Jason, Maric_
+
+Tasks Before Final Submission (code) 
+- [ ] Input/output handling
+- [ ] Algorithm Design and implementation
+- [ ] Visualization
+- [ ] Parallelization
+
+# Today 
+##  Discussion 
+
+algorithm to quickly find one initial schedule that further searches can be based off... 
+
+HIGH TRANSMISSION WEIGHT ON SAME PROCESSOR  (GREEDY)
+
+While there is unscheduled nodes {
+Get available nodes
+if(available node = 1) {
+Schedule the node in the same processor
+} else { 
+schedule the node with the higher transmission weight* on the same processor. 
+And schedule remaining nodes in free processor(s)
+}
+}
+
+## To DO 
+Form a Solution Tree from the .dot input 
+Different Heuristics to find valid solution (one is already up there) + Some bound that we can use for pruning
+
+
+Wednesday 
+ - Optimal Algorithm
+ - implementation
+
+Thursday 
+ - Parallelisation
+ - visualisation
+
+Friday
+ - Visualization continued
+ - Optimization
+
+Saturday
+ - Report Writing
+ - Lectures
+
+
+
+-------------------------------------------------------------------------------
+
