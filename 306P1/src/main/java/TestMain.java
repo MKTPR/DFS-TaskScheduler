@@ -87,7 +87,7 @@ public class TestMain {
         };
         vThread.start(); //Start visualization
 
-        //Create worker thread
+        //Create worker thread. This code will only run if isParallel > 2
         for(int i=0; i<isParallel;i++){
             System.out.println(i);
             Thread t = new Thread("wThread:"+String.valueOf(i)){
