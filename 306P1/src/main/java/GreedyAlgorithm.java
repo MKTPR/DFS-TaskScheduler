@@ -57,7 +57,6 @@ public class GreedyAlgorithm {
         NodeProcessor nodeProcessor;
         while (_nodeList.size() > 0) {
             // get a list of nodes with NO incoming edges
-
             AvailableNode(availableNode);
             nodeProcessor = findEarliestFinishingNodeProcessor(availableNode);
             scheduleNodeToProcessor(nodeProcessor);
@@ -74,11 +73,8 @@ public class GreedyAlgorithm {
         int timeDifference = finTime - processor.get_nodeList().size();
 
         if(timeDifference == node.getWeight()){
-         //   System.out.println("same");
             processor.setNode(node, node.getWeight());
         }else{
-        //    System.out.println("diff");
-        //     System.out.println(timeDifference);
             //add idle time to processor
             for(int i=0; i<(timeDifference - node.getWeight());i++){
                 processor.get_nodeList().add(null);
@@ -91,12 +87,6 @@ public class GreedyAlgorithm {
         _scheduledNodes.add(node);
         //remove from the nodelist
         _nodeList.remove(node);
-
-    //    System.out.print(node.getName()+" ");
-    //    System.out.print(processor.get_nodeList().size() +  " ");
-    //   System.out.println(processor);
-    //    System.out.println("and");
-     //   System.out.println("and");
     }
 
     //This method finds transmission time of a node when it is scheduled in a particular processor.
@@ -115,7 +105,6 @@ public class GreedyAlgorithm {
 
         //If all parents are scheduled in the input processor, no transmission time is required.
         if(processor.get_nodeList().containsAll(parentNodes)){
-          //  System.out.println("1");
             return FinTimeSameProcessor;
         }
 
@@ -126,7 +115,6 @@ public class GreedyAlgorithm {
         for(Node pNode : parentNodes){
             for(Processor pProcessor:_processorList){
                 if(pProcessor.get_nodeList().contains(pNode) && !(pProcessor.get_processorNumber().equals(processor.get_processorNumber()))){
-               //     System.out.println("2");
                     //get edge cost (transmission cost)
                     for(Edge edge:node.get_incomingEdges()){
                         if(edge.getStartNode().equals(pNode)){
@@ -135,7 +123,6 @@ public class GreedyAlgorithm {
                     }
                     tempFinTime =
                             pProcessor.get_nodeList().lastIndexOf(pNode) + node.getWeight() + tempEdgeWeight+ 1;//get
-                  //  System.out.println(node.getName() +" "+tempFinTime+" "+pProcessor.get_nodeList().lastIndexOf(pNode) + " " + processor.toString());
                     // finishing time
                     if(tempFinTime > latestFinTime){
                         latestFinTime = tempFinTime;
@@ -143,7 +130,6 @@ public class GreedyAlgorithm {
                 }
             }
         }
-   //     System.out.println(Math.max(latestFinTime, FinTimeSameProcessor));
         return Math.max(latestFinTime, FinTimeSameProcessor);
     }
 
