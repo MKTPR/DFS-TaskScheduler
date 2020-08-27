@@ -285,7 +285,7 @@ public class TestMain {
         try{
             int counter = 0;
             writer = new PrintWriter(isOutput);
-            writer.println("digraph " + isOutput.split("\\.")[0] + " {");
+            writer.println("digraph " + "\"" + isOutput.split("\\.")[0] + "\"" + " {");
             for (Node node : nodesListOriginal){
                 if(counter == 0 ) {
                     writer.println("\t\t" + node.toString());
