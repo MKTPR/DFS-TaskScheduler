@@ -26,6 +26,7 @@ public class TestMain {
     private static int increment;
     private static boolean isVisualise = false;
     private static String isOutput = "output.dot";
+    private static ArrayList<Thread> threads = new ArrayList<>();
     private static String[] map = {"a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
     "w","x","y","z"};
     private static ArrayList<String> perms = new ArrayList<String>();
@@ -128,7 +129,9 @@ public class TestMain {
                             }
                         }
                 });
-                System.out.println(run.getName());run.start();
+                threads.add(run);
+                System.out.println(run.getName());
+                run.start();
             }
         }
 
@@ -142,6 +145,13 @@ public class TestMain {
         };
         vThread.start(); //Start visualization
          */
+        for (Thread i: threads){
+            while( i.isAlive()){
+                int k=0;
+                k++;
+            }
+        }
+
         if (isParallel<2) {
             for (String top : Topologies) {
                 ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
@@ -153,7 +163,7 @@ public class TestMain {
             }
         }
 
-        for (Processor processor : processorList) {
+        for (Processor processor : optimalProcessorList) {
             for (int i = 0; i < processor.get_optimalNodeList().size(); i++) {
                 if (processor.get_optimalNodeList().get(i) != null) {
                     Node node = processor.get_optimalNodeList().get(i);
