@@ -80,7 +80,12 @@ public class MakeTreeThreading {
             Processor processor = _processorList.get(y);
             scheduleNodeToProcessor( node, processor);
             currentPath.add(nodeProcessorComb+ (y+1));
-            int _duration = findFinishingTime(node, processor);
+            int _duration=0;
+            for (Processor p: _processorList){
+                if (p.get_nodeList().size()>_duration){
+                    _duration=p.get_nodeList().size();
+                }
+            }
             if (_duration <= _upperBound){
                 /**
                  * At the final recursion call (at the last Node), replace the upperBound
@@ -88,8 +93,10 @@ public class MakeTreeThreading {
                  * as well.
                  */
                 if(nodeNumber == (_nodesList.size()-1)){
-                    _upperBound=_duration;
-                    _currentBest=currentPath;
+                    if (_duration <= _upperBound) {
+                        _upperBound = _duration;
+                        _currentBest = currentPath;
+                    }
                     /**
                      * As processor and node states are altered by branching later,
                      * clone the current NodeList state to a optimal List to be used for

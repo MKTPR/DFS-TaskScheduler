@@ -41,7 +41,12 @@ public class MakeTree {
             Processor processor = _processorList.get(y);
             scheduleNodeToProcessor( node, processor);
             currentPath.add(nodeProcessorComb+ (y+1));
-            int _duration = findFinishingTime(node, processor);
+            int _duration=0;
+            for (Processor p: _processorList){
+                if (p.get_nodeList().size()>_duration){
+                    _duration=p.get_nodeList().size();
+                }
+            }
             if (_duration <= _upperBound){
                 if(nodeNumber == (_nodesList.size()-1)){
                     _upperBound=_duration;
@@ -131,6 +136,9 @@ public class MakeTree {
         return Math.max(latestFinTime, FinTimeSameProcessor);
     }
 
+    public ArrayList<Processor> get_processorList(){
+        return _processorList;
+    }
 
     public int get_upperBound(){
         return _upperBound;

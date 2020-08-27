@@ -52,12 +52,6 @@ public class Node {
     public ArrayList<Node> getincomingNodes(){
         return _incomingNodes;
     }
-    public ArrayList<Node> get_outgoingNodes(){
-        return _outgoingNodes;
-    }
-    public ArrayList<Edge> get_outgoingEdges(){
-        return _outgoingEdges;
-    }
     public ArrayList<Edge> get_incomingEdges(){
         return _incomingEdges;
     }

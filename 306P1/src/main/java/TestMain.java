@@ -115,7 +115,7 @@ public class TestMain {
             //Create worker thread. This code will only run if isParallel > 2
             for (int i = 0; i < isParallel; i++) {
                 Thread run = new Thread(() -> {
-                    int f = Character.getNumericValue(Thread.currentThread().getName().charAt(Thread.currentThread().getName().length() - 1));
+                    int f = Integer.parseInt(Thread.currentThread().getName());
                         for (int j = start.get(f); j<end.get(f);j++) {
 
                             String top = Topologies.get(j);
@@ -124,13 +124,12 @@ public class TestMain {
                             tree.makeTree(top, _nodeNumber, _currentPath);
                             if (_upperBound > tree.get_upperBound()) {
                                 _upperBound = tree.get_upperBound();
-                                System.out.println(tree.get_upperBound());
                                 optimalProcessorList = new ArrayList<>(tree.get_processorList());
                             }
                         }
                 });
+                run.setName(i+"");
                 threads.add(run);
-                System.out.println(run.getName());
                 run.start();
             }
         }
@@ -145,6 +144,7 @@ public class TestMain {
         };
         vThread.start(); //Start visualization
          */
+
         for (Thread i: threads){
             while( i.isAlive()){
                 int k=0;
@@ -159,6 +159,8 @@ public class TestMain {
                 tree.makeTree(top, _nodeNumber, _currentPath);
                 if (_upperBound > tree.get_upperBound()) {
                     _upperBound = tree.get_upperBound();
+                    optimalProcessorList = new ArrayList<>(tree.get_processorList());
+                    System.out.println(_upperBound);
                 }
             }
         }
@@ -171,6 +173,7 @@ public class TestMain {
                 }
             }
         }
+
         System.out.println("up = "+_upperBound);
         outputToDotFile();
     }
