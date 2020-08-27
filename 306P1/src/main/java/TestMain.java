@@ -79,6 +79,30 @@ public class TestMain {
 
         }
 
+        //Create visualization thread
+        Thread vThread = new Thread("vThread"){
+            public void run(){
+                //Visualization code here
+            };
+        };
+        vThread.start(); //Start visualization
+
+        //Create worker thread
+        for(int i=0; i<isParallel;i++){
+            System.out.println(i);
+            Thread t = new Thread("wThread:"+String.valueOf(i)){
+            public void run(){
+                System.out.println("Testing thread");
+                for(int i=0;i<10;i++){
+                    System.out.println(i);
+                }
+            }
+            };
+            System.out.println(t.getName() + " : " + t.getId());
+            t.start();
+        }
+
+
         //
         getTopologies(); //generates all topologies in the topologies arraylist
 
