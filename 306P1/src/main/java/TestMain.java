@@ -79,10 +79,8 @@ public class TestMain {
 
         }
 
+        //
         getTopologies(); //generates all topologies in the topologies arraylist
-
-        // Print graph information on console
-//        printGraphInfo();
 
         // test valid algorithm
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
