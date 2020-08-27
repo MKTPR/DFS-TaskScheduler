@@ -19,6 +19,9 @@ public class TestMain {
     private static int _nodeNumber =0;
     private static ArrayList<String> _currentBest = new ArrayList<>();
     private static int _upperBound;
+    private static int start;
+    private static int end;
+    private static int increment;
     private static boolean isVisualise = false;
     private static String isOutput = "output.dot";
     private static String[] map = {"a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
@@ -79,32 +82,6 @@ public class TestMain {
 
         }
 
-        //Create visualization thread
-        Thread vThread = new Thread("vThread"){
-            public void run(){
-                //Visualization code here
-            };
-        };
-        vThread.start(); //Start visualization
-
-        //Create worker thread. This code will only run if isParallel > 2
-        for(int i=0; i<isParallel;i++){
-            System.out.println(i);
-            Thread t = new Thread("wThread:"+String.valueOf(i)){
-            public void run(){
-                //After running getTopologies(), delegate scheduling a subset of resulting topologies to each thread
-                //Then each thread will schedule different topology
-                //Each thread will compare the resulting schedule with each other and  show the best schedule
-            }
-            };
-            System.out.println(t.getName() + " : " + t.getId());
-            t.start();
-        }
-
-
-        //
-        getTopologies(); //generates all topologies in the topologies arraylist
-
         // test valid algorithm
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
         _upperBound = va.computeGreedyFinishingTime();
@@ -112,12 +89,63 @@ public class TestMain {
 
         System.out.println("up = "+_upperBound);
 
-        for (String top: Topologies){
-            ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
-            MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
-            tree.makeTree(top, _nodeNumber, _currentPath);
-            if (_upperBound>tree.get_upperBound()){
-                _upperBound=tree.get_upperBound();
+        //
+        getTopologies(); //generates all topologies in the topologies arraylist
+
+
+        if (isParallel>=2) {
+            //7 /2 = increment = 3
+
+            increment = (Topologies.size() / isParallel);
+            start=0;
+            end=increment;
+
+
+            //Create worker thread. This code will only run if isParallel > 2
+            for (int i = 1; i < isParallel; i++) {
+                System.out.println(i);
+                Thread t = new Thread("wThread:" + String.valueOf(i)) {
+                    public void run() {
+                        for (int j = start; j<end;j++) {
+                            String top = Topologies.get(j);
+                            ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
+                            MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
+                            tree.makeTree(top, _nodeNumber, _currentPath);
+                            if (_upperBound > tree.get_upperBound()) {
+                                _upperBound = tree.get_upperBound();
+                            }
+                        }
+
+                    }
+                };
+                System.out.println(t.getName() + " : " + t.getId());
+                t.start();
+                start= start+increment;
+                end=end+increment;
+                if ((Topologies.size() - end) <increment){
+                    end = Topologies.size();
+                }
+            }
+        }
+
+        //Create visualization thread
+        /**
+         *
+        Thread vThread = new Thread("vThread"){
+            public void run(){
+                //Visualization code here
+            };
+        };
+        vThread.start(); //Start visualization
+         */
+        if (isParallel<2) {
+            for (String top : Topologies) {
+                ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
+                MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
+                tree.makeTree(top, _nodeNumber, _currentPath);
+                if (_upperBound > tree.get_upperBound()) {
+                    _upperBound = tree.get_upperBound();
+                }
             }
         }
 
