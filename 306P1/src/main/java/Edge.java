@@ -19,25 +19,35 @@ public class Edge {
 
     }
 
-    //Sets the weight of the edge as an integer
+    /**
+     *  Sets the weight of the edge as an integer
+     */
     public void setWeight(String weight){
         String split = (weight.split("="))[1];
         String split2 = split.replace("}", "");
         _weight = Integer.parseInt(split2);
     }
-
+    /**
+     * @return: Simple Getters for Nodes
+     */
     public Node getStartNode(){
         return _startNode;
     }
-
+    /**
+     * @return: Simple Getters for Nodes
+     */
     public Node getEndNode(){
         return _endNode;
     }
-
+    /**
+     * Simple Getters for nodeWeights used in calculations.
+     */
     public int getWeight(){
         return _weight;
     }
-
+    /**
+     * Simple setters for edges - startNode and endNodes
+     */
     public void setNodes(Node startNode, Node endNode){
         _startNode = startNode;
         _endNode = endNode;

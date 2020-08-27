@@ -91,7 +91,9 @@ public class TestMain {
 
         System.out.println("up = "+_upperBound);
 
-        //
+        /**
+         * generates all topologies in the topologies arraylist
+         */
         getTopologies(); //generates all topologies in the topologies arraylist
 
 
@@ -153,10 +155,18 @@ public class TestMain {
         }
 
         if (isParallel<2) {
+            /**
+             * Loops through various topology Strings in the Topologies arraylist to
+             * try all combination. Then calls on the makeTree method through the tree
+             * object.
+             */
             for (String top : Topologies) {
                 ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
                 MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
                 tree.makeTree(top, _nodeNumber, _currentPath);
+                /**
+                 * upperBound is constantly replaced with new ones.
+                 */
                 if (_upperBound > tree.get_upperBound()) {
                     _upperBound = tree.get_upperBound();
                     optimalProcessorList = new ArrayList<>(tree.get_processorList());
@@ -164,7 +174,10 @@ public class TestMain {
                 }
             }
         }
-
+        /**
+         * Loop through each processor to set the Node state to
+         * match the information in the optimalNodeList state.
+         */
         for (Processor processor : optimalProcessorList) {
             for (int i = 0; i < processor.get_optimalNodeList().size(); i++) {
                 if (processor.get_optimalNodeList().get(i) != null) {
@@ -175,6 +188,10 @@ public class TestMain {
         }
 
         System.out.println("up = "+_upperBound);
+
+        /**
+         * Output node state in .dot format.
+         */
         outputToDotFile();
     }
 
