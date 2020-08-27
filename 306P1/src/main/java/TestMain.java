@@ -2,6 +2,7 @@ import com.paypal.digraph.parser.GraphEdge;
 import com.paypal.digraph.parser.GraphNode;
 import com.paypal.digraph.parser.GraphParser;
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -14,23 +15,23 @@ public class TestMain {
     private static ArrayList<Node> nodesListOriginal = new ArrayList<Node>();
     private static ArrayList<Edge> edgesList = new ArrayList<Edge>();
     private static ArrayList<Processor> processorList = new ArrayList<>();
+    private static ArrayList<Processor> optimalProcessorList = new ArrayList<>();
     private static int _numOfProcessors;
     private static int isParallel = -1;
     private static int _nodeNumber =0;
     private static ArrayList<String> _currentBest = new ArrayList<>();
     private static int _upperBound;
-    private static int start;
-    private static int end;
+    private static ArrayList<Integer> start = new ArrayList<>();
+    private static ArrayList<Integer> end = new ArrayList<>();
     private static int increment;
     private static boolean isVisualise = false;
     private static String isOutput = "output.dot";
     private static String[] map = {"a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
     "w","x","y","z"};
-
     private static ArrayList<String> perms = new ArrayList<String>();
     private static ArrayList<String> Topologies = new ArrayList<String>();
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args)  throws Exception{
         if (args.length < 2){
             throw new Exception("invalid input: name of input file and number of cores required. \n " +
                     "Example input: java -jar scheduler.jar Input.dot 10 [OPTION]");
@@ -94,37 +95,40 @@ public class TestMain {
 
 
         if (isParallel>=2) {
-            //7 /2 = increment = 3
 
             increment = (Topologies.size() / isParallel);
-            start=0;
-            end=increment;
+            start.add(0);
+            end.add(increment);
 
+            for (int i= 0; i< (isParallel-1); i++ ){
+
+               if (end.size() == (isParallel-1)){
+                   start.add(start.get(i) + increment);
+                   end.add(Topologies.size());
+               } else {
+                   start.add(start.get(i) + increment);
+                   end.add((end.get(i) + increment));
+               }
+            }
 
             //Create worker thread. This code will only run if isParallel > 2
-            for (int i = 1; i < isParallel; i++) {
-                System.out.println(i);
-                Thread t = new Thread("wThread:" + String.valueOf(i)) {
-                    public void run() {
-                        for (int j = start; j<end;j++) {
+            for (int i = 0; i < isParallel; i++) {
+                Thread run = new Thread(() -> {
+                    int f = Character.getNumericValue(Thread.currentThread().getName().charAt(Thread.currentThread().getName().length() - 1));
+                        for (int j = start.get(f); j<end.get(f);j++) {
+
                             String top = Topologies.get(j);
                             ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
-                            MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
+                            MakeTreeThreading tree = new MakeTreeThreading(nodesList, processorList, _numOfProcessors, _upperBound);
                             tree.makeTree(top, _nodeNumber, _currentPath);
                             if (_upperBound > tree.get_upperBound()) {
                                 _upperBound = tree.get_upperBound();
+                                System.out.println(tree.get_upperBound());
+                                optimalProcessorList = new ArrayList<>(tree.get_processorList());
                             }
                         }
-
-                    }
-                };
-                System.out.println(t.getName() + " : " + t.getId());
-                t.start();
-                start= start+increment;
-                end=end+increment;
-                if ((Topologies.size() - end) <increment){
-                    end = Topologies.size();
-                }
+                });
+                System.out.println(run.getName());run.start();
             }
         }
 
