@@ -92,10 +92,9 @@ public class TestMain {
             System.out.println(i);
             Thread t = new Thread("wThread:"+String.valueOf(i)){
             public void run(){
-                System.out.println("Testing thread");
-                for(int i=0;i<10;i++){
-                    System.out.println(i);
-                }
+                //After running getTopologies(), delegate scheduling a subset of resulting topologies to each thread
+                //Then each thread will schedule different topology
+                //Each thread will compare the resulting schedule with each other and  show the best schedule
             }
             };
             System.out.println(t.getName() + " : " + t.getId());
