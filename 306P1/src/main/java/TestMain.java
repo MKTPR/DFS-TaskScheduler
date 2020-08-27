@@ -2,6 +2,7 @@ import com.paypal.digraph.parser.GraphEdge;
 import com.paypal.digraph.parser.GraphNode;
 import com.paypal.digraph.parser.GraphParser;
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -14,20 +15,24 @@ public class TestMain {
     private static ArrayList<Node> nodesListOriginal = new ArrayList<Node>();
     private static ArrayList<Edge> edgesList = new ArrayList<Edge>();
     private static ArrayList<Processor> processorList = new ArrayList<>();
+    private static ArrayList<Processor> optimalProcessorList = new ArrayList<>();
     private static int _numOfProcessors;
     private static int isParallel = -1;
     private static int _nodeNumber =0;
     private static ArrayList<String> _currentBest = new ArrayList<>();
     private static int _upperBound;
+    private static ArrayList<Integer> start = new ArrayList<>();
+    private static ArrayList<Integer> end = new ArrayList<>();
+    private static int increment;
     private static boolean isVisualise = false;
     private static String isOutput = "output.dot";
+    private static ArrayList<Thread> threads = new ArrayList<>();
     private static String[] map = {"a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
     "w","x","y","z"};
-
     private static ArrayList<String> perms = new ArrayList<String>();
     private static ArrayList<String> Topologies = new ArrayList<String>();
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args)  throws Exception{
         if (args.length < 2){
             throw new Exception("invalid input: name of input file and number of cores required. \n " +
                     "Example input: java -jar scheduler.jar Input.dot 10 [OPTION]");
@@ -40,7 +45,7 @@ public class TestMain {
         //Parse input .dot file
         parseGraphInput(input);
         nodesListOriginal = new ArrayList<>(nodesList);
-        //Testing to create a 5 new processor
+
         createNewProcessor(_numOfProcessors);
 
         if (args.length > 2){
@@ -79,11 +84,6 @@ public class TestMain {
 
         }
 
-        getTopologies(); //generates all topologies in the topologies arraylist
-
-        // Print graph information on console
-//        printGraphInfo();
-
         // test valid algorithm
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
         _upperBound = va.computeGreedyFinishingTime();
@@ -91,16 +91,81 @@ public class TestMain {
 
         System.out.println("up = "+_upperBound);
 
-        for (String top: Topologies){
-            ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
-            MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
-            tree.makeTree(top, _nodeNumber, _currentPath);
-            if (_upperBound>tree.get_upperBound()){
-                _upperBound=tree.get_upperBound();
+        //
+        getTopologies(); //generates all topologies in the topologies arraylist
+
+
+        if (isParallel>=2) {
+
+            increment = (Topologies.size() / isParallel);
+            start.add(0);
+            end.add(increment);
+
+            for (int i= 0; i< (isParallel-1); i++ ){
+
+               if (end.size() == (isParallel-1)){
+                   start.add(start.get(i) + increment);
+                   end.add(Topologies.size());
+               } else {
+                   start.add(start.get(i) + increment);
+                   end.add((end.get(i) + increment));
+               }
+            }
+
+            //Create worker thread. This code will only run if isParallel > 2
+            for (int i = 0; i < isParallel; i++) {
+                Thread run = new Thread(() -> {
+                    int f = Integer.parseInt(Thread.currentThread().getName());
+                        for (int j = start.get(f); j<end.get(f);j++) {
+
+                            String top = Topologies.get(j);
+                            ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
+                            MakeTreeThreading tree = new MakeTreeThreading(nodesList, processorList, _numOfProcessors, _upperBound);
+                            tree.makeTree(top, _nodeNumber, _currentPath);
+                            if (_upperBound > tree.get_upperBound()) {
+                                _upperBound = tree.get_upperBound();
+                                optimalProcessorList = new ArrayList<>(tree.get_processorList());
+                            }
+                        }
+                });
+                run.setName(i+"");
+                threads.add(run);
+                run.start();
             }
         }
 
-        for (Processor processor : processorList) {
+        //Create visualization thread
+        /**
+         *
+        Thread vThread = new Thread("vThread"){
+            public void run(){
+                //Visualization code here
+            };
+        };
+        vThread.start(); //Start visualization
+         */
+
+        for (Thread i: threads){
+            while( i.isAlive()){
+                int k=0;
+                k++;
+            }
+        }
+
+        if (isParallel<2) {
+            for (String top : Topologies) {
+                ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
+                MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
+                tree.makeTree(top, _nodeNumber, _currentPath);
+                if (_upperBound > tree.get_upperBound()) {
+                    _upperBound = tree.get_upperBound();
+                    optimalProcessorList = new ArrayList<>(tree.get_processorList());
+                    System.out.println(_upperBound);
+                }
+            }
+        }
+
+        for (Processor processor : optimalProcessorList) {
             for (int i = 0; i < processor.get_optimalNodeList().size(); i++) {
                 if (processor.get_optimalNodeList().get(i) != null) {
                     Node node = processor.get_optimalNodeList().get(i);
@@ -108,6 +173,7 @@ public class TestMain {
                 }
             }
         }
+
         System.out.println("up = "+_upperBound);
         outputToDotFile();
     }

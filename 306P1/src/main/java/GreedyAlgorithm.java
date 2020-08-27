@@ -78,7 +78,7 @@ public class GreedyAlgorithm {
             processor.setNode(node, node.getWeight());
         }else{
         //    System.out.println("diff");
-       //     System.out.println(timeDifference);
+        //     System.out.println(timeDifference);
             //add idle time to processor
             for(int i=0; i<(timeDifference - node.getWeight());i++){
                 processor.get_nodeList().add(null);

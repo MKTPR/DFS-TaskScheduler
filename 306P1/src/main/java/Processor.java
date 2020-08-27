@@ -14,6 +14,13 @@ public class Processor {
         pCount++;
     }
 
+    //Constructor of pNumber, changes int to a String
+    public Processor(Processor processor) {
+        _processorNumber= processor.get_processorNumber();
+
+    }
+
+
     //Adds a node to a working queue of a processor with regards of the duration.
     public void setNode(Node dNode, int duration){
         for (int i=1;i<=duration;i++) {
@@ -25,7 +32,7 @@ public class Processor {
         _optimalNodeList =new ArrayList<Node>(_nodeList);
     }
 
-    public void removeNode(Node dNode){
+    public synchronized void removeNode(Node dNode){
         int x = _nodeList.indexOf(dNode);
 
         for (int i =x-1 ; i>=0 ; i--){
