@@ -1,12 +1,14 @@
+package Algorithm;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MakeTreeThreading {
+public class MakeTree {
 
     private static ArrayList<String> _currentBest = new ArrayList<>();
     private static ArrayList<Node> _nodesList;
-    private ArrayList<Processor> _processorList = new ArrayList<Processor>();
+    private static ArrayList<Processor> _processorList;
     private static ArrayList<Node> _scheduledNodes = new ArrayList<Node>();
     private static int _numOfProcessors;
     private static int _upperBound;
@@ -23,14 +25,9 @@ public class MakeTreeThreading {
      * @param upperBound: Stores the duration of the optimal solution found (so far)
      *                  it is used to be compared against new values.
      */
-    public MakeTreeThreading(ArrayList<Node> nodeList, ArrayList<Processor> processorList, int numOfProcessors, int upperBound){
+    public MakeTree(ArrayList<Node> nodeList, ArrayList<Processor> processorList, int numOfProcessors, int upperBound){
         _nodesList=nodeList;
-
-        for (int i = 0; i < numOfProcessors; i++) {
-            Processor processor = new Processor(processorList.get(i));
-            _processorList.add(processor);
-        }
-
+        _processorList=processorList;
         _numOfProcessors= numOfProcessors;
         _upperBound=upperBound;
     }
@@ -48,13 +45,13 @@ public class MakeTreeThreading {
      * @param currentPath: Stores the current combination of node and processors
      *                   in a string. Helps for debugging, visualizing purposes.
      */
-    public void makeTree(String top, int nodeNumber, ArrayList<String> currentPath) {
+    public static void makeTree(String top, int nodeNumber, ArrayList<String> currentPath) {
         int index=0;
         String nodeProcessorComb = "";
 
-        /**Retrieve the index of the Node at string from nodesList.
+        /**Retrieve the index of the Algorithm.Node at string from nodesList.
          * The index is used later to obtain the pointer to the
-         * direct Node object.
+         * direct Algorithm.Node object.
          */
         for (Node i: _nodesList){
             String x = String.valueOf(top.charAt(nodeNumber));
@@ -67,13 +64,13 @@ public class MakeTreeThreading {
 
         /**
          * Loop through every processor with the currently
-         * selected Node.
+         * selected Algorithm.Node.
          */
         for(int y=0;y<_numOfProcessors;y++){
             Node node = _nodesList.get(index);
             /**
              * Assign processor pointers and node pointers
-             * Schedule the Node to the processor, find the
+             * Schedule the Algorithm.Node to the processor, find the
              * total duration of the current schedule,
              * then add combination to current path.
              */
@@ -88,15 +85,13 @@ public class MakeTreeThreading {
             }
             if (_duration <= _upperBound){
                 /**
-                 * At the final recursion call (at the last Node), replace the upperBound
+                 * At the final recursion call (at the last Algorithm.Node), replace the upperBound
                  * with the new optimal path duration and replace the _currentBest path
                  * as well.
                  */
                 if(nodeNumber == (_nodesList.size()-1)){
-                    if (_duration <= _upperBound) {
-                        _upperBound = _duration;
-                        _currentBest = currentPath;
-                    }
+                    _upperBound=_duration;
+                    _currentBest=currentPath;
                     /**
                      * As processor and node states are altered by branching later,
                      * clone the current NodeList state to a optimal List to be used for
@@ -109,14 +104,14 @@ public class MakeTreeThreading {
                 else {
                     /**
                      * Recursion call with a counter increment to make recursion call
-                     * for the next Node in the topology string. When the recursion call is
+                     * for the next Algorithm.Node in the topology string. When the recursion call is
                      * finished, the counter is decremented to show current position.
                      */
                     nodeNumber++;
                     makeTree(top, nodeNumber, currentPath);
                     nodeNumber--;
                     /**
-                     * In the case of the first Node, different processors do not have
+                     * In the case of the first Algorithm.Node, different processors do not have
                      * to be regarded, as it will create the same branching system.
                      */
                     if (nodeNumber == 0){
@@ -137,10 +132,10 @@ public class MakeTreeThreading {
         }
     }
 
-    private void scheduleNodeToProcessor(Node node, Processor processor){
+    private static void scheduleNodeToProcessor(Node node, Processor processor){
         //schedule the node to the processor
 
-        int finTime = this.findFinishingTime(node, processor);
+        int finTime = findFinishingTime(node, processor);
         int timeDifference = finTime - processor.get_nodeList().size();
 
         if(timeDifference == node.getWeight()){
@@ -160,7 +155,7 @@ public class MakeTreeThreading {
 
     }
 
-    private int findFinishingTime(Node node, Processor processor){
+    private static int findFinishingTime(Node node, Processor processor){
         ArrayList<Node> parentNodes = node.getincomingNodes();
         int latestFinTime = 0;
         int tempFinTime = 0;
@@ -201,11 +196,11 @@ public class MakeTreeThreading {
         return Math.max(latestFinTime, FinTimeSameProcessor);
     }
 
+    public ArrayList<Processor> get_processorList(){
+        return _processorList;
+    }
 
     public int get_upperBound(){
         return _upperBound;
-    }
-    public ArrayList<Processor> get_processorList(){
-        return  _processorList;
     }
 }

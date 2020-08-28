@@ -1,8 +1,10 @@
+package Algorithm;
+
 import java.util.ArrayList;
 
 /**
- * This class creates a Node object, which stores the name, weight
- * delegated processor and a list of incoming nodes. Node objects
+ * This class creates a Algorithm.Node object, which stores the name, weight
+ * delegated processor and a list of incoming nodes. Algorithm.Node objects
  * will be stored in an arraylist within the Main Class.
  */
 public class Node {
@@ -15,7 +17,7 @@ public class Node {
     private ArrayList<Edge> _incomingEdges =new ArrayList<Edge>();
 
 
-    //Constructor for a Node Object
+    //Constructor for a Algorithm.Node Object
     public Node(String Name){
         _name = Name;
     }
@@ -76,6 +78,6 @@ public class Node {
             nodeprint += iNode;
         }
         //System.out.println(nodeprint);
-        return _name + "\t\t" + " [Weight=" + _weight + ",Start=" + startTime + ",Processor=" + processor +"];";
+        return _name + "\t\t" + " [Weight=" + _weight + ",Start=" + startTime + ",Algorithm.Processor=" + processor +"];";
     }
 }

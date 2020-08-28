@@ -1,3 +1,5 @@
+package Algorithm;
+
 import com.paypal.digraph.parser.GraphEdge;
 import com.paypal.digraph.parser.GraphNode;
 import com.paypal.digraph.parser.GraphParser;
@@ -175,7 +177,7 @@ public class TestMain {
             }
         }
         /**
-         * Loop through each processor to set the Node state to
+         * Loop through each processor to set the Algorithm.Node state to
          * match the information in the optimalNodeList state.
          */
         for (Processor processor : optimalProcessorList) {
@@ -216,7 +218,7 @@ public class TestMain {
             for (GraphNode node : nodes.values()) {
 //                log(node.getId() + " " + node.getAttributes()); //log
 
-                //for each node name, create a new Node Object
+                //for each node name, create a new Algorithm.Node Object
                 Node vertex = new Node(node.getId());
 
                 //Set the weight of the Object
@@ -283,15 +285,15 @@ public class TestMain {
      * This method prints out useful information about the input graph
      */
     public static void printGraphInfo() {
-        System.out.println("---Node Info---");
+        System.out.println("---Algorithm.Node Info---");
         for (Node node : nodesList) {
             System.out.println(node);
         }
-        System.out.println("---Edge Info---");
+        System.out.println("---Algorithm.Edge Info---");
         for (Edge edge : edgesList) {
             System.out.println(edge);
         }
-        System.out.println("---Processor Info---");
+        System.out.println("---Algorithm.Processor Info---");
         for (Processor processor : processorList) {
             System.out.println(processor);
         }
