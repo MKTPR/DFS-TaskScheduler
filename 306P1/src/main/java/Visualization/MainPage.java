@@ -1,10 +1,14 @@
 package Visualization;
 
 
+import Algorithm.Edge;
+import Algorithm.Node;
 import Algorithm.Processor;
+import Algorithm.TestMain;
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -17,8 +21,7 @@ public class MainPage extends JFrame{
     private JPanel _topPanel;
     private JPanel _leftPanel;
     private JPanel _rightPanel;
-    private JPanel _bottomPanel;
-
+    private JPanel _bottomPanel;;
 
 
     public MainPage(ArrayList<Processor> optimalProcessorList, int upperBound) {
@@ -52,17 +55,11 @@ public class MainPage extends JFrame{
         _leftPanel.add(_scrollPane);
 
 
-
         //Right Panel - Add graph
-        ImageIcon image = new ImageIcon("line_graph.png");
-        Image largeLogo = image.getImage();
-        Image smallLogo = largeLogo.getScaledInstance(550, 350, java.awt.Image.SCALE_SMOOTH);
-        ImageIcon newLogo = new ImageIcon(smallLogo);
-        JLabel graph = new JLabel("", newLogo, JLabel.LEFT);
-        _rightPanel.add(graph);
+        CreateGraph graphMaker = new CreateGraph(TestMain.getNodesList(), TestMain.getEdgesList());
+        JPanel visualGraph = graphMaker.produceJPanel();
+        _rightPanel.add(visualGraph);
 
-        //JLabel randomText = new JLabel();
-        //randomText.setText("Some random text here");
 
         setLocationRelativeTo(null);
         setVisible(true);

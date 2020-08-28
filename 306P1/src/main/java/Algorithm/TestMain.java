@@ -41,6 +41,9 @@ public class TestMain {
     public static ArrayList<Node> getNodesList(){
         return nodesList;
     }
+    public static ArrayList<Edge> getEdgesList(){
+        return edgesList;
+    }
 
     public static void main(String[] args)  throws Exception{
         if (args.length < 2){
@@ -57,13 +60,6 @@ public class TestMain {
         nodesListOriginal = new ArrayList<>(nodesList);
 
         createNewProcessor(_numOfProcessors);
-
-        /**
-         * TEST GRAPH VIZ
-         */
-        CreateGraph cg = new CreateGraph(nodesList, edgesList);
-        cg.diplayGraph();
-
 
         if (args.length > 2){
             for (int i = 2; i < args.length; i++){

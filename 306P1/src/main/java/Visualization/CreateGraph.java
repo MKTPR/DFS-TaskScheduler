@@ -130,7 +130,7 @@ public class CreateGraph {
         JPanel myJPanel = new JPanel();
         myJPanel.setLayout(new BorderLayout());
         Viewer v = new Viewer(this._graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
-        View view = v.addDefaultView(false);
+        v.enableAutoLayout();
         ViewPanel vp = v.addDefaultView(false);
         myJPanel.add(vp, BorderLayout.CENTER);
         return myJPanel;
