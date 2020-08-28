@@ -88,7 +88,7 @@ public class TestMain {
 
         }
 
-        MainPage page = new MainPage();
+
         // test valid algorithm
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
         _upperBound = va.computeGreedyFinishingTime();
@@ -96,10 +96,19 @@ public class TestMain {
 
         System.out.println("up = "+_upperBound);
 
+        optimalProcessorList = new ArrayList<>(va.get_processorList());
+
+        for (Processor l: optimalProcessorList){
+            l.set_optimalNodeListNode();
+        }
+
+        MainPage page = new MainPage(optimalProcessorList, _upperBound);
+
         /**
          * generates all topologies in the topologies arraylist
          */
         getTopologies(); //generates all topologies in the topologies arraylist
+
 
 
         if (isParallel>=2) {

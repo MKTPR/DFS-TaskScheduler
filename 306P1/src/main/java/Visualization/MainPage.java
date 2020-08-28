@@ -1,16 +1,13 @@
 package Visualization;
 
 
+import Algorithm.Processor;
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.*;
+import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 
@@ -24,7 +21,7 @@ public class MainPage extends JFrame{
 
 
 
-    public MainPage() {
+    public MainPage(ArrayList<Processor> optimalProcessorList, int upperBound) {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 700);
@@ -37,7 +34,7 @@ public class MainPage extends JFrame{
 
         statusPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        ScrollPane _scrollPane= new ScrollPane();
+
 
         JLabel title = new JLabel("TaskScheduler", JLabel.CENTER);
         title.setFont(new Font("serif", Font.BOLD, 20));
@@ -45,8 +42,17 @@ public class MainPage extends JFrame{
         // First row of top panel
         _topPanel.add(title);
 
+
+        TableView _scheduledTable = new TableView();
+        _scheduledTable.initialiseView(optimalProcessorList, upperBound);
+
+        JTable _JTable= new JTable(_scheduledTable);
+        JScrollPane _scrollPane= new JScrollPane();
+        _scrollPane.add(_JTable);
         //Left Panel - Scroll panel
         _leftPanel.add(_scrollPane);
+
+
 
         //Right Panel - Add graph
         ImageIcon image = new ImageIcon("line_graph.png");

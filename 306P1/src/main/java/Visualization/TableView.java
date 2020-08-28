@@ -52,7 +52,11 @@ public class TableView extends AbstractTableModel {
         fireTableDataChanged();
         for (int i = 0; i < _currentBestTime; i++) {
             for (int j = 1; j <= _optimalProcessorList.size(); j++) {
-                _data[i][j] = _optimalProcessorList.get(j-1).get_optimalNodeList().get(i).getName();
+               if((_optimalProcessorList.get(j-1).get_optimalNodeList().size() > i)) {
+                   if (!(_optimalProcessorList.get(j-1).get_optimalNodeList().get(i).getName()==null)){
+                       _data[i][j] = _optimalProcessorList.get(j - 1).get_optimalNodeList().get(i).getName();
+                   }
+               }
             }
         }
 
@@ -73,6 +77,7 @@ public class TableView extends AbstractTableModel {
     }
 
 
+    @Override
     public String getColumnName(int i){
         return _columnNames[i];
     }

@@ -41,13 +41,11 @@ public class GreedyAlgorithm {
             }
         }
 
-        emptyScheduledNodesInProcesses();
-
         return duration;
     }
 
     //This method clears scheduled nodeLists in all processors.
-    private void emptyScheduledNodesInProcesses(){
+    public void emptyScheduledNodesInProcesses(){
         for(Processor processor:_processorList){
             processor.get_nodeList().clear();
         }
@@ -171,4 +169,7 @@ public class GreedyAlgorithm {
         }
     }
 
+    public ArrayList<Processor> get_processorList(){
+        return _processorList;
+    }
 }
