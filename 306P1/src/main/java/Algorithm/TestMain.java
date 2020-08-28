@@ -141,6 +141,7 @@ public class TestMain {
                             tree.makeTree(top, _nodeNumber, _currentPath);
                             if (_upperBound > tree.get_upperBound()) {
                                 _upperBound = tree.get_upperBound();
+                                System.out.println(_upperBound);
                                 optimalProcessorList = new ArrayList<>(tree.get_processorList());
                                 TableView _TV = TableView.getInstance();
                                 _TV.changeData(optimalProcessorList,_upperBound);
