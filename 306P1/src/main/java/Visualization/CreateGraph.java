@@ -11,8 +11,9 @@ public class CreateGraph {
     ArrayList<Algorithm.Edge> _edgesList;
 
     CreateGraph(){
-        
+
     }
+
     // Get list of all nodes
     public void inputNode(){
         for(Algorithm.Node _node:Algorithm.TestMain.getNodeList()){

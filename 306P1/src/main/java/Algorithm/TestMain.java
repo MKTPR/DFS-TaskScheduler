@@ -200,6 +200,9 @@ public class TestMain {
     public static ArrayList<Node> getNodeList(){
         return nodesList;
     }
+    public static ArrayList<Edge> getEdgeList(){
+        return edgesList;
+    }
 
     private static void log(String s) {
         System.out.println(s);
