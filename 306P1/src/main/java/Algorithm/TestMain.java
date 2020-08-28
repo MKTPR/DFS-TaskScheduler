@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
+import Visualization.CreateGraph;
 
 public class TestMain {
 
@@ -37,6 +38,10 @@ public class TestMain {
     private static ArrayList<String> perms = new ArrayList<String>();
     private static ArrayList<String> Topologies = new ArrayList<String>();
 
+    public static ArrayList<Node> getNodesList(){
+        return nodesList;
+    }
+
     public static void main(String[] args)  throws Exception{
         if (args.length < 2){
             throw new Exception("invalid input: name of input file and number of cores required. \n " +
@@ -52,6 +57,13 @@ public class TestMain {
         nodesListOriginal = new ArrayList<>(nodesList);
 
         createNewProcessor(_numOfProcessors);
+
+        /**
+         * TEST GRAPH VIZ
+         */
+        CreateGraph cg = new CreateGraph(nodesList, edgesList);
+        cg.diplayGraph();
+
 
         if (args.length > 2){
             for (int i = 2; i < args.length; i++){
@@ -213,6 +225,13 @@ public class TestMain {
          * Output node state in .dot format.
          */
         outputToDotFile();
+    }
+
+    public static ArrayList<Node> getNodeList(){
+        return nodesList;
+    }
+    public static ArrayList<Edge> getEdgeList(){
+        return edgesList;
     }
 
     private static void log(String s) {
