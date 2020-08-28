@@ -2,9 +2,14 @@ package Visualization;
 
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 import org.graphstream.ui.swingViewer.ViewPanel;
+import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
+
+import javax.swing.*;
 
 public class CreateGraph {
     Graph _graph = new SingleGraph("Graph");
@@ -65,14 +70,15 @@ public class CreateGraph {
     public void setGraphVisual(Graph graph){
         this._graph.setAttribute("stylesheet",
                 "node { "
-                        + "     shape: circle; "
-                        + "		size: 50px; "
+                        + "		text-size: 20px;"
+                        + "		text-padding: 7px;"
                         + "     stroke-mode: plain; "
                         + "		stroke-color: black;"
                         + "		fill-color: white;"
                         + "		text-alignment: center;"
-                        + "		text-size: 20px;"
-                        + "		text-padding: 7px;"
+                        + "     shape: circle; "
+                        + "		size: 50px; "
+
                         + "} "
                         + "edge { "
                         + "		fill-color: black; "
@@ -101,5 +107,20 @@ public class CreateGraph {
         }
         return this._gEdgesList;
     }
+
+    /**
+     * This method returns Jpanel to insert View into Java Swing GUI
+     * @return
+     */
+    public JPanel produceJPanel(){
+        JPanel myJPanel = new JPanel();
+        myJPanel.setLayout(new BorderLayout());
+        Viewer v = new Viewer(this._graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        View view = v.addDefaultView(false);
+        ViewPanel vp = v.addDefaultView(false);
+        myJPanel.add(vp, BorderLayout.CENTER);
+        return myJPanel;
+    }
+
 }
 
