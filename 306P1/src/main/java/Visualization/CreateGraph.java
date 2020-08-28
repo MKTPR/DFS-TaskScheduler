@@ -19,7 +19,7 @@ public class CreateGraph {
     ArrayList<Edge> _gEdgesList = new ArrayList<>();
 
     public CreateGraph(ArrayList<Algorithm.Node> nodesList, ArrayList<Algorithm.Edge> edgesList){
-        System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         _nodesList = nodesList;
         _edgesList = edgesList;
 
@@ -54,6 +54,7 @@ public class CreateGraph {
         saveEdgesFromGraph(this._graph);
         setGraphVisual(this._graph);
         setNameToNodes();
+        setNameToEdges();
         return this._graph;
     }
 
@@ -67,22 +68,35 @@ public class CreateGraph {
     }
 
 
+    public void setNameToEdges(){
+        for(Edge edge:this._graph.getEachEdge()) {
+            edge.setAttribute("ui.label", edge.getId());
+        }
+    }
+
+    /**
+     * This method set css for the graph
+     * @param graph
+     */
     public void setGraphVisual(Graph graph){
         this._graph.setAttribute("stylesheet",
+
                 "node { "
                         + "		text-size: 20px;"
                         + "		text-padding: 7px;"
+                        + "     text-color: white;"
                         + "     stroke-mode: plain; "
                         + "		stroke-color: black;"
-                        + "		fill-color: white;"
+                        + "		fill-color: black;"
                         + "		text-alignment: center;"
                         + "     shape: circle; "
                         + "		size: 50px; "
-
                         + "} "
                         + "edge { "
-                        + "		fill-color: black; "
-                        + "}");
+                        + "		fill-color: rgb(120,120,120); "
+                        + "		text-size: 15px;"
+                        + "}"
+        );
     }
 
 
