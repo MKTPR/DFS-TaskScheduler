@@ -1,3 +1,5 @@
+package Algorithm;
+
 public class NodeProcessor {
     private Node node;
     private Processor processor;

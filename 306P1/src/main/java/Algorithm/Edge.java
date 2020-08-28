@@ -1,6 +1,8 @@
+package Algorithm;
+
 /**
- * This class creates an Edge object, which stores the startNode, endNode
- * and the weight of the edge. Edge objects will be stored in an arraylist
+ * This class creates an Algorithm.Edge object, which stores the startNode, endNode
+ * and the weight of the edge. Algorithm.Edge objects will be stored in an arraylist
  * within the Main Class.
  */
 public class Edge {
@@ -9,7 +11,7 @@ public class Edge {
     private int _weight;
 
 
-    //Constructor of an Edge object
+    //Constructor of an Algorithm.Edge object
     public Edge(Node startNode, Node endNode){
         _startNode = startNode;
         _endNode = endNode;

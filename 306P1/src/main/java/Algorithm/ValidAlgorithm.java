@@ -1,4 +1,9 @@
-import java.lang.reflect.Array;
+package Algorithm;
+
+import Algorithm.Edge;
+import Algorithm.Node;
+import Algorithm.Processor;
+
 import java.util.ArrayList;
 
 public class ValidAlgorithm {

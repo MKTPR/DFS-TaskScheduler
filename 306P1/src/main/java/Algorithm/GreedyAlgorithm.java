@@ -1,4 +1,5 @@
-import java.lang.reflect.Array;
+package Algorithm;
+
 import java.util.ArrayList;
 
 public class GreedyAlgorithm {
