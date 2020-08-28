@@ -3,6 +3,7 @@ package Algorithm;
 import com.paypal.digraph.parser.GraphEdge;
 import com.paypal.digraph.parser.GraphNode;
 import com.paypal.digraph.parser.GraphParser;
+import Visualization.MainPage;
 
 
 import java.io.FileInputStream;
@@ -86,6 +87,7 @@ public class TestMain {
 
         }
 
+        MainPage page = new MainPage();
         // test valid algorithm
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
         _upperBound = va.computeGreedyFinishingTime();
