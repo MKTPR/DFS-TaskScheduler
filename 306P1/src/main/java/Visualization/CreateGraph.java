@@ -16,7 +16,6 @@ public class CreateGraph {
         _graph.display();
     }
 
-    // Get list of all nodes
     public void parseInput(){
         for(Algorithm.Node _node:_nodesList){
             _graph.addNode(_node.getName());
@@ -26,6 +25,5 @@ public class CreateGraph {
             _graph.addEdge(_edge.getStartNode().getName() + _edge.getEndNode().getName(),_edge.getStartNode().getName(),_edge.getEndNode().getName());
         }
     }
-    // Get list of all edges
 
 }
