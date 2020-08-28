@@ -34,6 +34,10 @@ public class TestMain {
     private static ArrayList<String> perms = new ArrayList<String>();
     private static ArrayList<String> Topologies = new ArrayList<String>();
 
+    public static ArrayList<Node> getNodesList(){
+        return nodesList;
+    }
+
     public static void main(String[] args)  throws Exception{
         if (args.length < 2){
             throw new Exception("invalid input: name of input file and number of cores required. \n " +
