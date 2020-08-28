@@ -1,0 +1,7 @@
+digraph digraph-output {
+		a		 [Weight=1,Start=none,Processor=none];
+		b		 [Weight=2,Start=none,Processor=none];
+		a -> b	 [Weight=6];
+		c		 [Weight=10,Start=none,Processor=none];
+		a -> c	 [Weight=5];
+}
