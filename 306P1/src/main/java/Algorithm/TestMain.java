@@ -197,6 +197,10 @@ public class TestMain {
         outputToDotFile();
     }
 
+    public static ArrayList<Node> getNodeList(){
+        return nodesList;
+    }
+
     private static void log(String s) {
         System.out.println(s);
     }
