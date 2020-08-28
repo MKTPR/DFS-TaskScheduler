@@ -1,6 +1,7 @@
 package Algorithm;
 
 
+import Visualization.TableView;
 import com.paypal.digraph.parser.GraphEdge;
 import com.paypal.digraph.parser.GraphNode;
 import com.paypal.digraph.parser.GraphParser;
@@ -141,6 +142,8 @@ public class TestMain {
                             if (_upperBound > tree.get_upperBound()) {
                                 _upperBound = tree.get_upperBound();
                                 optimalProcessorList = new ArrayList<>(tree.get_processorList());
+                                TableView _TV = TableView.getInstance();
+                                _TV.changeData(optimalProcessorList,_upperBound);
                             }
                         }
                 });
@@ -185,6 +188,8 @@ public class TestMain {
                     _upperBound = tree.get_upperBound();
                     optimalProcessorList = new ArrayList<>(tree.get_processorList());
                     System.out.println(_upperBound);
+                    TableView _TV = TableView.getInstance();
+                    _TV.changeData(optimalProcessorList,_upperBound);
                 }
             }
         }

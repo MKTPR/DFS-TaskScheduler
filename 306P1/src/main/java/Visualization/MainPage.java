@@ -47,7 +47,7 @@ public class MainPage extends JFrame{
         _scheduledTable.initialiseView(optimalProcessorList, upperBound);
 
         JTable _JTable= new JTable(_scheduledTable);
-        JScrollPane _scrollPane= new JScrollPane();
+        ScrollPane _scrollPane= new ScrollPane();
         _scrollPane.add(_JTable);
         //Left Panel - Scroll panel
         _leftPanel.add(_scrollPane);

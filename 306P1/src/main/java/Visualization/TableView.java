@@ -53,7 +53,7 @@ public class TableView extends AbstractTableModel {
         for (int i = 0; i < _currentBestTime; i++) {
             for (int j = 1; j <= _optimalProcessorList.size(); j++) {
                if((_optimalProcessorList.get(j-1).get_optimalNodeList().size() > i)) {
-                   if (!(_optimalProcessorList.get(j-1).get_optimalNodeList().get(i).getName()==null)){
+                   if ((_optimalProcessorList.get(j-1).get_optimalNodeList().get(i)!=null)){
                        _data[i][j] = _optimalProcessorList.get(j - 1).get_optimalNodeList().get(i).getName();
                    }
                }
