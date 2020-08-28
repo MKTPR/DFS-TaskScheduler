@@ -2,7 +2,9 @@ package Visualization;
 
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
- import java.util.ArrayList;
+import java.util.ArrayList;
+import org.graphstream.ui.swingViewer.View;
+import org.graphstream.ui.swingViewer.Viewer;
 
 public class CreateGraph {
     Graph _graph = new SingleGraph("Graph");
@@ -13,6 +15,7 @@ public class CreateGraph {
         _nodesList = nodeList;
         _edgesList = edgeList;
         parseInput();
+
         _graph.display();
     }
 
