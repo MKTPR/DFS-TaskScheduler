@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
+import Visualization.CreateGraph;
 
 public class TestMain {
 
@@ -53,6 +54,13 @@ public class TestMain {
         nodesListOriginal = new ArrayList<>(nodesList);
 
         createNewProcessor(_numOfProcessors);
+
+        /**
+         * TEST GRAPH VIZ
+         */
+        CreateGraph cg = new CreateGraph(nodesList, edgesList);
+        cg.diplayGraph();
+
 
         if (args.length > 2){
             for (int i = 2; i < args.length; i++){
