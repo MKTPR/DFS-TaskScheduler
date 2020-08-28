@@ -4,7 +4,7 @@ import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 
 
-public class Graph {
+public class CreateGraph {
 
     // Get list of all nodes
 
