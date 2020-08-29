@@ -1,4 +1,4 @@
-##Discussions - Class System
+## Discussions - Class System
 
 ### Classes
 Node
