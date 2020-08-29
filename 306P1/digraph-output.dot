@@ -1,6 +1,6 @@
 digraph "digraph-output" {
 		a		 [Weight=1,Start=0,Algorithm.Processor=1];
-		b		 [Weight=2,Start=7,Algorithm.Processor=3];
+		b		 [Weight=2,Start=7,Algorithm.Processor=2];
 		a -> b	 [Weight=6];
 		c		 [Weight=10,Start=1,Algorithm.Processor=1];
 		a -> c	 [Weight=5];
