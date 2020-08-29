@@ -34,7 +34,8 @@ public class GreedyAlgorithm {
     }
 
     /**
-     * This method uses greedy algorithm to compute the finishing time of scheduling
+     * This method computes for total duration for scheduling using greedy algoorithm that schedules node with earliest finishing time first
+     * Loops through every processor and return the value with longest end time
      * @return the total execution time for scheduling nodes into processors
      */
     public int computeGreedyFinishingTime(){
@@ -62,7 +63,10 @@ public class GreedyAlgorithm {
         _scheduledNodes.clear();
     }
 
-    //This method runs the algorithm and returns an Arraylist of processors with sorted tasks.
+    /**
+     * the main method for the class that finds available nodes and compute earliest finishing time
+     * @return Array list of processor
+     */
     public ArrayList<Processor> runAlgorithm(){
         NodeProcessor nodeProcessor;
         while (_nodeList.size() > 0) {
@@ -71,7 +75,6 @@ public class GreedyAlgorithm {
             nodeProcessor = findEarliestFinishingNodeProcessor(availableNode);
             scheduleNodeToProcessor(nodeProcessor);
         }
-
         return _processorList;
     };
 
