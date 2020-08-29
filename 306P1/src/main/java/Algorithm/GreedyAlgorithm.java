@@ -2,15 +2,22 @@ package Algorithm;
 
 import java.util.ArrayList;
 
+/**
+ * This class is scheduling using greedy algorithm for upper bound
+ */
 public class GreedyAlgorithm {
-
     private ArrayList<Node> _nodeList =new ArrayList<Node>();
     private ArrayList<Edge> _edgeList =new ArrayList<Edge>();
     private ArrayList<Processor> _processorList =new ArrayList<Processor>();
     private ArrayList<Node> _scheduledNodes = new ArrayList<Node>();
     private ArrayList<Node> availableNode = new ArrayList<Node>();
 
-
+    /**
+     * Constructor call for the Greedy Algorithm Object, the constructor deep copy input arraylist
+     * @param nodeList
+     * @param edgeList
+     * @param processorList
+     */
     public GreedyAlgorithm(ArrayList<Node> nodeList, ArrayList<Edge> edgeList, ArrayList<Processor> processorList) {
         //Deep copy nodeList
         for(Node node : nodeList){
@@ -26,13 +33,14 @@ public class GreedyAlgorithm {
         }
     }
 
-    // This method returns the total execution time of the algorithm
+    /**
+     * This method uses greedy algorithm to compute the finishing time of scheduling
+     * @return the total execution time for scheduling nodes into processors
+     */
     public int computeGreedyFinishingTime(){
         int tempDuration = 0;
-        int duration = 0;
-
+        int duration = 0; //total execution time
         runAlgorithm();
-
         // calculate duration
         for(Processor processor:_processorList){
             tempDuration = processor.get_nodeList().size();
@@ -40,11 +48,12 @@ public class GreedyAlgorithm {
                 duration = tempDuration;
             }
         }
-
         return duration;
     }
 
-    //This method clears scheduled nodeLists in all processors.
+    /**
+     * This method clears scheduled nodeLists in all processors.
+     */
     public void emptyScheduledNodesInProcesses(){
         _processorList.clear();
         _edgeList.clear();
