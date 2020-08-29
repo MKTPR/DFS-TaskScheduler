@@ -114,7 +114,7 @@ public class MakeTree {
                      * In the case of the first Algorithm.Node, different processors do not have
                      * to be regarded, as it will create the same branching system.
                      */
-                    if (nodeNumber == 0){
+                    if (node.getincomingNodes().isEmpty()){
                         y= y+ _numOfProcessors;
                     }
                 }
