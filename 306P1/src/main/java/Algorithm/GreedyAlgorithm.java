@@ -10,7 +10,12 @@ public class GreedyAlgorithm {
     private ArrayList<Node> _scheduledNodes = new ArrayList<Node>();
     private ArrayList<Node> availableNode = new ArrayList<Node>();
 
-
+    /**
+     * Constructor call for the Greedy Algorithm Object, find the upper bound
+     * @param nodeList
+     * @param edgeList
+     * @param processorList
+     */
     public GreedyAlgorithm(ArrayList<Node> nodeList, ArrayList<Edge> edgeList, ArrayList<Processor> processorList) {
         //Deep copy nodeList
         for(Node node : nodeList){
