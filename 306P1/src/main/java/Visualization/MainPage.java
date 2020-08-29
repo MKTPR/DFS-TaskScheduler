@@ -35,6 +35,7 @@ public class MainPage extends JFrame{
     private JLabel _outputFile;
 
     private JButton _timerButton;
+    private JButton _currentBestTime;
 
 
 
@@ -128,7 +129,7 @@ public class MainPage extends JFrame{
 
         JPanel _infoPanel = new JPanel();
         _infoPanel.setLayout(new MigLayout("fill"));
-        JButton _currentBestTime = new JButton("Current Best Time: "+ upperBound);
+        _currentBestTime = new JButton("Current Best Time: "+ upperBound);
         JButton _numOfProcessors = new JButton("Number of Processors: "+ noOfProcessors);
 
         _infoPanel.add(_currentBestTime, BorderLayout.WEST);
@@ -266,6 +267,9 @@ public class MainPage extends JFrame{
         _outputFile.setIcon(_working);
         _timerButton.setText(_timerButton.getText() + " (FINISHED)");
 
+    }
+    public void updateBestTime(int bestTime){
+        _currentBestTime.setText("Current Best Time: "+ bestTime);
     }
 }
 

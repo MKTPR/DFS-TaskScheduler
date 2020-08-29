@@ -152,8 +152,11 @@ public class TestMain {
                                 _upperBound = tree.get_upperBound();
                                 System.out.println(_upperBound);
                                 optimalProcessorList = new ArrayList<>(tree.get_processorList());
-                                TableView _TV = TableView.getInstance();
-                                _TV.changeData(optimalProcessorList,_upperBound);
+                                if (isVisualise){
+                                    TableView _TV = TableView.getInstance();
+                                    _TV.changeData(optimalProcessorList,_upperBound);
+                                    page.updateBestTime(_upperBound);
+                                };
                             }
                         }
                 });
@@ -198,8 +201,11 @@ public class TestMain {
                     _upperBound = tree.get_upperBound();
                     optimalProcessorList = new ArrayList<>(tree.get_processorList());
                     System.out.println(_upperBound);
-                    TableView _TV = TableView.getInstance();
-                    _TV.changeData(optimalProcessorList,_upperBound);
+                    if (isVisualise){
+                        TableView _TV = TableView.getInstance();
+                        _TV.changeData(optimalProcessorList,_upperBound);
+                        page.updateBestTime(_upperBound);
+                    }
                 }
             }
         }
