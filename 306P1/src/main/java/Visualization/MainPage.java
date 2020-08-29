@@ -36,6 +36,8 @@ public class MainPage extends JFrame{
 
     private JButton _timerButton;
     private JButton _currentBestTime;
+    private int _upperBound;
+    JLabel _scheduleTableLabel;
 
 
 
@@ -47,6 +49,7 @@ public class MainPage extends JFrame{
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1400, 900);
@@ -122,7 +125,7 @@ public class MainPage extends JFrame{
         JTable _JTable= new JTable(_scheduledTable);
         JScrollPane _scrollPane= new JScrollPane(_JTable);
 
-        JLabel _scheduleTableLabel = new JLabel("Current Optimal Schedule");
+        _scheduleTableLabel = new JLabel("Current Optimal Schedule");
         _scheduleTableLabel.setFont(new Font("Geeza Pro", Font.BOLD, 13));
         JPanel _scheduleTablePanel = new JPanel();
         _scheduleTablePanel.add(_scheduleTableLabel);
@@ -266,10 +269,13 @@ public class MainPage extends JFrame{
         ImageIcon _working = new ImageIcon("greenTick.png");
         _outputFile.setIcon(_working);
         _timerButton.setText(_timerButton.getText() + " (FINISHED)");
+        _currentBestTime.setText("Best Time: "+ _upperBound);
+        _scheduleTableLabel.setText("Optimal Schedule");
 
     }
     public void updateBestTime(int bestTime){
         _currentBestTime.setText("Current Best Time: "+ bestTime);
+        _upperBound = bestTime;
     }
 }
 

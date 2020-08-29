@@ -33,7 +33,7 @@ public class TestMain {
     private static boolean isVisualise = false;
     private static String isOutput = "output.dot";
     private static ArrayList<Thread> threads = new ArrayList<>();
-    private static String[] map = {"a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
+    private static String[] map = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
     "w","x","y","z"};
     private static ArrayList<String> perms = new ArrayList<String>();
     private static ArrayList<String> Topologies = new ArrayList<String>();
@@ -61,42 +61,8 @@ public class TestMain {
         nodesListOriginal = new ArrayList<>(nodesList);
 
         createNewProcessor(_numOfProcessors);
+        checkInputValidity(args);
 
-        if (args.length > 2){
-            for (int i = 2; i < args.length; i++){
-                if (args[i].contains("-p")){
-                    try {
-                        if (Integer.parseInt(args[i+1]) < 1){
-                            System.out.println("Invalid number of cores: Defaulting to sequential");
-                        }
-                        else {
-                            isParallel = Integer.parseInt(args[i+1]);
-                        }
-
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid number of cores: Defaulting to sequential");
-                    } catch (IndexOutOfBoundsException e){
-                        System.out.println("Invalid number of cores: Defaulting to sequential");
-                    }
-
-
-                }
-                else if (args[i].contains("-v")){
-                    isVisualise = true;
-                }
-                else if (args[i].contains("-o")){
-                    try {
-                        isOutput = args[i + 1];
-                        if (!isOutput.endsWith(".dot")){
-                            isOutput += ".dot";
-                        }
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("invalid output file");
-                    }
-                }
-            }
-
-        }
 
 
         // test valid algorithm
@@ -111,8 +77,15 @@ public class TestMain {
         for (Processor l: optimalProcessorList){
             l.set_optimalNodeListNode();
         }
+
+
         if (isVisualise) {
             page = new MainPage(optimalProcessorList, _upperBound, _numOfProcessors, isParallel, input, isOutput);
+        }
+        va.emptyScheduledNodesInProcesses();
+
+        for ( Processor d : processorList){
+            d.get_nodeList().clear();
         }
         /**
          * generates all topologies in the topologies arraylist
@@ -230,6 +203,44 @@ public class TestMain {
         outputToDotFile();
         if (isVisualise) {
             page.stopVisualisation();
+        }
+    }
+
+    private static void checkInputValidity(String[] args) {
+        if (args.length > 2){
+            for (int i = 2; i < args.length; i++){
+                if (args[i].contains("-p")){
+                    try {
+                        if (Integer.parseInt(args[i+1]) < 1){
+                            System.out.println("Invalid number of cores: Defaulting to sequential");
+                        }
+                        else {
+                            isParallel = Integer.parseInt(args[i+1]);
+                        }
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid number of cores: Defaulting to sequential");
+                    } catch (IndexOutOfBoundsException e){
+                        System.out.println("Invalid number of cores: Defaulting to sequential");
+                    }
+
+
+                }
+                else if (args[i].contains("-v")){
+                    isVisualise = true;
+                }
+                else if (args[i].contains("-o")){
+                    try {
+                        isOutput = args[i + 1];
+                        if (!isOutput.endsWith(".dot")){
+                            isOutput += ".dot";
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("invalid output file");
+                    }
+                }
+            }
+
         }
     }
 

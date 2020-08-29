@@ -114,8 +114,8 @@ public class MakeTree {
                      * In the case of the first Algorithm.Node, different processors do not have
                      * to be regarded, as it will create the same branching system.
                      */
-                    if (nodeNumber == 0){
-                        y= y+ _numOfProcessors;
+                  if (nodeNumber==0){
+                       y= y+ _numOfProcessors;
                     }
                 }
                 /**
@@ -150,8 +150,6 @@ public class MakeTree {
             }
             processor.setNode(node, node.getWeight());
         }
-        // add the node to scheduled node
-        _scheduledNodes.add(node);
 
     }
 

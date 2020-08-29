@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MakeTreeThreading {
 
-    private static ArrayList<String> _currentBest = new ArrayList<>();
+    private static ArrayList<String> _currentBest;
     private static ArrayList<Node> _nodesList;
     private ArrayList<Processor> _processorList = new ArrayList<Processor>();
     private static ArrayList<Node> _scheduledNodes = new ArrayList<Node>();
@@ -121,7 +121,7 @@ public class MakeTreeThreading {
                      * In the case of the first Algorithm.Node, different processors do not have
                      * to be regarded, as it will create the same branching system.
                      */
-                    if (nodeNumber == 0){
+                    if (nodeNumber==0){
                         y= y+ _numOfProcessors;
                     }
                 }
@@ -157,8 +157,6 @@ public class MakeTreeThreading {
             }
             processor.setNode(node, node.getWeight());
         }
-        // add the node to scheduled node
-        _scheduledNodes.add(node);
 
     }
 

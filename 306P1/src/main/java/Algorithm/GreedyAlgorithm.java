@@ -46,9 +46,11 @@ public class GreedyAlgorithm {
 
     //This method clears scheduled nodeLists in all processors.
     public void emptyScheduledNodesInProcesses(){
-        for(Processor processor:_processorList){
-            processor.get_nodeList().clear();
-        }
+        _processorList.clear();
+        _edgeList.clear();
+        availableNode.clear();
+        _edgeList.clear();
+        _scheduledNodes.clear();
     }
 
     //This method runs the algorithm and returns an Arraylist of processors with sorted tasks.
@@ -161,7 +163,7 @@ public class GreedyAlgorithm {
         //add nodes that has no incoming node from _nodeList into availableNode arraylist
         for(Node node: _nodeList){
             //만약 node의 모든 incoming nodes들이 scheduled list에 존재하고, 아직 schedule되지 않았다면면 그 노드는 availblenode이다.
-            if(_scheduledNodes.containsAll(node.getincomingNodes()) && !_scheduledNodes.contains(node)){
+            if(_scheduledNodes.containsAll(node.getincomingNodes()) && !_scheduledNodes.contains(node) && !this.availableNode.contains(node)){
                 availableNode.add(node);
               //  System.out.println(node.getName());
                // System.out.println("***");

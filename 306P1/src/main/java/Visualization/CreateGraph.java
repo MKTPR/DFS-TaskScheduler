@@ -100,7 +100,7 @@ public class CreateGraph {
      */
     public ArrayList<Node> saveNodesFromGraph(Graph graph){
         for(Node n:graph.getEachNode()) {
-            System.out.println(n.getId());
+           // System.out.println(n.getId());
             this._gNodesList.add(n);
         }
         return this._gNodesList;
@@ -111,7 +111,7 @@ public class CreateGraph {
      */
     public ArrayList<Edge> saveEdgesFromGraph(Graph graph){
         for(Edge e:graph.getEachEdge()) {
-            System.out.println(e.getId());
+            //System.out.println(e.getId());
             this._gEdgesList.add(e);
         }
         return this._gEdgesList;
