@@ -77,6 +77,7 @@ public class TestMain {
             l.set_optimalNodeListNode();
         }
 
+        va.emptyScheduledNodesInProcesses();
         MainPage page = new MainPage(optimalProcessorList, _upperBound,_numOfProcessors,isParallel, input, isOutput);
 
         /**
