@@ -17,6 +17,13 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * This class creates the main window for the visualization option.
+ * It creates a main panel and top, right, left, bottom panels within to
+ * store various components.
+ * MigLayut is used to allign JSwing components.
+ */
+
 
 public class MainPage extends JFrame{
 
@@ -43,6 +50,19 @@ public class MainPage extends JFrame{
     JLabel _scheduleTableLabel;
 
 
+    /**
+     * Constructor for the class: When it is called, it crease a MainPage object which
+     * automatically starts the Java Swing visual module.
+     * All inputs are taken in to display to the user. No computations are done
+     * within this class.
+     * @param optimalProcessorList:
+     * @param upperBound
+     * @param noOfProcessors:
+     * @param isParallel:
+     * @param input
+     * @param output
+     * @param topNum
+     */
 
 
     public MainPage(ArrayList<Processor> optimalProcessorList, int upperBound, int noOfProcessors, int isParallel, String input, String output, int topNum) {
@@ -50,6 +70,7 @@ public class MainPage extends JFrame{
         _upperBound = upperBound;
         _topNum = topNum;
 
+        //Use the SeaGlass look and feel.
         try {
             UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
         } catch (Exception e) {
@@ -60,6 +81,7 @@ public class MainPage extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1400, 900);
 
+        // Calls the setUpPage() method to create the outline of the page.
         _mainPanel = setUpPage();
         _mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(_mainPanel);
@@ -84,6 +106,7 @@ public class MainPage extends JFrame{
         JPanel _abortPanel = new JPanel();
 
 
+        // Action when abort button is clicked - asks confirmation from user.
         _abortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,6 +122,7 @@ public class MainPage extends JFrame{
         _abortPanel.add(_abortButton, BorderLayout.CENTER);
 
 
+        // Display input and output file name with a Gif to show movement to user.
         JLabel _inputFile = new JLabel("Input: " + input);
         _inputFile.setFont(new Font("Geeza Pro", Font.PLAIN, 16));
         _outputFile = new JLabel("Output: " + output);
@@ -174,6 +198,7 @@ public class MainPage extends JFrame{
          * Bottom Panel Components
          * - Sequential/Parallel Show
          * - How many threads
+         * - How many Topologies/Schedules Left to Search
          * - Runtime
          */
         JPanel tempPanel = new JPanel();
@@ -185,14 +210,13 @@ public class MainPage extends JFrame{
 
         Instant start = Instant.now();
 
-
-
-
+        //Timer Set Up
         _timerButton = new JButton();
         _timerButton.setText("00:00");
         _timerButton.setFont(new Font("Geeza Pro", Font.BOLD, 20));
 
 
+        //Allows Timer to run according to the clock seconds
        _timer = new Timer(0, new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
@@ -205,6 +229,7 @@ public class MainPage extends JFrame{
         //_timerLabel.setText("Run time: " + Duration.between(start,Instant.now()).getSeconds()/60+":"+
                 //Duration.between(start,Instant.now()).getSeconds());
 
+        //Label Allignmnet Set UP
         _sequentialLabel = new JLabel("SEQUENTIAL",JLabel.CENTER);
         _sequentialLabel.setFont(new Font("Geeza Pro", Font.BOLD, 20));
         _parallelLabel = new JLabel("PARALLEL",JLabel.CENTER);
@@ -221,34 +246,34 @@ public class MainPage extends JFrame{
 
         tempPanel.add(_sequentialLabel);
         tempPanel.add(_parallelLabel);
+
+        //Bottom Panel Split into left and right components.
         JPanel bottomLeftPanel = new JPanel();
         bottomLeftPanel.setLayout(new MigLayout("fill"));
         JPanel bottomRightPanel = new JPanel();
         bottomRightPanel.setLayout(new MigLayout("fill"));
 
-
-
         _noOfThreads = new JLabel("Number of Threads: " + Integer.toString(_numberOfthreads));
         _noOfThreads.setFont(new Font("Geeza Pro", Font.BOLD, 20));
-
-
 
         bottomLeftPanel.add(tempPanel);
         bottomLeftPanel.add(_noOfThreads, "right");
         bottomRightPanel.add(_timerButton, "right");
-
 
         _bottomPanel.add(outerTempPanel);
 
         _bottomPanel.add(bottomLeftPanel, "width 50%, height 100%");
         _bottomPanel.add(bottomRightPanel, "width 50%, height 100%");
 
-
-
         setLocationRelativeTo(null);
         setVisible(true);
-
     }
+
+    /**
+     * Simple method to set up the main Window, made of four
+     * MigLayOut JPanel components.
+     * @return
+     */
     private JPanel setUpPage() {
         JPanel _mainPanel = new JPanel();
         _mainPanel.setLayout(new MigLayout("fill"));
