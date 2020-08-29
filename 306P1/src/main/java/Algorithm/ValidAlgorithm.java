@@ -3,6 +3,10 @@ package Algorithm;
 
 import java.util.ArrayList;
 
+/**
+ * This class creates valid algorithm of scheduling set of tasks into a number of processors.
+ */
+
 public class ValidAlgorithm {
     private ArrayList<Node> _nodeList =new ArrayList<Node>();
     private ArrayList<Edge> _edgeList =new ArrayList<Edge>();
@@ -15,7 +19,7 @@ public class ValidAlgorithm {
     }
 
     /**
-     * Start of the algorithm
+     * This method is the starting point of the valid scheduling algorithm
      * @return
      */
     public ArrayList<Processor> run(){
@@ -30,7 +34,10 @@ public class ValidAlgorithm {
         return _processorList;
     };
 
-
+    /**
+     * This method schedules nodes to processors
+     * @param availableNodes
+     */
     public void assignToProcessor(ArrayList<Node> availableNodes){
         ArrayList<String> namesToRemove = new ArrayList<String>();
 
@@ -54,7 +61,8 @@ public class ValidAlgorithm {
 
 
     /**
-     * This method find all nodes with no incmming edge
+     * This method find all nodes with no incoming edge
+     * @param availableNode
      */
     public void AvailableNode(ArrayList<Node> availableNode){
         //add nodes that has no incoming node from _nodeList into availableNode arraylist
