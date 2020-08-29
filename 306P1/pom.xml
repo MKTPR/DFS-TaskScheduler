@@ -83,5 +83,12 @@
             <systemPath>${basedir}/src/libs/ST4-4.3.1.jar</systemPath>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.seaglasslookandfeel/seaglasslookandfeel -->
+        <dependency>
+            <groupId>com.seaglasslookandfeel</groupId>
+            <artifactId>seaglasslookandfeel</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+
     </dependencies>
 </project>

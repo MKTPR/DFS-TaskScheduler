@@ -37,7 +37,13 @@ public class MainPage extends JFrame{
 
 
 
-    public MainPage(ArrayList<Processor> optimalProcessorList, int upperBound, int noOfProcessors, int isParallel) {
+    public MainPage(ArrayList<Processor> optimalProcessorList, int upperBound, int noOfProcessors, int isParallel, String input, String output) {
+
+        try {
+            UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1100, 700);
@@ -50,28 +56,63 @@ public class MainPage extends JFrame{
 
         statusPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
+        /**
+         * Top Panel Components:
+         * - Title ("Task Scheduler"
+         * - AbortButton
+         * - Progress Bar
+         * - Input & Output File name
+         */
+        JLabel title = new JLabel("Task Scheduler");
+        title.setFont(new Font("Geeza Pro", Font.BOLD, 30));
+
+        JButton _abortButton = new JButton("ABORT");
+        JPanel _abortPanel = new JPanel();
+        _abortPanel.add(_abortButton, BorderLayout.CENTER);
+
+        JLabel _inputFile = new JLabel("Input: " + input);
+        _inputFile.setFont(new Font("Geeza Pro", Font.PLAIN, 16));
+        JLabel _outputFile = new JLabel("Output: " + output);
+        _outputFile.setFont(new Font("Geeza Pro", Font.PLAIN, 16));
+        //From https://www.animatedimages.org/img-animated-office-image-0061-43485.htm
+        ImageIcon _working = new ImageIcon("working2.gif");
+        _outputFile.setIcon(_working);
+
+        JPanel _progressPanel = new JPanel();
+        _progressPanel.setLayout(new MigLayout());
+
+        _progressPanel.add(_inputFile);
+        _progressPanel.add(_outputFile);
+
+        _topPanel.add(title,"center, span");
+        _topPanel.add(_abortPanel);
+        _topPanel.add(_progressPanel, "right");
 
 
-        JLabel title = new JLabel("TaskScheduler", JLabel.CENTER);
-        title.setFont(new Font("serif", Font.BOLD, 20));
 
-        // First row of top panel
-        _topPanel.add(title);
-
-
+        /**
+         * Left Panel Components
+         * - Scroll Pane
+         *      - TableView - Schedules
+         *
+         */
         TableView _scheduledTable = new TableView();
         _scheduledTable.initialiseView(optimalProcessorList, upperBound);
         JTable _JTable= new JTable(_scheduledTable);
         JScrollPane _scrollPane= new JScrollPane(_JTable);
 
-        //Left Panel - Scroll panel
         _leftPanel.add(_scrollPane);
 
 
-        //Right Panel - Add graph
+        /**
+         * Right Panel Components
+         * - Label of Input file name + output file
+         * - Graph of the input nodes
+         */
         CreateGraph graphMaker = new CreateGraph(TestMain.getNodesList(), TestMain.getEdgesList());
         JPanel visualGraph = graphMaker.produceJPanel();
-        _rightPanel.add(visualGraph);
+        visualGraph.setSize(500,350);
+        _rightPanel.add(visualGraph, "width 100%, height 100%");
 
        JPanel tempPanel = new JPanel();
        tempPanel.setLayout(new GridLayout(1, 1, 4, 20));
@@ -132,16 +173,19 @@ public class MainPage extends JFrame{
         JPanel _mainPanel = new JPanel();
         _mainPanel.setLayout(new MigLayout("fill"));
         _topPanel = new JPanel();
-        _topPanel.setLayout(new GridLayout(1, 1, 20, 20));
+        _topPanel.setLayout(new GridLayout(1, 2, 20, 20));
 
         _leftPanel = new JPanel();
         _leftPanel.setLayout(new BorderLayout());
 
         _rightPanel = new JPanel();
-        _rightPanel.setLayout(new BorderLayout());
+        _rightPanel.setLayout(new GridLayout(1,1,20,20));
 
         _bottomPanel = new JPanel();
         _bottomPanel.setLayout(new GridLayout(2, 1, 20, 20));
+
+        _topPanel.setLayout(new MigLayout("fill"));
+        _rightPanel.setLayout(new MigLayout("fill"));
 
         _mainPanel.add(_topPanel, "span, center, width 100%, height 10%, wrap");
         _mainPanel.add(_leftPanel, "width 50%,height 67%");
