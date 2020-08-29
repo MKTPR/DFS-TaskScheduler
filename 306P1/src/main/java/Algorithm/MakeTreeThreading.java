@@ -121,7 +121,7 @@ public class MakeTreeThreading {
                      * In the case of the first Algorithm.Node, different processors do not have
                      * to be regarded, as it will create the same branching system.
                      */
-                    if (node.getincomingNodes().isEmpty()){
+                    if (nodeNumber==0){
                         y= y+ _numOfProcessors;
                     }
                 }
