@@ -47,6 +47,7 @@ public class MainPage extends JFrame{
 
     public MainPage(ArrayList<Processor> optimalProcessorList, int upperBound, int noOfProcessors, int isParallel, String input, String output, int topNum) {
 
+        _upperBound = upperBound;
         _topNum = topNum;
 
         try {
