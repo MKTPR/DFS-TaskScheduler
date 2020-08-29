@@ -34,7 +34,7 @@ public class TestMain {
     private static String isOutput = "output.dot";
     private static ArrayList<Thread> threads = new ArrayList<>();
     private static String[] map = {"a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
-    "w","x","y","z"};
+            "w","x","y","z"};
     private static ArrayList<String> perms = new ArrayList<String>();
     private static ArrayList<String> Topologies = new ArrayList<String>();
 
@@ -96,33 +96,33 @@ public class TestMain {
 
             for (int i= 0; i< (isParallel-1); i++ ){
 
-               if (end.size() == (isParallel-1)){
-                   start.add(start.get(i) + increment);
-                   end.add(Topologies.size());
-               } else {
-                   start.add(start.get(i) + increment);
-                   end.add((end.get(i) + increment));
-               }
+                if (end.size() == (isParallel-1)){
+                    start.add(start.get(i) + increment);
+                    end.add(Topologies.size());
+                } else {
+                    start.add(start.get(i) + increment);
+                    end.add((end.get(i) + increment));
+                }
             }
 
             //Create worker thread. This code will only run if isParallel > 2
             for (int i = 0; i < isParallel; i++) {
                 Thread run = new Thread(() -> {
                     int f = Integer.parseInt(Thread.currentThread().getName());
-                        for (int j = start.get(f); j<end.get(f);j++) {
+                    for (int j = start.get(f); j<end.get(f);j++) {
 
-                            String top = Topologies.get(j);
-                            ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
-                            MakeTreeThreading tree = new MakeTreeThreading(nodesList, processorList, _numOfProcessors, _upperBound);
-                            tree.makeTree(top, _nodeNumber, _currentPath);
-                            if (_upperBound > tree.get_upperBound()) {
-                                _upperBound = tree.get_upperBound();
-                                System.out.println(_upperBound);
-                                optimalProcessorList = new ArrayList<>(tree.get_processorList());
-                                TableView _TV = TableView.getInstance();
-                                _TV.changeData(optimalProcessorList,_upperBound);
-                            }
+                        String top = Topologies.get(j);
+                        ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
+                        MakeTreeThreading tree = new MakeTreeThreading(nodesList, processorList, _numOfProcessors, _upperBound);
+                        tree.makeTree(top, _nodeNumber, _currentPath);
+                        if (_upperBound > tree.get_upperBound()) {
+                            _upperBound = tree.get_upperBound();
+                            System.out.println(_upperBound);
+                            optimalProcessorList = new ArrayList<>(tree.get_processorList());
+                            TableView _TV = TableView.getInstance();
+                            _TV.changeData(optimalProcessorList,_upperBound);
                         }
+                    }
                 });
                 run.setName(i+"");
                 threads.add(run);
@@ -133,12 +133,12 @@ public class TestMain {
         //Create visualization thread
         /**
          *
-        Thread vThread = new Thread("vThread"){
-            public void run(){
-                //Visualization code here
-            };
-        };
-        vThread.start(); //Start visualization
+         Thread vThread = new Thread("vThread"){
+         public void run(){
+         //Visualization code here
+         };
+         };
+         vThread.start(); //Start visualization
          */
 
         for (Thread i: threads){
@@ -362,7 +362,7 @@ public class TestMain {
                         }
                     }
                 }
-            counter++;
+                counter++;
             }
             writer.println("}");
             writer.close();
