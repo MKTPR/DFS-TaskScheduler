@@ -40,6 +40,7 @@ public class GreedyAlgorithm {
                 duration = tempDuration;
             }
         }
+        //clear every array list that are no longer being used
         _nodeList.clear();
         _edgeList.clear();
         _processorList.clear();
