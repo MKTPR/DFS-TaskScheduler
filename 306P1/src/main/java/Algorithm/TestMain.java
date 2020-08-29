@@ -78,19 +78,19 @@ public class TestMain {
             l.set_optimalNodeListNode();
         }
 
+        /**
+         * generates all topologies in the topologies arraylist
+         */
+        getTopologies(); //generates all topologies in the topologies arraylist
 
         if (isVisualise) {
-            page = new MainPage(optimalProcessorList, _upperBound, _numOfProcessors, isParallel, input, isOutput);
+            page = new MainPage(optimalProcessorList, _upperBound, _numOfProcessors, isParallel, input, isOutput, Topologies.size());
         }
         va.emptyScheduledNodesInProcesses();
 
         for ( Processor d : processorList){
             d.get_nodeList().clear();
         }
-        /**
-         * generates all topologies in the topologies arraylist
-         */
-        getTopologies(); //generates all topologies in the topologies arraylist
 
 
 
@@ -131,6 +131,7 @@ public class TestMain {
                                     page.updateBestTime(_upperBound);
                                 };
                             }
+                            page.increaseTopSearched();
                         }
                 });
                 run.setName(i+"");
@@ -180,6 +181,7 @@ public class TestMain {
                         page.updateBestTime(_upperBound);
                     }
                 }
+                page.increaseTopSearched();
             }
         }
         /**

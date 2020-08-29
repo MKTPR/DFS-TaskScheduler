@@ -28,6 +28,7 @@ public class MainPage extends JFrame{
     private JLabel _noOfThreads;
     private JLabel _parallelLabel;
     private JLabel _sequentialLabel;
+    private JButton _topologyInfo;
 
 
     private Timer _timer;
@@ -37,12 +38,17 @@ public class MainPage extends JFrame{
     private JButton _timerButton;
     private JButton _currentBestTime;
     private int _upperBound;
+    private int _topNum;
+    private int _topSearched;
     JLabel _scheduleTableLabel;
 
 
 
 
-    public MainPage(ArrayList<Processor> optimalProcessorList, int upperBound, int noOfProcessors, int isParallel, String input, String output) {
+    public MainPage(ArrayList<Processor> optimalProcessorList, int upperBound, int noOfProcessors, int isParallel, String input, String output, int topNum) {
+
+
+        _topNum = topNum;
 
         try {
             UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
@@ -135,7 +141,10 @@ public class MainPage extends JFrame{
         _currentBestTime = new JButton("Current Best Time: "+ upperBound);
         JButton _numOfProcessors = new JButton("Number of Processors: "+ noOfProcessors);
 
+        _topologyInfo = new JButton("Currently Searched: " + _topSearched + " out of " + topNum+ " schedules");
+
         _infoPanel.add(_currentBestTime, BorderLayout.WEST);
+        _infoPanel.add(_topologyInfo, BorderLayout.CENTER);
         _infoPanel.add(_numOfProcessors, BorderLayout.EAST);
 
         _leftPanel.add(_scheduleTablePanel, "width 100%, height 8%, wrap");
@@ -271,11 +280,18 @@ public class MainPage extends JFrame{
         _timerButton.setText(_timerButton.getText() + " (FINISHED)");
         _currentBestTime.setText("Best Time: "+ _upperBound);
         _scheduleTableLabel.setText("Optimal Schedule");
+        _topologyInfo.setText("Finished Searching " + _topSearched + " out of " + _topNum+ " schedules");
 
     }
     public void updateBestTime(int bestTime){
         _currentBestTime.setText("Current Best Time: "+ bestTime);
         _upperBound = bestTime;
     }
+    public void increaseTopSearched(){
+        _topSearched++;
+        _topologyInfo.setText("Currently Searched: " + _topSearched + " out of " + _topNum+ " schedules");
+    }
+
+
 }
 
