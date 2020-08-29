@@ -60,42 +60,8 @@ public class TestMain {
         nodesListOriginal = new ArrayList<>(nodesList);
 
         createNewProcessor(_numOfProcessors);
+        checkInputValidity(args);
 
-        if (args.length > 2){
-            for (int i = 2; i < args.length; i++){
-                if (args[i].contains("-p")){
-                    try {
-                        if (Integer.parseInt(args[i+1]) < 1){
-                            System.out.println("Invalid number of cores: Defaulting to sequential");
-                        }
-                        else {
-                            isParallel = Integer.parseInt(args[i+1]);
-                        }
-
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid number of cores: Defaulting to sequential");
-                    } catch (IndexOutOfBoundsException e){
-                        System.out.println("Invalid number of cores: Defaulting to sequential");
-                    }
-
-
-                }
-                else if (args[i].contains("-v")){
-                    isVisualise = true;
-                }
-                else if (args[i].contains("-o")){
-                    try {
-                        isOutput = args[i + 1];
-                        if (!isOutput.endsWith(".dot")){
-                            isOutput += ".dot";
-                        }
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("invalid output file");
-                    }
-                }
-            }
-
-        }
 
 
         // test valid algorithm
@@ -221,6 +187,44 @@ public class TestMain {
          * Output node state in .dot format.
          */
         outputToDotFile();
+    }
+
+    private static void checkInputValidity(String[] args) {
+        if (args.length > 2){
+            for (int i = 2; i < args.length; i++){
+                if (args[i].contains("-p")){
+                    try {
+                        if (Integer.parseInt(args[i+1]) < 1){
+                            System.out.println("Invalid number of cores: Defaulting to sequential");
+                        }
+                        else {
+                            isParallel = Integer.parseInt(args[i+1]);
+                        }
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid number of cores: Defaulting to sequential");
+                    } catch (IndexOutOfBoundsException e){
+                        System.out.println("Invalid number of cores: Defaulting to sequential");
+                    }
+
+
+                }
+                else if (args[i].contains("-v")){
+                    isVisualise = true;
+                }
+                else if (args[i].contains("-o")){
+                    try {
+                        isOutput = args[i + 1];
+                        if (!isOutput.endsWith(".dot")){
+                            isOutput += ".dot";
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("invalid output file");
+                    }
+                }
+            }
+
+        }
     }
 
     public static ArrayList<Node> getNodeList(){

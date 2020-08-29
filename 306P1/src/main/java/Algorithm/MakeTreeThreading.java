@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MakeTreeThreading {
 
-    private static ArrayList<String> _currentBest = new ArrayList<>();
+    private static ArrayList<String> _currentBest;
     private static ArrayList<Node> _nodesList;
     private ArrayList<Processor> _processorList = new ArrayList<Processor>();
     private static ArrayList<Node> _scheduledNodes = new ArrayList<Node>();
