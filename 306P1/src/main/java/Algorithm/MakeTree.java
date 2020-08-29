@@ -150,8 +150,6 @@ public class MakeTree {
             }
             processor.setNode(node, node.getWeight());
         }
-        // add the node to scheduled node
-        _scheduledNodes.add(node);
 
     }
 

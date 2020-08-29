@@ -1,0 +1,7 @@
+digraph "digraph-output" {
+		a		 [Weight=1,Start=2,Algorithm.Processor=1];
+		c		 [Weight=10,Start=3,Algorithm.Processor=1];
+		a -> c	 [Weight=5];
+		e -> c	 [Weight=5];
+		e		 [Weight=2,Start=0,Algorithm.Processor=1];
+}

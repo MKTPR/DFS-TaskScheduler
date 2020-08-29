@@ -157,8 +157,6 @@ public class MakeTreeThreading {
             }
             processor.setNode(node, node.getWeight());
         }
-        // add the node to scheduled node
-        _scheduledNodes.add(node);
 
     }
 
