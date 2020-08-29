@@ -47,7 +47,6 @@ public class MainPage extends JFrame{
 
     public MainPage(ArrayList<Processor> optimalProcessorList, int upperBound, int noOfProcessors, int isParallel, String input, String output, int topNum) {
 
-
         _topNum = topNum;
 
         try {
@@ -272,6 +271,10 @@ public class MainPage extends JFrame{
         return _mainPanel;
     }
 
+    /**
+     * Run when algorithm finishes and the optimal schedule is confirmed
+     * changes the visual components to reflect the completion.
+     */
     public void stopVisualisation(){
 
         _timer.stop();
@@ -283,10 +286,20 @@ public class MainPage extends JFrame{
         _topologyInfo.setText("Finished Searching " + _topSearched + " out of " + _topNum+ " schedules");
 
     }
+
+    /**
+     * updates the best time label a better schedule is discovered
+     * @param bestTime
+     */
     public void updateBestTime(int bestTime){
         _currentBestTime.setText("Current Best Time: "+ bestTime);
         _upperBound = bestTime;
     }
+
+    /**
+     * updates number of schedules searched counter and label
+     * called once for every topology
+     */
     public void increaseTopSearched(){
         _topSearched++;
         _topologyInfo.setText("Currently Searched: " + _topSearched + " out of " + _topNum+ " schedules");
