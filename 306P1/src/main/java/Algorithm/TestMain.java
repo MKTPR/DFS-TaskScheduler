@@ -111,7 +111,7 @@ public class TestMain {
             l.set_optimalNodeListNode();
         }
 
-        MainPage page = new MainPage(optimalProcessorList, _upperBound);
+        MainPage page = new MainPage(optimalProcessorList, _upperBound,_numOfProcessors,isParallel);
 
         /**
          * generates all topologies in the topologies arraylist
