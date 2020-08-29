@@ -34,6 +34,9 @@ public class MainPage extends JFrame{
     private JLabel _parallelLabel;
     private JLabel _sequentialLabel;
     private JLabel _timerLabel;
+    private Timer _timer;
+    private int _numberOfthreads;
+    private JLabel _outputFile;
 
 
 
@@ -69,10 +72,21 @@ public class MainPage extends JFrame{
         JButton _abortButton = new JButton("ABORT");
         JPanel _abortPanel = new JPanel();
         _abortPanel.add(_abortButton, BorderLayout.CENTER);
+        _abortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int confirmationBox = JOptionPane.YES_NO_OPTION;
+                confirmationBox = JOptionPane.showConfirmDialog (null, "Are you sure you want to stop the"
+                        + " search? \nThis will lose all progress and exit the interface.","Warning!",confirmationBox);
+                if(confirmationBox == JOptionPane.YES_OPTION){
+                    System.exit(0);
+                }
+            }
+        });
 
         JLabel _inputFile = new JLabel("Input: " + input);
         _inputFile.setFont(new Font("Geeza Pro", Font.PLAIN, 16));
-        JLabel _outputFile = new JLabel("Output: " + output);
+        _outputFile = new JLabel("Output: " + output);
         _outputFile.setFont(new Font("Geeza Pro", Font.PLAIN, 16));
         //From https://www.animatedimages.org/img-animated-office-image-0061-43485.htm
         ImageIcon _working = new ImageIcon("working2.gif");
@@ -123,15 +137,16 @@ public class MainPage extends JFrame{
 
         Instant start = Instant.now();
         _timerLabel = new JLabel();
+        _timerLabel.setText("00:00");
 
-       Timer timer = new Timer(1000, new ActionListener() {
+       _timer = new Timer(0, new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
                Duration now = Duration.between(start,Instant.now());
                _timerLabel.setText("Run time: " + DateTimeFormatter.ofPattern("mm:ss").format(LocalTime.NOON.plus(now)) );
            }
        });
-        timer.start();
+        _timer.start();
 
         //_timerLabel.setText("Run time: " + Duration.between(start,Instant.now()).getSeconds()/60+":"+
                 //Duration.between(start,Instant.now()).getSeconds());
@@ -141,9 +156,11 @@ public class MainPage extends JFrame{
         if (isParallel > 1){
             _parallelLabel.setOpaque(true);
             _parallelLabel.setBackground(Color.GRAY);
+            _numberOfthreads = isParallel;
         } else {
             _sequentialLabel.setOpaque(true);
             _sequentialLabel.setBackground(Color.GRAY);
+            _numberOfthreads = 1;
         }
 
         tempPanel.add(_sequentialLabel);
@@ -152,7 +169,7 @@ public class MainPage extends JFrame{
         JPanel bottomRightPanel = new JPanel();
 
 
-        _noOfThreads = new JLabel("Number of Threads: " + Integer.toString(isParallel));
+        _noOfThreads = new JLabel("Number of Threads: " + Integer.toString(_numberOfthreads));
 
 
         bottomLeftPanel.add(tempPanel);
@@ -162,7 +179,7 @@ public class MainPage extends JFrame{
         outerTempPanel.add(bottomLeftPanel);
         outerTempPanel.add(bottomRightPanel);
 
-        _bottomPanel.add(outerTempPanel,BorderLayout.CENTER);
+        _bottomPanel.add(outerTempPanel);
 
 
         setLocationRelativeTo(null);
@@ -192,6 +209,15 @@ public class MainPage extends JFrame{
         _mainPanel.add(_rightPanel, "width 50%, height 67%, wrap");
         _mainPanel.add(_bottomPanel, "span, center, width 10%, height 13%");
         return _mainPanel;
+    }
+
+    public void stopVisualisation(){
+
+        _timer.stop();
+        ImageIcon _working = new ImageIcon("greenTick.png");
+        _outputFile.setIcon(_working);
+        _timerLabel.setText(_timerLabel.getText() + " (FINISHED)");
+
     }
 }
 
