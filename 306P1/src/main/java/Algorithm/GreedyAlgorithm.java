@@ -168,8 +168,8 @@ public class GreedyAlgorithm {
             //만약 node의 모든 incoming nodes들이 scheduled list에 존재하고, 아직 schedule되지 않았다면면 그 노드는 availblenode이다.
             if(_scheduledNodes.containsAll(node.getincomingNodes()) && !_scheduledNodes.contains(node)){
                 availableNode.add(node);
-              //  System.out.println(node.getName());
-               // System.out.println("***");
+                //  System.out.println(node.getName());
+                // System.out.println("***");
             }
         }
     }
