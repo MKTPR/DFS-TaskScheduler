@@ -1,8 +1,11 @@
 package Algorithm;
 
+
+import Visualization.TableView;
 import com.paypal.digraph.parser.GraphEdge;
 import com.paypal.digraph.parser.GraphNode;
 import com.paypal.digraph.parser.GraphParser;
+import Visualization.MainPage;
 
 
 import java.io.FileInputStream;
@@ -10,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
+import Visualization.CreateGraph;
 
 public class TestMain {
 
@@ -33,6 +37,13 @@ public class TestMain {
     "w","x","y","z"};
     private static ArrayList<String> perms = new ArrayList<String>();
     private static ArrayList<String> Topologies = new ArrayList<String>();
+
+    public static ArrayList<Node> getNodesList(){
+        return nodesList;
+    }
+    public static ArrayList<Edge> getEdgesList(){
+        return edgesList;
+    }
 
     public static void main(String[] args)  throws Exception{
         if (args.length < 2){
@@ -86,6 +97,7 @@ public class TestMain {
 
         }
 
+
         // test valid algorithm
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
         _upperBound = va.computeGreedyFinishingTime();
@@ -93,10 +105,19 @@ public class TestMain {
 
         System.out.println("up = "+_upperBound);
 
+        optimalProcessorList = new ArrayList<>(va.get_processorList());
+
+        for (Processor l: optimalProcessorList){
+            l.set_optimalNodeListNode();
+        }
+
+        MainPage page = new MainPage(optimalProcessorList, _upperBound,_numOfProcessors,isParallel, input, isOutput);
+
         /**
          * generates all topologies in the topologies arraylist
          */
         getTopologies(); //generates all topologies in the topologies arraylist
+
 
 
         if (isParallel>=2) {
@@ -128,7 +149,10 @@ public class TestMain {
                             tree.makeTree(top, _nodeNumber, _currentPath);
                             if (_upperBound > tree.get_upperBound()) {
                                 _upperBound = tree.get_upperBound();
+                                System.out.println(_upperBound);
                                 optimalProcessorList = new ArrayList<>(tree.get_processorList());
+                                TableView _TV = TableView.getInstance();
+                                _TV.changeData(optimalProcessorList,_upperBound);
                             }
                         }
                 });
@@ -173,6 +197,8 @@ public class TestMain {
                     _upperBound = tree.get_upperBound();
                     optimalProcessorList = new ArrayList<>(tree.get_processorList());
                     System.out.println(_upperBound);
+                    TableView _TV = TableView.getInstance();
+                    _TV.changeData(optimalProcessorList,_upperBound);
                 }
             }
         }
@@ -195,6 +221,13 @@ public class TestMain {
          * Output node state in .dot format.
          */
         outputToDotFile();
+    }
+
+    public static ArrayList<Node> getNodeList(){
+        return nodesList;
+    }
+    public static ArrayList<Edge> getEdgeList(){
+        return edgesList;
     }
 
     private static void log(String s) {
