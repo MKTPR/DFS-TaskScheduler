@@ -163,7 +163,7 @@ public class GreedyAlgorithm {
         //add nodes that has no incoming node from _nodeList into availableNode arraylist
         for(Node node: _nodeList){
             //만약 node의 모든 incoming nodes들이 scheduled list에 존재하고, 아직 schedule되지 않았다면면 그 노드는 availblenode이다.
-            if(_scheduledNodes.containsAll(node.getincomingNodes()) && !_scheduledNodes.contains(node)){
+            if(_scheduledNodes.containsAll(node.getincomingNodes()) && !_scheduledNodes.contains(node) && !this.availableNode.contains(node)){
                 availableNode.add(node);
               //  System.out.println(node.getName());
                // System.out.println("***");
