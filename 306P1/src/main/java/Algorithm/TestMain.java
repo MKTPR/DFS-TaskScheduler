@@ -131,7 +131,9 @@ public class TestMain {
                                     page.updateBestTime(_upperBound);
                                 };
                             }
-                            page.increaseTopSearched();
+                            if (isVisualise) {
+                                page.increaseTopSearched();
+                            }
                         }
                 });
                 run.setName(i+"");
@@ -181,7 +183,9 @@ public class TestMain {
                         page.updateBestTime(_upperBound);
                     }
                 }
-                page.increaseTopSearched();
+                if (isVisualise) {
+                    page.increaseTopSearched();
+                }
             }
         }
         /**
