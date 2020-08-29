@@ -42,37 +42,26 @@ public class CreateGraph {
      */
     public Graph parseInputToGraph(ArrayList<Algorithm.Node> nodesList, ArrayList<Algorithm.Edge> edgesList){
         for(Algorithm.Node n: nodesList){
-            this._graph.addNode(n.getName());
+            String nodeID = n.getName();
+            this._graph.addNode(nodeID);
+            this._graph.getNode(nodeID).setAttribute("ui.label", nodeID);
         }
         for(Algorithm.Edge e: edgesList){
             //string of each Node in edgeList
-            this._graph.addEdge(e.getStartNode().getName() + e.getEndNode().getName(),e.getStartNode().getName(),
-                    e.getEndNode().getName(), true);
+            String startNode = e.getStartNode().getName();
+            String endNode = e.getEndNode().getName();
+            String edgeID = startNode + endNode;
+            this._graph.addEdge(edgeID, startNode, endNode,true);
+            this._graph.getEdge(edgeID).setAttribute("ui.label", e.getWeight());
         }
 
         saveNodesFromGraph(this._graph);
         saveEdgesFromGraph(this._graph);
         setGraphVisual(this._graph);
-        setNameToNodes();
-        setNameToEdges();
+
         return this._graph;
     }
 
-    /**
-     * This method assigned graphically visualizable name to each node
-     */
-    public void setNameToNodes(){
-        for(Node node:this._graph.getEachNode()) {
-            node.setAttribute("ui.label", node.getId());
-        }
-    }
-
-
-    public void setNameToEdges(){
-        for(Edge edge:this._graph.getEachEdge()) {
-            edge.setAttribute("ui.label", edge.getId());
-        }
-    }
 
     /**
      * This method set css for the graph
