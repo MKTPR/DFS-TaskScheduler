@@ -44,6 +44,7 @@ public class TestMain {
     public static ArrayList<Edge> getEdgesList(){
         return edgesList;
     }
+    private static MainPage page;
 
     public static void main(String[] args)  throws Exception{
         if (args.length < 2){
@@ -77,9 +78,11 @@ public class TestMain {
             l.set_optimalNodeListNode();
         }
 
-        va.emptyScheduledNodesInProcesses();
-        MainPage page = new MainPage(optimalProcessorList, _upperBound,_numOfProcessors,isParallel, input, isOutput);
 
+        if (isVisualise) {
+            page = new MainPage(optimalProcessorList, _upperBound, _numOfProcessors, isParallel, input, isOutput);
+        }
+        va.emptyScheduledNodesInProcesses();
         /**
          * generates all topologies in the topologies arraylist
          */
@@ -118,8 +121,11 @@ public class TestMain {
                                 _upperBound = tree.get_upperBound();
                                 System.out.println(_upperBound);
                                 optimalProcessorList = new ArrayList<>(tree.get_processorList());
-                                TableView _TV = TableView.getInstance();
-                                _TV.changeData(optimalProcessorList,_upperBound);
+                                if (isVisualise){
+                                    TableView _TV = TableView.getInstance();
+                                    _TV.changeData(optimalProcessorList,_upperBound);
+                                    page.updateBestTime(_upperBound);
+                                };
                             }
                         }
                 });
@@ -164,8 +170,11 @@ public class TestMain {
                     _upperBound = tree.get_upperBound();
                     optimalProcessorList = new ArrayList<>(tree.get_processorList());
                     System.out.println(_upperBound);
-                    TableView _TV = TableView.getInstance();
-                    _TV.changeData(optimalProcessorList,_upperBound);
+                    if (isVisualise){
+                        TableView _TV = TableView.getInstance();
+                        _TV.changeData(optimalProcessorList,_upperBound);
+                        page.updateBestTime(_upperBound);
+                    }
                 }
             }
         }
@@ -188,6 +197,9 @@ public class TestMain {
          * Output node state in .dot format.
          */
         outputToDotFile();
+        if (isVisualise) {
+            page.stopVisualisation();
+        }
     }
 
     private static void checkInputValidity(String[] args) {
