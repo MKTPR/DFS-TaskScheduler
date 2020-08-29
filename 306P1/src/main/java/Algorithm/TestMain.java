@@ -44,6 +44,7 @@ public class TestMain {
     public static ArrayList<Edge> getEdgesList(){
         return edgesList;
     }
+    private static MainPage page;
 
     public static void main(String[] args)  throws Exception{
         if (args.length < 2){
@@ -110,9 +111,9 @@ public class TestMain {
         for (Processor l: optimalProcessorList){
             l.set_optimalNodeListNode();
         }
-
-        MainPage page = new MainPage(optimalProcessorList, _upperBound,_numOfProcessors,isParallel, input, isOutput);
-
+        if (isVisualise) {
+            page = new MainPage(optimalProcessorList, _upperBound, _numOfProcessors, isParallel, input, isOutput);
+        }
         /**
          * generates all topologies in the topologies arraylist
          */
@@ -221,6 +222,9 @@ public class TestMain {
          * Output node state in .dot format.
          */
         outputToDotFile();
+        if (isVisualise) {
+            page.stopVisualisation();
+        }
     }
 
     public static ArrayList<Node> getNodeList(){
