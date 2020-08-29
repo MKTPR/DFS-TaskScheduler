@@ -40,7 +40,11 @@ public class GreedyAlgorithm {
                 duration = tempDuration;
             }
         }
-
+        _nodeList.clear();
+        _edgeList.clear();
+        _processorList.clear();
+        _scheduledNodes.clear();
+        availableNode.clear();
         return duration;
     }
 
