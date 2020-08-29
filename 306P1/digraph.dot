@@ -1,6 +1,8 @@
 digraph  example {
 a[ Weight =1];
 b[ Weight =2];
+e[ Weight =2];
+e -> c [ Weight =5];
 a -> b  [Weight =6];
 c[ Weight =10];
 a -> c[ Weight =5];
