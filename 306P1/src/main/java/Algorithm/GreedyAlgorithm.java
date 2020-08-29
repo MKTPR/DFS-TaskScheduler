@@ -46,9 +46,11 @@ public class GreedyAlgorithm {
 
     //This method clears scheduled nodeLists in all processors.
     public void emptyScheduledNodesInProcesses(){
-        for(Processor processor:_processorList){
-            processor.get_nodeList().clear();
-        }
+        _processorList.clear();
+        _edgeList.clear();
+        availableNode.clear();
+        _edgeList.clear();
+        _scheduledNodes.clear();
     }
 
     //This method runs the algorithm and returns an Arraylist of processors with sorted tasks.
