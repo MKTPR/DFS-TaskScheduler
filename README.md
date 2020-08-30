@@ -16,4 +16,4 @@ From command line,
     - P: number of processors to schedule the INPUT graph on
     - Optional:
       - -p N: user N cores for execution in parallel (default is sequential)
-      - -v: visualise the search
+      - -v: visualise the search: only works for java 8 environment
