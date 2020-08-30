@@ -1,0 +1,23 @@
+digraph "Nodes_11_OutTree-output" {
+		0		 [Weight=50,Start=0,Algorithm.Processor=1];
+		1		 [Weight=70,Start=50,Algorithm.Processor=1];
+		0 -> 1	 [Weight=9];
+		10		 [Weight=20,Start=520,Algorithm.Processor=1];
+		3 -> 10	 [Weight=4];
+		2		 [Weight=90,Start=180,Algorithm.Processor=1];
+		0 -> 2	 [Weight=7];
+		3		 [Weight=100,Start=420,Algorithm.Processor=1];
+		0 -> 3	 [Weight=4];
+		4		 [Weight=40,Start=140,Algorithm.Processor=1];
+		1 -> 4	 [Weight=10];
+		5		 [Weight=20,Start=120,Algorithm.Processor=1];
+		1 -> 5	 [Weight=7];
+		6		 [Weight=100,Start=540,Algorithm.Processor=1];
+		1 -> 6	 [Weight=5];
+		7		 [Weight=80,Start=340,Algorithm.Processor=1];
+		2 -> 7	 [Weight=5];
+		8		 [Weight=50,Start=290,Algorithm.Processor=1];
+		2 -> 8	 [Weight=3];
+		9		 [Weight=20,Start=270,Algorithm.Processor=1];
+		2 -> 9	 [Weight=10];
+}
