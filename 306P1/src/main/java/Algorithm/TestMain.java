@@ -35,6 +35,7 @@ public class TestMain {
     private static ArrayList<Integer> end = new ArrayList<>();
     private static int increment;
     private static boolean isVisualise = false;
+    private static String input;
     private static String isOutput = "output.dot";
     private static ArrayList<Thread> threads = new ArrayList<>();
     private static String[] map = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
@@ -52,6 +53,10 @@ public class TestMain {
 
     public static void main(String[] args)  throws Exception{
 
+        input = args[0];
+        //Takes the input of File names and the processor number.
+        isOutput = (input.split("\\."))[0] + "-output.dot";
+
         //Checks that the input is valid
         if (args.length < 2){
             throw new Exception("invalid input: name of input file and number of cores required. \n " +
@@ -59,12 +64,12 @@ public class TestMain {
         }else {
             checkInputValidity(args);
         }
+        try {
+            _numOfProcessors = Integer.parseInt(args[1]);
+        } catch(Exception e) {
+            throw new Exception("invalid input: number of processors must be specified in integer");
+        }
 
-        //Takes the input of File names and the processor number.
-        String input = args[0];
-        isOutput = (input.split("\\."))[0] + "-output.dot";
-
-        _numOfProcessors = Integer.parseInt(args[1]);
         //Parse input .dot file
         parseGraphInput(input);
 
@@ -175,7 +180,7 @@ public class TestMain {
              */
             for (String top : Topologies) {
                 ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
-                MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
+                MakeTreeThreading tree = new MakeTreeThreading(nodesList, processorList, _numOfProcessors, _upperBound);
                 tree.makeTree(top, _nodeNumber, _currentPath);
                 /**
                  * upperBound is constantly replaced with new ones.
@@ -183,7 +188,7 @@ public class TestMain {
                 if (_upperBound > tree.get_upperBound()) {
                     _upperBound = tree.get_upperBound();
                     optimalProcessorList = new ArrayList<>(tree.get_processorList());
-                    System.out.println(_upperBound);
+                    //System.out.println(_upperBound);
                     if (isVisualise){
                         TableView _TV = TableView.getInstance();
                         _TV.changeData(optimalProcessorList,_upperBound);
@@ -337,7 +342,8 @@ public class TestMain {
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Specified File: "+ input +" doesnt Exist");
+            System.exit(1);
         }
     }
 

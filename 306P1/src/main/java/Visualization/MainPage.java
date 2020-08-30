@@ -126,7 +126,7 @@ public class MainPage extends JFrame{
         _outputFile = new JLabel("Output: " + output);
         _outputFile.setFont(new Font("Geeza Pro", Font.PLAIN, 16));
         //From https://www.animatedimages.org/img-animated-office-image-0061-43485.htm
-        ImageIcon _working = new ImageIcon("working2.gif");
+        ImageIcon _working = new ImageIcon("./images/working2.gif");
         _outputFile.setIcon(_working);
 
         JPanel _progressPanel = new JPanel();
@@ -303,7 +303,7 @@ public class MainPage extends JFrame{
     public void stopVisualisation(){
 
         _timer.stop();
-        ImageIcon _working = new ImageIcon("greenTick.png");
+        ImageIcon _working = new ImageIcon("./images/greenTick.png");
         _outputFile.setIcon(_working);
         _timerButton.setText(_timerButton.getText() + " (FINISHED)");
         _currentBestTime.setText("Best Time: "+ _upperBound);
@@ -325,7 +325,7 @@ public class MainPage extends JFrame{
      * updates number of schedules searched counter and label
      * called once for every topology
      */
-    public void increaseTopSearched(){
+    public synchronized void increaseTopSearched(){
         _topSearched++;
         _topologyInfo.setText("Currently Searched: " + _topSearched + " out of " + _topNum+ " schedules");
     }

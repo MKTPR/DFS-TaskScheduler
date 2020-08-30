@@ -1,5 +1,9 @@
-package Algorithm;
+package OldVersions;
 
+
+import Algorithm.Edge;
+import Algorithm.Node;
+import Algorithm.Processor;
 
 import java.util.ArrayList;
 
