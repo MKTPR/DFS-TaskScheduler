@@ -13,7 +13,7 @@ The program visualisation only works for java 8 environments
 
 ## Run Instructions
 From command line,
-  - java -jar schedular.jar INPUT.dot P [OPTION]
+  - java -jar Scheduler.jar INPUT.dot P [OPTION]
     - INPUT.dot: a task graph with integer weights in dot format
     - P: number of processors to schedule the INPUT graph on
     - Optional:
