@@ -25,7 +25,7 @@ From command line,
     - INPUT.dot: a task graph with integer weights in dot format
     - P: number of processors to schedule the INPUT graph on
     - OPTION:
-      - -`p N`: user N cores for execution in parallel (default is sequential)
+      - `-p N`: user N cores for execution in parallel (default is sequential)
       - `-v`: visualise the search
       - `-o OUTPUT` - file is named OUTPUT(default is INPUT-output.dot) 
 - Example: `java -jar scheduler.jar digraph.dot 2 -p 1 -v -o digraphOutput`
