@@ -1,0 +1,7 @@
+digraph "Outputfile" {
+		a		 [Weight=1,Start=0,Processor=1];
+		c		 [Weight=10,Start=3,Processor=1];
+		a -> c	 [Weight=5];
+		e -> c	 [Weight=5];
+		e		 [Weight=2,Start=1,Processor=1];
+}
