@@ -1,0 +1,71 @@
+# Pruning Technique
+
+Performing a good pruning technique is essential when it comes to speed of the algorithm.
+Fortunately, our pruning technique was able to enhance the speed of the algorithm.
+
+This is how our pruning technique works:
+
+1. Run [Upperbounding Algorithm](https://github.com/SoftEng306-2020/project-1-team-7-project-1/wiki/Upperbounding-Algorithm) to find the upper-bound of the algorithm
+2. Use DFS to tranvel through each topological order.
+3. Before expanding every node, compare the current execution time with the upper-bound
+4. Expand the graph only if the current execution time is less than the upper-bound. If the current execution time is larger, prune the current node and back trace to the parent node in DFS manner.
+
+
+
+
+----------------------------------------------
+
+# Implementation
+
+Below it a snippet of the code from the project which performs pruning technique.
+
+```java
+if (_duration <= _upperBound){
+                /**
+                 * At the final recursion call (at the last Algorithm.Node), replace the upperBound
+                 * with the new optimal path duration and replace the _currentBest path
+                 * as well.
+                 */
+                if(nodeNumber == (_nodesList.size()-1)){
+                    if (_duration <= _upperBound) {
+                        _upperBound = _duration;
+                        _currentBest = currentPath;
+                    }
+                    /**
+                     * As processor and node states are altered by branching later,
+                     * clone the current NodeList state to a optimal List to be used for
+                     * outputting at the end of the execution.
+                     */
+                    for (Processor i: _processorList){
+                        i.set_optimalNodeListNode();
+                    }
+                }
+                else {
+                    /**
+                     * Recursion call with a counter increment to make recursion call
+                     * for the next Algorithm.Node in the topology string. When the recursion call is
+                     * finished, the counter is decremented to show current position.
+                     */
+                    nodeNumber++;
+                    makeTree(top, nodeNumber, currentPath);
+                    nodeNumber--;
+                    /**
+                     * In the case of the first Algorithm.Node, different processors do not have
+                     * to be regarded, as it will create the same branching system.
+                     */
+                    if (nodeNumber==0){
+                        y= y+ _numOfProcessors;
+                    }
+                }
+                /**
+                 * To test the next node and processor combination
+                 * remove the node from processor and remove it from the
+                 * current path as well.
+                 */
+                processor.removeNode(node);
+                currentPath.remove(nodeNumber);
+            }else {
+                currentPath.remove(nodeNumber);
+                processor.removeNode(node);
+            }
+```
