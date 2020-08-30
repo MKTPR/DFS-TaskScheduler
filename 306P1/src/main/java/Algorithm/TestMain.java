@@ -212,6 +212,11 @@ public class TestMain {
         }
     }
 
+    /**
+     * This method insures that the input arguments given by the user were valid and then assigns the
+     * appropriate values to fields depending on the argument values.
+     * @param args
+     */
     private static void checkInputValidity(String[] args) {
         if (args.length > 2){
             for (int i = 2; i < args.length; i++){
@@ -358,6 +363,11 @@ public class TestMain {
             System.out.println(processor);
         }
     }
+
+    /**
+     * This method formats the optimal schedule into .dot format and then outputs
+     * the schedule to the output file
+     */
     private static void outputToDotFile(){
         PrintWriter writer = null;
 

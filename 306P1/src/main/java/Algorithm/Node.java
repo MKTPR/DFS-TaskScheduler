@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * This class creates a Algorithm.Node object, which stores the name, weight
- * delegated processor and a list of incoming nodes. Algorithm.Node objects
+ * delegated processor and a list of incoming and outgoing nodes/edges. Algorithm.Node objects
  * will be stored in an arraylist within the Main Class.
  */
 public class Node {
@@ -62,6 +62,11 @@ public class Node {
         return _weight;
     }
 
+    /**
+     * This method returns a String of all the necessary Node information in the format
+     * of a .dot file. This method is used by the outputToDotFile method in the class TestMain.
+     * @return
+     */
     @Override
     public String toString(){
         String processor;

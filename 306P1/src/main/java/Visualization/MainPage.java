@@ -175,6 +175,7 @@ public class MainPage extends JFrame{
          * - Sequential/Parallel Show
          * - How many threads
          * - Runtime
+         * - Number of schedules left to check
          */
         JPanel tempPanel = new JPanel();
        tempPanel.setLayout(new GridLayout(1, 1, 4, 20));
@@ -249,6 +250,11 @@ public class MainPage extends JFrame{
         setVisible(true);
 
     }
+
+    /**
+     * This method initialises the necessary components and dimensions of the main panel of the visualisation.
+     * @return
+     */
     private JPanel setUpPage() {
         JPanel _mainPanel = new JPanel();
         _mainPanel.setLayout(new MigLayout("fill"));
@@ -273,7 +279,7 @@ public class MainPage extends JFrame{
     }
 
     /**
-     * Run when algorithm finishes and the optimal schedule is confirmed
+     * Run when algorithm finishes and the optimal schedule is confirmed.
      * changes the visual components to reflect the completion.
      */
     public void stopVisualisation(){
@@ -289,7 +295,7 @@ public class MainPage extends JFrame{
     }
 
     /**
-     * updates the best time label a better schedule is discovered
+     * updates the best time label to a better schedule is discovered
      * @param bestTime
      */
     public void updateBestTime(int bestTime){
