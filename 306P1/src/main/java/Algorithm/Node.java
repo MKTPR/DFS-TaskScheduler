@@ -85,6 +85,6 @@ public class Node {
             nodeprint += iNode;
         }
         //System.out.println(nodeprint);
-        return _name + "\t\t" + " [Weight=" + _weight + ",Start=" + startTime + ",Algorithm.Processor=" + processor +"];";
+        return _name + "\t\t" + " [Weight=" + _weight + ",Start=" + startTime + ",Processor=" + processor +"];";
     }
 }
