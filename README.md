@@ -6,4 +6,6 @@
   - Jason Ko
   - Maric Kim
   
-a 
+## Build Instructions
+
+## Run Instructions
