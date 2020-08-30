@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 /**
  * This class creates a Algorithm.Node object, which stores the name, weight
- * delegated processor and a list of incoming nodes. Algorithm.Node objects
+ * delegated processor and a list of incoming and outgoing nodes/edges. Algorithm.Node objects
  * will be stored in an arraylist within the Main Class.
  */
 public class Node {
     private String _name;
-    private Processor _process;
+    private Processor _processor;
     private int _weight;
     private ArrayList<Node> _incomingNodes=new ArrayList<Node>();
     private ArrayList<Node> _outgoingNodes =new ArrayList<Node>();
@@ -29,7 +29,9 @@ public class Node {
         _weight = Integer.parseInt(split2);
     }
 
-    //Adds an incoming node name(String) into an arraylist
+    /**
+     * Basic Setters and Getters for the Node object fields.
+     */
     public void setIncomingNodes(Node incomingNode){
         _incomingNodes.add(incomingNode);
     }
@@ -44,7 +46,7 @@ public class Node {
 
     //Sets the processor that the NodeObject is delegated to
     public void setProcessor(Processor processorName){
-        _process=processorName;
+        _processor =processorName;
     }
 
     public String getName(){
@@ -62,16 +64,21 @@ public class Node {
         return _weight;
     }
 
+    /**
+     * This method returns a String of all the necessary Node information in the format
+     * of a .dot file. This method is used by the outputToDotFile method in the class TestMain.
+     * @return
+     */
     @Override
     public String toString(){
         String processor;
         String startTime;
-        if(_process == null){
+        if(_processor == null){
             processor = "none";
             startTime = "none";
         }else{
-            processor = _process.get_processorNumber();
-            startTime = Integer.toString(_process.get_optimalNodeList().indexOf(this));
+            processor = _processor.get_processorNumber();
+            startTime = Integer.toString(_processor.get_optimalNodeList().indexOf(this));
         }
         String nodeprint = "";
         for(Node iNode : _incomingNodes){

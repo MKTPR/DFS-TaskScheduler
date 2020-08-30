@@ -1,4 +1,8 @@
-package Algorithm;
+package OldVersions;
+
+import Algorithm.Edge;
+import Algorithm.Node;
+import Algorithm.Processor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +22,7 @@ public class MakeTree {
 
     /**
      * Constructor call for the Tree Object, responsible for the DFS algorithm
+     * Older version of MakeTree - now MakeTree Threading is called everytime.
      * @param nodeList: Stores the information retrieved from the main class into a local
      *                ArrayList to access pointers to nodes
      * @param processorList: Similar to nodeList, but for Processors.

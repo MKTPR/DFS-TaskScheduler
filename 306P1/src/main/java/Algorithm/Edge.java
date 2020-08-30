@@ -54,7 +54,11 @@ public class Edge {
         _startNode = startNode;
         _endNode = endNode;
     }
-
+    /**
+     * This method returns a String of all the necessary Edge information in the format
+     * of a .dot file. This method is used by the outputToDotFile method in the class TestMain.
+     * @return
+     */
     @Override
     public String toString(){
         return _startNode.getName() +  " -> " + _endNode.getName() + "\t" + " [Weight=" + _weight + "];";

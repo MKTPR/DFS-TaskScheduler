@@ -11,10 +11,16 @@ import org.graphstream.ui.view.Viewer;
 
 import javax.swing.*;
 
+/**
+ * This class has responsibility of generating visualized graph using GraphStream external library.
+ * With a give node list and edge list via constructor, produceJPanel() method will return Java Swing mountable
+ * GUI JPanel
+ * object.
+ */
 public class CreateGraph {
     Graph _graph = new SingleGraph("Graph");
-    ArrayList<Algorithm.Node> _nodesList = new ArrayList<>();
-    ArrayList<Algorithm.Edge> _edgesList = new ArrayList<>();
+    ArrayList<Algorithm.Node> _nodesList;
+    ArrayList<Algorithm.Edge> _edgesList;
     ArrayList<Node> _gNodesList = new ArrayList<>();
     ArrayList<Edge> _gEdgesList = new ArrayList<>();
 
@@ -28,17 +34,10 @@ public class CreateGraph {
     }
 
     /**
-     * This method displays graph
-     */
-    public void diplayGraph(){
-        _graph.display();
-    }
-
-    /**
-     * This method creates a graph with given nodeslist and edgeslist
+     * This method creates a Graph object with given nodeslist and edgeslist
      * @param nodesList
      * @param edgesList
-     * @return Graph
+     * @return Graph (GraphStream)
      */
     public Graph parseInputToGraph(ArrayList<Algorithm.Node> nodesList, ArrayList<Algorithm.Edge> edgesList){
         for(Algorithm.Node n: nodesList){
@@ -64,12 +63,11 @@ public class CreateGraph {
 
 
     /**
-     * This method set css for the graph
+     * This method sets visualization (style) attributes of the graph using css
      * @param graph
      */
     public void setGraphVisual(Graph graph){
         this._graph.setAttribute("stylesheet",
-
                 "node { "
                         + "		text-size: 20px;"
                         + "		text-padding: 7px;"
@@ -96,7 +94,9 @@ public class CreateGraph {
 
 
     /**
-     * This method returns Node list from a Graph
+     * This method pulls out the reference of each node from the graph and stores it is an array of nodes.
+     * @param graph
+     * @return Node list
      */
     public ArrayList<Node> saveNodesFromGraph(Graph graph){
         for(Node n:graph.getEachNode()) {
@@ -107,7 +107,9 @@ public class CreateGraph {
     }
 
     /**
-     * This method returns Edge list from a Graph
+     * This method pulls out the reference of each edge from the graph and stores it is an array of edges.
+     * @param graph
+     * @return Edge list
      */
     public ArrayList<Edge> saveEdgesFromGraph(Graph graph){
         for(Edge e:graph.getEachEdge()) {
@@ -118,8 +120,8 @@ public class CreateGraph {
     }
 
     /**
-     * This method returns Jpanel to insert View into Java Swing GUI
-     * @return
+     * This method converts the graph into Java Swing JPanel object.
+     * @return JPanel object
      */
     public JPanel produceJPanel(){
         JPanel myJPanel = new JPanel();

@@ -15,10 +15,14 @@ import java.util.ArrayList;
 import java.util.Map;
 import Visualization.CreateGraph;
 
+/**
+ * This main class is responsible for taking user input, calling a MainPage Window object,
+ * calling the Greedy Algorithm, then the DFS Branch to eventually produce a output.dot file
+ * to the user.
+ */
 public class TestMain {
 
     private static ArrayList<Node> nodesList = new ArrayList<Node>();
-    private static ArrayList<Node> nodesListOriginal = new ArrayList<Node>();
     private static ArrayList<Edge> edgesList = new ArrayList<Edge>();
     private static ArrayList<Processor> processorList = new ArrayList<>();
     private static ArrayList<Processor> optimalProcessorList = new ArrayList<>();
@@ -31,6 +35,7 @@ public class TestMain {
     private static ArrayList<Integer> end = new ArrayList<>();
     private static int increment;
     private static boolean isVisualise = false;
+    private static String input;
     private static String isOutput = "output.dot";
     private static ArrayList<Thread> threads = new ArrayList<>();
     private static String[] map = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
@@ -47,33 +52,40 @@ public class TestMain {
     private static MainPage page;
 
     public static void main(String[] args)  throws Exception{
+
+        input = args[0];
+        //Takes the input of File names and the processor number.
+        isOutput = (input.split("\\."))[0] + "-output.dot";
+
+        //Checks that the input is valid
         if (args.length < 2){
             throw new Exception("invalid input: name of input file and number of cores required. \n " +
                     "Example input: java -jar scheduler.jar Input.dot 10 [OPTION]");
+        }else {
+            checkInputValidity(args);
+        }
+        try {
+            _numOfProcessors = Integer.parseInt(args[1]);
+        } catch(Exception e) {
+            throw new Exception("invalid input: number of processors must be specified in integer");
         }
 
-        String input = args[0];
-        isOutput = (input.split("\\."))[0] + "-output.dot";
-
-        _numOfProcessors = Integer.parseInt(args[1]);
         //Parse input .dot file
         parseGraphInput(input);
-        nodesListOriginal = new ArrayList<>(nodesList);
+
 
         createNewProcessor(_numOfProcessors);
-        checkInputValidity(args);
 
 
-
-        // test valid algorithm
+        // Greedy Algorithm to Set up a upper Bound
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
         _upperBound = va.computeGreedyFinishingTime();
-        //print output
 
-        System.out.println("up = "+_upperBound);
-
+        //Comment Out Later
+       // System.out.println("up = "+_upperBound);
         optimalProcessorList = new ArrayList<>(va.get_processorList());
 
+        //Copies the current processor State for the visualization panel.
         for (Processor l: optimalProcessorList){
             l.set_optimalNodeListNode();
         }
@@ -83,19 +95,21 @@ public class TestMain {
          */
         getTopologies(); //generates all topologies in the topologies arraylist
 
+        //Creates a visualization page - MainPage object is created
         if (isVisualise) {
             page = new MainPage(optimalProcessorList, _upperBound, _numOfProcessors, isParallel, input, isOutput, Topologies.size());
         }
-        va.emptyScheduledNodesInProcesses();
 
+        //Clears node state back to it's original state.
+        va.emptyScheduledNodesInProcesses();
         for ( Processor d : processorList){
             d.get_nodeList().clear();
         }
 
-
-
+        //If Parallelization.
         if (isParallel>=2) {
 
+            //Divide the topologies list for individual threads
             increment = (Topologies.size() / isParallel);
             start.add(0);
             end.add(increment);
@@ -121,36 +135,35 @@ public class TestMain {
                             ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
                             MakeTreeThreading tree = new MakeTreeThreading(nodesList, processorList, _numOfProcessors, _upperBound);
                             tree.makeTree(top, _nodeNumber, _currentPath);
+                            /**
+                             * Constantly update _upperBound with the newly found upperbound
+                             * if it is lower than the current optimal.
+                             */
                             if (_upperBound > tree.get_upperBound()) {
                                 _upperBound = tree.get_upperBound();
-                                System.out.println(_upperBound);
+                                //Comment out later
+                                //System.out.println(_upperBound);
                                 optimalProcessorList = new ArrayList<>(tree.get_processorList());
+                                //Update Visualization Panel
                                 if (isVisualise){
                                     TableView _TV = TableView.getInstance();
                                     _TV.changeData(optimalProcessorList,_upperBound);
                                     page.updateBestTime(_upperBound);
                                 };
                             }
-                            page.increaseTopSearched();
+                            if (isVisualise) {
+                                page.increaseTopSearched();
+                            }
                         }
                 });
+                //sets name for individual threads so they can be used for indexing
                 run.setName(i+"");
                 threads.add(run);
                 run.start();
             }
         }
 
-        //Create visualization thread
-        /**
-         *
-        Thread vThread = new Thread("vThread"){
-            public void run(){
-                //Visualization code here
-            };
-        };
-        vThread.start(); //Start visualization
-         */
-
+       //waits for all threads to finish
         for (Thread i: threads){
             while( i.isAlive()){
                 int k=0;
@@ -158,6 +171,7 @@ public class TestMain {
             }
         }
 
+        //if search is to be done sequentially this section is used
         if (isParallel<2) {
             /**
              * Loops through various topology Strings in the Topologies arraylist to
@@ -166,7 +180,7 @@ public class TestMain {
              */
             for (String top : Topologies) {
                 ArrayList<String> _currentPath = new ArrayList<>(nodesList.size());
-                MakeTree tree = new MakeTree(nodesList, processorList, _numOfProcessors, _upperBound);
+                MakeTreeThreading tree = new MakeTreeThreading(nodesList, processorList, _numOfProcessors, _upperBound);
                 tree.makeTree(top, _nodeNumber, _currentPath);
                 /**
                  * upperBound is constantly replaced with new ones.
@@ -174,14 +188,16 @@ public class TestMain {
                 if (_upperBound > tree.get_upperBound()) {
                     _upperBound = tree.get_upperBound();
                     optimalProcessorList = new ArrayList<>(tree.get_processorList());
-                    System.out.println(_upperBound);
+                    //System.out.println(_upperBound);
                     if (isVisualise){
                         TableView _TV = TableView.getInstance();
                         _TV.changeData(optimalProcessorList,_upperBound);
                         page.updateBestTime(_upperBound);
                     }
                 }
-                page.increaseTopSearched();
+                if (isVisualise) {
+                    page.increaseTopSearched();
+                }
             }
         }
         /**
@@ -197,7 +213,7 @@ public class TestMain {
             }
         }
 
-        System.out.println("up = "+_upperBound);
+        //System.out.println("up = "+_upperBound);
 
         /**
          * Output node state in .dot format.
@@ -208,6 +224,11 @@ public class TestMain {
         }
     }
 
+    /**
+     * This method insures that the input arguments given by the user were valid and then assigns the
+     * appropriate values to fields depending on the argument values.
+     * @param args
+     */
     private static void checkInputValidity(String[] args) {
         if (args.length > 2){
             for (int i = 2; i < args.length; i++){
@@ -321,7 +342,8 @@ public class TestMain {
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Specified File: "+ input +" doesnt Exist");
+            System.exit(1);
         }
     }
 
@@ -338,9 +360,10 @@ public class TestMain {
     }
 
     /**
-     * This method prints out useful information about the input graph
+     * This method prints out useful information about the input graph.
+     * Was useful for benchmarking/debugging
      */
-    public static void printGraphInfo() {
+    /*public static void printGraphInfo() {
         System.out.println("---Algorithm.Node Info---");
         for (Node node : nodesList) {
             System.out.println(node);
@@ -353,7 +376,12 @@ public class TestMain {
         for (Processor processor : processorList) {
             System.out.println(processor);
         }
-    }
+    }*/
+
+    /**
+     * This method formats the optimal schedule into .dot format and then outputs
+     * the schedule to the output file
+     */
     private static void outputToDotFile(){
         PrintWriter writer = null;
 
@@ -361,7 +389,7 @@ public class TestMain {
             int counter = 0;
             writer = new PrintWriter(isOutput);
             writer.println("digraph " + "\"" + isOutput.split("\\.")[0] + "\"" + " {");
-            for (Node node : nodesListOriginal){
+            for (Node node : nodesList){
                 if(counter == 0 ) {
                     writer.println("\t\t" + node.toString());
                 }
