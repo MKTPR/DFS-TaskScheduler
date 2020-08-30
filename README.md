@@ -21,11 +21,11 @@ To be implemented in Java (compatible with Java 1.8).
 The images folder (included in the zip) and the input .dot file needs to be in the same folder as the .jar file.
 
 From command line,
-  - java -jar scheduler.jar INPUT.dot P [OPTION]
+  - `java -jar scheduler.jar INPUT.dot P [OPTION]`
     - INPUT.dot: a task graph with integer weights in dot format
     - P: number of processors to schedule the INPUT graph on
-    - Optional:
-      - -p N: user N cores for execution in parallel (default is sequential)
-      - -v: visualise the search
-      - -o OUTPUT - file is named OUTPUT(default is INPUT-output.dot) 
-- Example: <java -jar scheduler.jar digraph.dot 2 -p 1 -v -o>
+    - OPTION:
+      - -`p N`: user N cores for execution in parallel (default is sequential)
+      - `-v`: visualise the search
+      - `-o OUTPUT` - file is named OUTPUT(default is INPUT-output.dot) 
+- Example: `java -jar scheduler.jar digraph.dot 2 -p 1 -v -o digraphOutput`
