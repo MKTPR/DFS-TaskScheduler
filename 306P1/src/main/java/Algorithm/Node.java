@@ -29,7 +29,9 @@ public class Node {
         _weight = Integer.parseInt(split2);
     }
 
-    //Adds an incoming node name(String) into an arraylist
+    /**
+     * Basic Setters and Getters for the Node object fields.
+     */
     public void setIncomingNodes(Node incomingNode){
         _incomingNodes.add(incomingNode);
     }
