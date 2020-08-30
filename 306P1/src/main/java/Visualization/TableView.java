@@ -47,7 +47,7 @@ public class TableView extends AbstractTableModel {
 
     /**
      * creates the headings for each column in the table
-     * first column is always times and the rest is processers names
+     * first column is always times and the rest are processor names
      * @return
      */
     private String[] initColNames() {

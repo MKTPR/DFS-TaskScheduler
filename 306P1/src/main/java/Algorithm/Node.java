@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Node {
     private String _name;
-    private Processor _process;
+    private Processor _processor;
     private int _weight;
     private ArrayList<Node> _incomingNodes=new ArrayList<Node>();
     private ArrayList<Node> _outgoingNodes =new ArrayList<Node>();
@@ -46,7 +46,7 @@ public class Node {
 
     //Sets the processor that the NodeObject is delegated to
     public void setProcessor(Processor processorName){
-        _process=processorName;
+        _processor =processorName;
     }
 
     public String getName(){
@@ -73,12 +73,12 @@ public class Node {
     public String toString(){
         String processor;
         String startTime;
-        if(_process == null){
+        if(_processor == null){
             processor = "none";
             startTime = "none";
         }else{
-            processor = _process.get_processorNumber();
-            startTime = Integer.toString(_process.get_optimalNodeList().indexOf(this));
+            processor = _processor.get_processorNumber();
+            startTime = Integer.toString(_processor.get_optimalNodeList().indexOf(this));
         }
         String nodeprint = "";
         for(Node iNode : _incomingNodes){

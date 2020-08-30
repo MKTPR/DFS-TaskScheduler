@@ -86,9 +86,7 @@ public class MainPage extends JFrame{
         _mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(_mainPanel);
 
-        JPanel statusPanel = new JPanel(new BorderLayout());
 
-        statusPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         /**
          * Top Panel Components:

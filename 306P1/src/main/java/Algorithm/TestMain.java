@@ -23,7 +23,6 @@ import Visualization.CreateGraph;
 public class TestMain {
 
     private static ArrayList<Node> nodesList = new ArrayList<Node>();
-    private static ArrayList<Node> nodesListOriginal = new ArrayList<Node>();
     private static ArrayList<Edge> edgesList = new ArrayList<Edge>();
     private static ArrayList<Processor> processorList = new ArrayList<>();
     private static ArrayList<Processor> optimalProcessorList = new ArrayList<>();
@@ -57,6 +56,8 @@ public class TestMain {
         if (args.length < 2){
             throw new Exception("invalid input: name of input file and number of cores required. \n " +
                     "Example input: java -jar scheduler.jar Input.dot 10 [OPTION]");
+        }else {
+            checkInputValidity(args);
         }
 
         //Takes the input of File names and the processor number.
@@ -66,17 +67,17 @@ public class TestMain {
         _numOfProcessors = Integer.parseInt(args[1]);
         //Parse input .dot file
         parseGraphInput(input);
-        nodesListOriginal = new ArrayList<>(nodesList);
+
 
         createNewProcessor(_numOfProcessors);
-        checkInputValidity(args);
 
-        // Greedy Algorithm to Set up a Lower Bound
+
+        // Greedy Algorithm to Set up a upper Bound
         GreedyAlgorithm va = new GreedyAlgorithm(nodesList, edgesList, processorList);
         _upperBound = va.computeGreedyFinishingTime();
 
         //Comment Out Later
-        System.out.println("up = "+_upperBound);
+       // System.out.println("up = "+_upperBound);
         optimalProcessorList = new ArrayList<>(va.get_processorList());
 
         //Copies the current processor State for the visualization panel.
@@ -136,7 +137,7 @@ public class TestMain {
                             if (_upperBound > tree.get_upperBound()) {
                                 _upperBound = tree.get_upperBound();
                                 //Comment out later
-                                System.out.println(_upperBound);
+                                //System.out.println(_upperBound);
                                 optimalProcessorList = new ArrayList<>(tree.get_processorList());
                                 //Update Visualization Panel
                                 if (isVisualise){
@@ -150,23 +151,14 @@ public class TestMain {
                             }
                         }
                 });
+                //sets name for individual threads so they can be used for indexing
                 run.setName(i+"");
                 threads.add(run);
                 run.start();
             }
         }
 
-        //Create visualization thread
-        /**
-         *
-        Thread vThread = new Thread("vThread"){
-            public void run(){
-                //Visualization code here
-            };
-        };
-        vThread.start(); //Start visualization
-         */
-
+       //waits for all threads to finish
         for (Thread i: threads){
             while( i.isAlive()){
                 int k=0;
@@ -174,6 +166,7 @@ public class TestMain {
             }
         }
 
+        //if search is to be done sequentially this section is used
         if (isParallel<2) {
             /**
              * Loops through various topology Strings in the Topologies arraylist to
@@ -215,7 +208,7 @@ public class TestMain {
             }
         }
 
-        System.out.println("up = "+_upperBound);
+        //System.out.println("up = "+_upperBound);
 
         /**
          * Output node state in .dot format.
@@ -361,9 +354,10 @@ public class TestMain {
     }
 
     /**
-     * This method prints out useful information about the input graph
+     * This method prints out useful information about the input graph.
+     * Was useful for benchmarking/debugging
      */
-    public static void printGraphInfo() {
+    /*public static void printGraphInfo() {
         System.out.println("---Algorithm.Node Info---");
         for (Node node : nodesList) {
             System.out.println(node);
@@ -376,7 +370,7 @@ public class TestMain {
         for (Processor processor : processorList) {
             System.out.println(processor);
         }
-    }
+    }*/
 
     /**
      * This method formats the optimal schedule into .dot format and then outputs
@@ -389,7 +383,7 @@ public class TestMain {
             int counter = 0;
             writer = new PrintWriter(isOutput);
             writer.println("digraph " + "\"" + isOutput.split("\\.")[0] + "\"" + " {");
-            for (Node node : nodesListOriginal){
+            for (Node node : nodesList){
                 if(counter == 0 ) {
                     writer.println("\t\t" + node.toString());
                 }
